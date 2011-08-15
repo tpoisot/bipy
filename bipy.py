@@ -199,3 +199,19 @@ def nodf(W):
 	RowNest = round(NrowSum/RowCor,2)
 	NEST = [WholeNest, ColNest, RowNest]
 	return NEST
+
+def count(V):
+	# Counts the number of elements with a given integer value
+	# (mostly) useful to generate degree plots
+	cnt = []
+	m = min(V)
+	M = max(V)
+	r = range(0,(M+1))
+	V = sorted(V)
+	for ra in r:
+		tcnt = 0
+		for i in range(0,len(V)):
+			if V[i] == ra:
+				tcnt += 1
+		cnt.append(tcnt)
+	return zip(r,cnt)
