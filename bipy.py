@@ -162,6 +162,20 @@ def compareones(w1,w2,tn):
 	prop = (100*id)/tn
 	return round(prop,2)
 
+def getNpaired(W):
+	# Required for NODF calculation
+	# Get the N paired value of a web
+	Npaired = []
+	gen = generality(W)
+	for i in range(0,(len(W)-1)):
+		for j in range((i+1),len(W)):
+			if gen[i]>gen[j]:
+				Npaired.append(compareones(W[i],W[j],gen[j]))
+			else :
+				Npaired.append(0)
+	return Npaired
+			
+
 def nodf(W):
 	# Measures NODF
 	#	Almeida-Neto, M, et al. (2008) Oikos 117(8) 1227-1239
@@ -169,27 +183,8 @@ def nodf(W):
 	# Step 1 : reorganize the adjacency matrix
 	W = nestadj(W)
 	# Np values
-	NProw = []
-	NPcol = []
-	# Computation for the ROWS
-	gen = generality(W)
-	for i in range(0,(len(W)-1)):
-		for j in range((i+1),len(W)):
-			if gen[i]>gen[j]:
-				NProw.append(compareones(W[i],W[j],gen[j]))
-			else :
-				NProw.append(0)
-	# same on the COLUMNS
-	W = W.T
-	vul = generality(W)
-	for i in range(0,(len(W)-1)):
-		for j in range((i+1),len(W)):
-			if vul[i]>vul[j]:
-				NPcol.append(compareones(W[i],W[j],vul[j]))
-			else :
-				NPcol.append(0)
-	#
-	W = W.T
+	NProw = getNpaired(W)
+	NPcol = getNpaired(W.T)
 	# Output the NODF value
 	ColCor = (len(W[0])*(len(W[0])-1))/2
 	RowCor = (len(W)*(len(W)-1))/2
