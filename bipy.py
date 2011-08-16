@@ -224,22 +224,30 @@ def mean(V):
 	m = mn / len(V)
 	return m
 
-def prop(V):
+def surp(V):
 	# Given a vector, returns the
-	# proportions of each elements
-	pro = []
-	tsum = 0
+	# probability of each element being a
+	# surprise in the sens of Shannon's
+	# self-information
+	#
+	# Elements are rounded to 1 decimal place
+	# to get meaningful results
+	Nbits = len(V)+1
+	sur = []
 	for v in V:
-		tsum += v
-	for i in range(0,len(V)):
-		pro.append(float(V[i])/tsum)
-	return pro
+		tsum = 0
+		for w in V:
+			if w == v:
+				tsum += 1
+		tsum = float(tsum)/Nbits
+		sur.append(tsum)
+	return sur
 
 def eH(V):
 	# Exponent of Shannon's entropy
 	# normalized to its maximal value
 	# Should return 1 for a perfectly even distribution
-	p = prop(V)
+	p = surp(V)
 	S = float(len(V)+1) # We are talking about the number of ELEMENTS
 	pLNp = 0
 	for i in range(0,len(V)):
