@@ -237,7 +237,7 @@ def surp(V):
 	for v in V:
 		tsum = 0
 		for w in V:
-			if round(w,1) == round(v,1):
+			if round(w,2) == round(v,2):
 				tsum += 1
 		tsum = float(tsum)/Nbits
 		sur.append(tsum)
