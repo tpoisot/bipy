@@ -270,3 +270,8 @@ def eH(V):
 			pLNp += uP[i]*np.log(uP[i])
 	Hprime = 0 - pLNp - np.log(len(uV))
 	return np.exp(Hprime)
+	
+def qrange(V):
+	# Difference between maximal and minimal values
+	# of a vector
+	return max(V)-min(V)
