@@ -232,12 +232,12 @@ def surp(V):
 	#
 	# Elements are rounded to 1 decimal place
 	# to get meaningful results
-	Nbits = len(V)+1
+	Nbits = len(V)
 	sur = []
 	for v in V:
 		tsum = 0
 		for w in V:
-			if w == v:
+			if round(w,1) == round(v,1):
 				tsum += 1
 		tsum = float(tsum)/Nbits
 		sur.append(tsum)
@@ -245,15 +245,28 @@ def surp(V):
 
 def eH(V):
 	# Exponent of Shannon's entropy
-	# normalized to its maximal value
-	# Should return 1 for a perfectly even distribution
 	p = surp(V)
-	S = float(len(V)+1) # We are talking about the number of ELEMENTS
+	# Only unique elements
+	uV = [V[0]]
+	uP = [p[0]]
+	for i in range(1,len(V)):
+		isUnique = 0
+		for u in range(0,len(uV)):
+			if V[i] == uV[u]:
+				isUnique += 1
+				break
+		if isUnique == 0:
+			uV.append(V[i])
+			uP.append(p[i])
+	# If all values are equal, no information
+	if len(uV) == 1:
+		return float(0)
+	# Loop
 	pLNp = 0
-	for i in range(0,len(V)):
-		if p[i] == 0:
+	for i in range(0,len(uV)):
+		if uP[i] == 0:
 			pLNp += 0
 		else:
-			pLNp += p[i]*np.log(p[i])
-	Hprime = 0 - pLNp - np.log(S)
+			pLNp += uP[i]*np.log(uP[i])
+	Hprime = 0 - pLNp - np.log(len(uV))
 	return np.exp(Hprime)
