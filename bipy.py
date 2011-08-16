@@ -215,3 +215,37 @@ def count(V):
 				tcnt += 1
 		cnt.append(tcnt)
 	return zip(r,cnt)
+	
+def mean(V):
+	# Mean value
+	mn = float(0)
+	for v in V:
+		mn += v
+	m = mn / len(V)
+	return m
+
+def prop(V):
+	# Given a vector, returns the
+	# proportions of each elements
+	pro = []
+	tsum = 0
+	for v in V:
+		tsum += v
+	for i in range(0,len(V)):
+		pro.append(float(V[i])/tsum)
+	return pro
+
+def eH(V):
+	# Exponent of Shannon's entropy
+	# normalized to its maximal value
+	# Should return 1 for a perfectly even distribution
+	p = prop(V)
+	S = float(len(V)+1) # We are talking about the number of ELEMENTS
+	pLNp = 0
+	for i in range(0,len(V)):
+		if p[i] == 0:
+			pLNp += 0
+		else:
+			pLNp += p[i]*np.log(p[i])
+	Hprime = 0 - pLNp - np.log(S)
+	return np.exp(Hprime)
