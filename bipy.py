@@ -237,22 +237,6 @@ def nodf(W):
 	RowNest = round(NrowSum/RowCor,2)
 	NEST = [WholeNest, ColNest, RowNest]
 	return NEST
-
-def count(V):
-	# Counts the number of elements with a given integer value
-	# (mostly) useful to generate degree plots
-	cnt = []
-	m = min(V)
-	M = max(V)
-	r = range(0,(M+1))
-	V = sorted(V)
-	for ra in r:
-		tcnt = 0
-		for i in range(0,len(V)):
-			if V[i] == ra:
-				tcnt += 1
-		cnt.append(tcnt)
-	return zip(r,cnt)
 	
 def mean(V):
 	# Mean value
@@ -349,8 +333,8 @@ def null2(W):
 	return fixmat(Wp)
 
 def d2h(V,bin='sturgis'):
-	# Returns the values needed to draw an histogram
-	# in PyX
+	# Returns the values needed to draw an histogram in PyX
+	#
 	# bin can take the values 'sturgis' or 'rice'
 	
 	## Number of bins in the histogram
@@ -379,3 +363,35 @@ def d2h(V,bin='sturgis'):
 		xs.append(rmean)
 	# And finally...
 	return zip(xs,ys)
+
+def count(V):
+	# Counts the number of elements with a given integer value
+	# (mostly) useful to generate degree plots
+	cnt = []
+	m = min(V)
+	M = max(V)
+	r = range(0,(M+1))
+	V = sorted(V)
+	for ra in r:
+		tcnt = 0
+		for i in range(0,len(V)):
+			if V[i] == ra:
+				tcnt += 1
+		cnt.append(tcnt)
+	return zip(r,cnt)
+
+def Ncal(W,iter=99,null=1):
+	Ntot = []
+	Nlow = []
+	Ntop = []
+	Nes = nodf(W)
+	## Iteration
+	for i in range(iter):
+		if null == 1:
+			Nprime = nodf(null1(W))
+		if null == 2:
+			Nprime = nodf(null2(W))
+		Ntot.append(Nes[0]-Nprime[0])
+		Nlow.append(Nes[1]-Nprime[1])
+		Ntop.append(Nes[2]-Nprime[2])
+	return [round(mean(Ntot),2),round(mean(Nlow),2),round(mean(Ntop),2)]
