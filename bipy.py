@@ -395,3 +395,14 @@ def Ncal(W,iter=99,null=1):
 		Nlow.append(Nes[1]-Nprime[1])
 		Ntop.append(Nes[2]-Nprime[2])
 	return [round(mean(Ntot),2),round(mean(Nlow),2),round(mean(Ntop),2)]
+	
+def spread(V,m,M):
+	mi = min(V)
+	for i in range(len(V)):
+		V[i] = float(V[i])-mi
+	ma = max(V)
+	for i in range(len(V)):
+		V[i] = float(V[i])/ma
+		V[i] = V[i]* (M - m)
+		V[i] = V[i] + m
+	return V
