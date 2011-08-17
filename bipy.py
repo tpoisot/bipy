@@ -28,10 +28,8 @@ def fixmat(W):
 		if v[j]==0:
 			emptyCols += 1
 	if (emptyRows+emptyCols)==0:
-		print("This matrix is correctly filled")
 		return W
 	else :
-		print("This matrix is incorrectly filled")
 		# Create a new matrix with the correct dimensions
 		nW = np.zeros(((len(W)-emptyRows),(len(W[0])-emptyCols)),float)
 		# For each row and each column
@@ -50,7 +48,6 @@ def fixmat(W):
 						cCol += 1
 				cRow += 1
 		# Finally...
-		print("Successfully removed "+str(len(W)-len(nW))+" row(s) and "+str(len(W[0])-len(nW[0]))+" column(s)")
 		return nW
 
 def readweb(fname):
