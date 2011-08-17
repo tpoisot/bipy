@@ -12,10 +12,51 @@ import scipy as sp
 import numpy as np
 ##########
 
+def fixmat(W):
+	# Fix a matrix so that there are no empty row
+	# or empty columns, issues a message is some rows
+	# were removed
+	OrigSize = websize(W)
+	g = generality(W)
+	v = vulnerability(W)
+	emptyRows = 0
+	emptyCols = 0
+	for i in range(len(g)):
+		if g[i]==0:
+			emptyRows += 1
+	for j in range(len(v)):
+		if v[j]==0:
+			emptyCols += 1
+	if (emptyRows+emptyCols)==0:
+		print("This matrix is correctly filled")
+		return W
+	else :
+		print("This matrix is incorrectly filled")
+		# Create a new matrix with the correct dimensions
+		nW = np.zeros(((len(W)-emptyRows),(len(W[0])-emptyCols)),float)
+		# For each row and each column
+		# copy the correct values in the new matrix
+		cRow = 0
+		for i in range(len(g)):
+			# If the species i is not interacting, we can skip
+			if g[i] == 0:
+				continue
+			else:
+				cCol = 0
+				# Else we go throug the species j
+				for j in range(len(v)):
+					if v[j] > 0:
+						nW[cRow][cCol] = W[i][j]
+						cCol += 1
+				cRow += 1
+		# Finally...
+		print("Successfully removed "+str(len(W)-len(nW))+" row(s) and "+str(len(W[0])-len(nW[0]))+" column(s)")
+		return nW
+
 def readweb(fname):
 	# Read a web from a text matrix with top trophic level organisms as rows
 	data = np.loadtxt(fname)
-	return data
+	return fixmat(data)
 
 def linknum(W):
 	# Number of established links within the web
@@ -275,3 +316,37 @@ def qrange(V):
 	# Difference between maximal and minimal values
 	# of a vector
 	return max(V)-min(V)
+
+def null1(W):
+	# Generate a random network based on the
+	# overall connectance of the web
+	C = connectance(W)
+	Wp = np.zeros((len(W),len(W[0])))
+	for i in range(len(W)):
+		for j in range(len(W[0])):
+			IsInt = np.random.uniform(0,1,(1,))
+			if C > IsInt:
+				Wp[i][j] = 1
+	return fixmat(Wp)
+
+def null2(W):
+	# Generate a random network based on the
+	# probability that a row and a column
+	# have an interaction in the overall
+	# web
+	W = adjacency(W)
+	g = generality(W)
+	v = vulnerability(W)
+	for i in range(len(W)):
+		g[i] = g[i]/float(len(W[0]))
+	for j in range(len(W[0])):
+		v[j] = v[j]/float(len(W))
+	# Generate a random web
+	Wp = np.zeros((len(W),len(W[0])))
+	for i in range(len(W)):
+		for j in range(len(W[0])):
+			IsInt = np.random.uniform(0,1,(1,))
+			ProbInt = (g[i]+v[j])/2
+			if ProbInt > IsInt:
+				Wp[i][j] = 1
+	return fixmat(Wp)
