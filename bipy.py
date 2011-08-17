@@ -347,3 +347,35 @@ def null2(W):
 			if ProbInt > IsInt:
 				Wp[i][j] = 1
 	return fixmat(Wp)
+
+def d2h(V,bin='sturgis'):
+	# Returns the values needed to draw an histogram
+	# in PyX
+	# bin can take the values 'sturgis' or 'rice'
+	
+	## Number of bins in the histogram
+	if bin == 'sturgis':
+		nbin = np.ceil(1+np.log2(len(V)))
+	if bin =='rice':
+		nbin = np.ceil(2*pow(len(V),1.0/3))
+	## General parameters
+	bottom = round(min(V),1)
+	top = round(max(V),1)
+	ran = top - bottom
+	span = ran / float(nbin)
+	## Do the data
+	xs = []
+	ys = []
+	# Built the bins
+	for i in range(int(nbin)):
+		brange = bottom + (i*span)
+		trange = bottom + (i+1)*span
+		rmean = (brange+trange)/2
+		tcount = 0
+		for j in range(len(V)):
+			if (brange <= V[j]) & (V[j] < trange):
+				tcount += 1
+		ys.append(tcount)
+		xs.append(rmean)
+	# And finally...
+	return zip(xs,ys)
