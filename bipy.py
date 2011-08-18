@@ -406,3 +406,13 @@ def spread(V,m,M):
 		V[i] = V[i]* (M - m)
 		V[i] = V[i] + m
 	return V
+
+def nullC(ntop=30,nbottom=30,conn=0.5):
+	Nsize = ntop * nbottom
+	Wp = np.zeros((ntop,nbottom))
+	for i in range(ntop):
+		for j in range(nbottom):
+			IsInt = np.random.uniform(0,1,(1,))
+			if conn > IsInt:
+				Wp[i][j] = 1
+	return fixmat(Wp)
