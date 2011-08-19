@@ -12,6 +12,8 @@ import scipy as sp
 import numpy as np
 ##########
 
+
+
 def fixmat(W):
 	# Fix a matrix so that there are no empty row
 	# or empty columns, issues a message is some rows
@@ -298,16 +300,21 @@ def qrange(V):
 	# of a vector
 	return max(V)-min(V)
 
+def nullC(ntop=30,nbottom=30,conn=0.5):
+	Nsize = ntop * nbottom
+	Wp = np.zeros((ntop,nbottom))
+	for i in range(ntop):
+		for j in range(nbottom):
+			IsInt = np.random.uniform(0,1,(1,))
+			if conn > IsInt:
+				Wp[i][j] = 1
+	return fixmat(Wp)
+
 def null1(W):
 	# Generate a random network based on the
 	# overall connectance of the web
 	C = connectance(W)
-	Wp = np.zeros((len(W),len(W[0])))
-	for i in range(len(W)):
-		for j in range(len(W[0])):
-			IsInt = np.random.uniform(0,1,(1,))
-			if C > IsInt:
-				Wp[i][j] = 1
+	Wp = nullC(len(W),len(W[0]),C)
 	return fixmat(Wp)
 
 def null2(W):
@@ -406,13 +413,3 @@ def spread(V,m,M):
 		V[i] = V[i]* (M - m)
 		V[i] = V[i] + m
 	return V
-
-def nullC(ntop=30,nbottom=30,conn=0.5):
-	Nsize = ntop * nbottom
-	Wp = np.zeros((ntop,nbottom))
-	for i in range(ntop):
-		for j in range(nbottom):
-			IsInt = np.random.uniform(0,1,(1,))
-			if conn > IsInt:
-				Wp[i][j] = 1
-	return fixmat(Wp)
