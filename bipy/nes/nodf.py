@@ -21,8 +21,7 @@ def Ncal(W,iter=99,null=1):
 		Ntop.append(Nes[2]-Nprime[2])
 	return [round(mean(Ntot),2),round(mean(Nlow),2),round(mean(Ntop),2)]
 	
-def nestadj(aW):
-	W = aW
+def nestadj(W):
 	# Returns as sorted binary matrix
 	return sortbydegree(adjacency(W))
 	

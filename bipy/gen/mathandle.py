@@ -48,18 +48,17 @@ def readweb(fname):
 	return fixmat(data)
 	
 def adjacency(aW):
-	W = aW
 	# Transforms any matrix into an adjacency matrix
-	ntop = len(W)
-	nbot = len(W[0])
+	ntop = len(aW)
+	nbot = len(aW[0])
+	W = np.zeros(((ntop),(nbot)))
 	for to in range(0,ntop):
 		for bo in range(0,nbot):
-			if W[to,bo] > 0:
+			if aW[to,bo] > 0:
 				W[to,bo] = 1
 	return W
 
-def prettyprint(aW):
-	W = aW
+def prettyprint(W):
 	# Outputs a text version of the matrix
 	# that can be viewed within the console
 	W = adjacency(W)
@@ -73,8 +72,7 @@ def prettyprint(aW):
 	    print tLine
 	return 0
 
-def sortbydegree(aW):
-	W = aW
+def sortbydegree(W):
 	# Sort a matrix by degree
 	# Better for visualization
 	# Required for nestedness

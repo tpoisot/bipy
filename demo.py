@@ -14,7 +14,6 @@ print "Some general infos:"
 print "Connectance           : "+str(connectance(data))+" "
 print "Mean specificity      : "+str(mean(specificity(data)))+" "
 print "Nestedness (NODF)     : "+str(nodf(data)[0])+" "
-print "Mean specificity      : "+str(mean(specificity(data)))+" "
 
 print ""
 print ""

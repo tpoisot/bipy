@@ -3,8 +3,7 @@ import numpy as np
 from ..mainfuncs import *
 from ..gen import *
 
-def generality(aW):
-	W = aW
+def generality(W):
 	# Measure of generality
 	#	Schoener, T. (1989) Ecology 70(6) 1559-1589
 	gen = []
@@ -16,15 +15,13 @@ def generality(aW):
 		gen.append(nl)
 	return gen
 
-def vulnerability(aW):
-	W = aW
+def vulnerability(W):
 	# Measure of generality
 	#	Schoener, T. (1989) Ecology 70(6) 1559-1589
 	vul = generality(W.T)
 	return vul
 
-def specificity(aW):
-	W = aW
+def specificity(W):
 	# Measures the specialization using the Paired Differences Index
 	#	Poisot, T, et al. (2011) Biol Lett 7(2) 201-204 10.1098/rsbl.2010.0774
 	#	Poisot, T, et al. (in press) Proc R Soc Lon B 10.1098/rspb.2011.0826
