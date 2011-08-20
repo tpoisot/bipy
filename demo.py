@@ -19,6 +19,8 @@ print ""
 print ""
 
 w = bipartite(readweb('demo.web').T)
+demo_ref = {"jstor":2422308}
+w.ref = ref(demo_ref)
 print "Some general infos (using the bipartite class):"
 print "Connectance                   : "+str(w.connectance)+" "
 print "Mean specificity              : "+str(mean(w.specificity))+" "
@@ -26,6 +28,7 @@ print "Mean number of hosts          : "+str(mean(w.generality))+" "
 print "Mean number of parasites      : "+str(mean(w.vulnerability))+" "
 print "Nestedness (NODF)             : "+str(w.nodf)+" "
 print "Network size                  : "+str(w.size)+" "
+print "Read the original paper at "+str(w.ref.link)
 
 ## EXAMPLE OF GRAPHICS
 ## If you have pyx installed, uncomment the following : 
