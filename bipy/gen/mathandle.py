@@ -3,7 +3,8 @@ import numpy as np
 from .gendesc import *
 from ..spe import *
 
-def fixmat(W):
+def fixmat(aW):
+	W = aW
 	# Fix a matrix so that there are no empty row
 	# or empty columns, issues a message is some rows
 	# were removed
@@ -46,7 +47,8 @@ def readweb(fname):
 	data = np.loadtxt(fname)
 	return fixmat(data)
 	
-def adjacency(W):
+def adjacency(aW):
+	W = aW
 	# Transforms any matrix into an adjacency matrix
 	ntop = len(W)
 	nbot = len(W[0])
@@ -56,7 +58,8 @@ def adjacency(W):
 				W[to,bo] = 1
 	return W
 
-def prettyprint(W):
+def prettyprint(aW):
+	W = aW
 	# Outputs a text version of the matrix
 	# that can be viewed within the console
 	W = adjacency(W)
@@ -70,7 +73,8 @@ def prettyprint(W):
 	    print tLine
 	return 0
 
-def sortbydegree(W):
+def sortbydegree(aW):
+	W = aW
 	# Sort a matrix by degree
 	# Better for visualization
 	# Required for nestedness
