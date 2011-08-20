@@ -1,6 +1,6 @@
 ## NESTEDNESS
 
-__version__ = "1"
+__version__ = "2"
 
 print "Nestedness (r. "+__version__+") loaded "
 

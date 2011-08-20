@@ -21,7 +21,8 @@ def Ncal(W,iter=99,null=1):
 		Ntop.append(Nes[2]-Nprime[2])
 	return [round(mean(Ntot),2),round(mean(Nlow),2),round(mean(Ntop),2)]
 	
-def nestadj(W):
+def nestadj(aW):
+	W = aW
 	# Returns as sorted binary matrix
 	return sortbydegree(adjacency(W))
 	
@@ -34,7 +35,8 @@ def compareones(w1,w2,tn):
 	prop = (100*id)/tn
 	return round(prop,2)
 
-def getNpaired(W):
+def getNpaired(aW):
+	W =aW
 	# Required for NODF calculation
 	# Get the N paired value of a web
 	Npaired = []
@@ -48,7 +50,8 @@ def getNpaired(W):
 	return Npaired
 			
 
-def nodf(W):
+def nodf(aW):
+	W = aW
 	# Measures NODF
 	#	Almeida-Neto, M, et al. (2008) Oikos 117(8) 1227-1239
 	
