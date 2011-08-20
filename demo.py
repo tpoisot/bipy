@@ -13,6 +13,16 @@ print ""
 print "The network looks like this :"
 prettyprint(nestadj(data))
 
+print ""
+print ""
+print "Using the bipartite class..."
+w = bipartite(readweb('wBL.web'))
+
+
+print "Some general infos..."
+print "Connectance           : "+str(w.connectance)+" "
+print "Mean specificity      : "+str(mean(w.specificity))+" "
+print "Nestedness (NODF)     : "+str(w.nodf)+" "
 
 ## EXAMPLE OF GRAPHICS
 ## If you have pyx installed, uncomment the following : 

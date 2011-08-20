@@ -1,7 +1,7 @@
 ## NESTEDNESS
 
-__version__ = "0.1"
+__version__ = "1"
 
-print "Nestedness (v. "+__version__+") loaded "
+print "Nestedness (r. "+__version__+") loaded "
 
 from nodf import *

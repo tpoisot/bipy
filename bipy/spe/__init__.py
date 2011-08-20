@@ -1,7 +1,7 @@
 ## SPECIFICITY
 
-__version__ = "0.1"
+__version__ = "1"
 
-print "Specificity (v. "+__version__+") loaded "
+print "Specificity (r. "+__version__+") loaded "
 
 from spefunc import *
