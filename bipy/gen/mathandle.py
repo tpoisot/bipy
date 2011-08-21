@@ -2,6 +2,7 @@ import scipy as sp
 import numpy as np
 from .gendesc import *
 from ..spe import *
+from ..mainfuncs import *
 
 def fixmat(aW):
 	W = aW
@@ -48,7 +49,7 @@ def readweb(fname):
 	return fixmat(data)
 	
 def adjacency(aW):
-	# Transforms any matrix into an adjacency matrix
+	# Output the adjacency matrix
 	ntop = len(aW)
 	nbot = len(aW[0])
 	W = np.zeros(((ntop),(nbot)))
