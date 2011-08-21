@@ -30,15 +30,15 @@ print "Nestedness (NODF)             : "+str(w.nodf)+" "
 print "Network size                  : "+str(w.size)+" "
 output_citinfo(w)
 
-## EXAMPLE OF GRAPHICS
-## If you have pyx installed, uncomment the following : 
-#from pyx import *
-#
-#text.set(mode="latex")
-#text.preamble(r"\usepackage{fourier}")
-#
-#g = graph.graphxy(width=8,
-#	x = graph.axis.linear(title='Degree',min=0,max=12),
-#	y = graph.axis.linear(title='Count',min=0,max=6))
-#g.plot(graph.data.points(d2h(data.generality),x=1,y=2), [graph.style.histogram()])
-#g.writePDFfile("generality")
+# EXAMPLE OF GRAPHICS
+# If you have pyx installed, uncomment the following : 
+# from pyx import *
+# 
+# text.set(mode="latex")
+# text.preamble(r"\usepackage{fourier}")
+# 
+# g = graph.graphxy(width=8,
+# 	x = graph.axis.linear(title='Degree',min=0,max=20),
+# 	y = graph.axis.linear(title='Count',min=0,max=80))
+# g.plot(graph.data.points(d2h(w.generality,'rice'),x=1,y=2), [graph.style.histogram()])
+# g.writePDFfile("generality")
