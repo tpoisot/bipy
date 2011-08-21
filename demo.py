@@ -28,7 +28,7 @@ print "Mean number of hosts          : "+str(mean(w.generality))+" "
 print "Mean number of parasites      : "+str(mean(w.vulnerability))+" "
 print "Nestedness (NODF)             : "+str(w.nodf)+" "
 print "Network size                  : "+str(w.size)+" "
-print "Read the original paper at "+str(w.ref.link)
+output_citinfo(w)
 
 ## EXAMPLE OF GRAPHICS
 ## If you have pyx installed, uncomment the following : 

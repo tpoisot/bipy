@@ -3,6 +3,7 @@ from .nul import *
 from .nes import *
 from .spe import *
 
+from getref import *
 from mainfuncs import *
 
 class bipartite:
@@ -28,17 +29,24 @@ class ref:
 	##		3 JSTOR stable url
 	def __init__ (self,infos):
 		self.link = ''
+		self.fulltext = 'no citation informations available'
+		if infos.has_key('doi'):
+			self.doi = infos['doi']
+			self.link_doi = "http://dx.doi.org/"+str(self.doi)
+			self.fulltext = text_citation(get_citation(self.doi))
+			self.link = self.link_doi
 		if infos.has_key('pmid'):
 			self.pmid = infos['pmid']
 			self.link_pubmed = "http://www.ncbi.nlm.nih.gov/pubmed/"+str(self.pmid)
+			self.fulltext = text_citation(get_citation(self.pmid))
 			self.link = self.link_pubmed
 		if infos.has_key('jstor'):
 			self.jstor = infos['jstor']
 			self.link_jstor = "http://www.jstor.org/pss/"+str(self.jstor)
 			self.link = self.link_jstor
-		if infos.has_key('doi'):
-			self.doi = infos['doi']
-			self.link_doi = "http://dx.doi.org/"+str(self.doi)
-			self.link = self.link_doi
 		if self.link == '':
-			self.link = 'No references for this dataset'
+			self.link = 'no link available'
+
+
+def output_citinfo(web):
+	print web.ref.fulltext+' ('+web.ref.link+')'
