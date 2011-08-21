@@ -37,10 +37,8 @@ output_citinfo(w)
 #text.set(mode="latex")
 #text.preamble(r"\usepackage{fourier}")
 #
-#spedistrib = d2h(generality(data))
-#
 #g = graph.graphxy(width=8,
 #	x = graph.axis.linear(title='Degree',min=0,max=12),
 #	y = graph.axis.linear(title='Count',min=0,max=6))
-#g.plot(graph.data.points(spedistrib,x=1,y=2), [graph.style.histogram()])
-#g.writePDFfile("specificity")
+#g.plot(graph.data.points(d2h(data.generality),x=1,y=2), [graph.style.histogram()])
+#g.writePDFfile("generality")
