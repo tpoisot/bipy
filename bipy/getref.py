@@ -69,3 +69,6 @@ def text_citation(xml,shortAuth=True):
 	output = authorlist+' ('+year+') '+title+' '+journal+' '+volume+'('+issue+') '+pages+'.'
 	
 	return output
+
+def output_citinfo(web):
+	print web.ref.fulltext+' ('+web.ref.link+')'

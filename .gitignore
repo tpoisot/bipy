@@ -34,3 +34,5 @@ bipy/spe/spefunc.pyc
 bipy/bipartite_class.pyc
 
 .DS_Store
+
+bipy/getref.pyc

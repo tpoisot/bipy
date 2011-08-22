@@ -57,6 +57,3 @@ class ref:
 		if self.link == '':
 			self.link = ' (no link available)'
 
-
-def output_citinfo(web):
-	print web.ref.fulltext+' ('+web.ref.link+')'
