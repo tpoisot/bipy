@@ -103,3 +103,22 @@ def sortbydegree(W):
 	for ro in range(0,losp):
 		dW[rG[ro]] = nW[ro]
 	return dW.T
+
+
+def toN3D(bip,filename='w3b.web'):
+	# This allows the user to export an interaction dataset
+	# in a way that Network3D can read
+	# 
+	# Works for bipartite objects ONLY
+	
+	if not hasattr(bip,'web'):
+		bip = bipartite(bip)
+	
+	f = open(filename, 'w')
+	for up in range(bip.upsp):
+		for lo in range(bip.losp):
+			if bip.web[up][lo] > 0:
+				f.write('{0} {1} {2}\n'.format('T'+str(up), 'B'+str(lo), str(bip.web[up][lo])))
+	f.close()
+	return 0
+

@@ -34,6 +34,8 @@ output_citinfo(w)
 ## Comparison of class vs. non-class objects
 import time
 
+toN3D(w)
+
 def time_it(f, *args):
        start = time.clock()
        f(*args)
