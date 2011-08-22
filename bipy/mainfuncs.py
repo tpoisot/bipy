@@ -70,18 +70,21 @@ def surp(V):
 
 def eH(V):
 	# Exponent of Shannon's entropy
-	p = surp(V)
+	tV = []
+	for i in range(len(V)):
+		tV.append(round(V[i],2))
+	p = surp(tV)
 	# Only unique elements
-	uV = [V[0]]
+	uV = [tV[0]]
 	uP = [p[0]]
-	for i in range(1,len(V)):
+	for i in range(1,len(tV)):
 		isUnique = 0
 		for u in range(0,len(uV)):
-			if V[i] == uV[u]:
+			if tV[i] == uV[u]:
 				isUnique += 1
 				break
 		if isUnique == 0:
-			uV.append(V[i])
+			uV.append(tV[i])
 			uP.append(p[i])
 	# If all values are equal, no information
 	if len(uV) == 1:
