@@ -17,8 +17,12 @@ def nullC(ntop=30,nbottom=30,conn=0.5):
 def null1(W):
 	# Generate a random network based on the
 	# overall connectance of the web
-	C = connectance(W)
-	Wp = nullC(len(W),len(W[0]),C)
+	if hasattr(W,'connectance'):
+		C = W.connectance
+		Wp = nullC(len(W.web),len(W.web[0]),C)
+	else:
+		C = connectance(W)
+		Wp = nullC(len(W),len(W[0]),C)
 	return fixmat(Wp)
 
 def null2(W):

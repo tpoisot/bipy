@@ -29,7 +29,7 @@ class ref:
 	##		3 JSTOR stable url
 	def __init__ (self,infos):
 		self.link = ''
-		self.fulltext = 'no citation informations available'
+		self.fulltext = 'Unable to retrieve citation info'
 		if infos.has_key('doi'):
 			self.doi = infos['doi']
 			self.link_doi = "http://dx.doi.org/"+str(self.doi)
@@ -45,7 +45,7 @@ class ref:
 			self.link_jstor = "http://www.jstor.org/pss/"+str(self.jstor)
 			self.link = self.link_jstor
 		if self.link == '':
-			self.link = 'no link available'
+			self.link = ' (no link available)'
 
 
 def output_citinfo(web):

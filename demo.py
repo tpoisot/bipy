@@ -30,6 +30,29 @@ print "Nestedness (NODF)             : "+str(w.nodf)+" "
 print "Network size                  : "+str(w.size)+" "
 output_citinfo(w)
 
+
+## Comparison of class vs. non-class objects
+import time
+
+def time_it(f, *args):
+       start = time.clock()
+       f(*args)
+       return (time.clock() - start)*1000
+
+time_D = []
+time_C = []
+for i in range(50):
+	time_D.append(time_it(null1,data))
+	time_C.append(time_it(null1,w))
+
+print ""
+print ""
+print "Mean time (in ms) for a null-model based on connectance"
+print "class should be roughly 100 ms faster with a network"
+print "size of "+str(w.size)+" interactions."
+print("With the class object : "+str(mean(time_C)))
+print("With the raw object   : "+str(mean(time_D)))
+
 # EXAMPLE OF GRAPHICS
 # If you have pyx installed, uncomment the following : 
 # from pyx import *
