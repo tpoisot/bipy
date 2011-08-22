@@ -20,11 +20,13 @@ def Ncal(W,iter=99,null=1):
 		Nlow.append(Nes[1]-Nprime[1])
 		Ntop.append(Nes[2]-Nprime[2])
 	return [round(mean(Ntot),2),round(mean(Nlow),2),round(mean(Ntop),2)]
+
 	
 def nestadj(aW):
 	W = aW
 	# Returns as sorted binary matrix
 	return adjacency(sortbydegree(W))
+
 	
 def compareones(w1,w2,tn):
 	# Compare the identity of ONES
@@ -33,7 +35,8 @@ def compareones(w1,w2,tn):
 		if (int(w1[i]) == 1)&(int(w2[i]) == 1):
 			id = id + 1
 	prop = (100*id)/tn
-	return round(prop,2)
+	return round(prop,2)		
+
 
 def getNpaired(W):
 	# Required for NODF calculation
@@ -46,8 +49,8 @@ def getNpaired(W):
 				Npaired.append(compareones(W[i],W[j],gen[j]))
 			else :
 				Npaired.append(0)
-	return Npaired
-			
+	return Npaired			
+
 
 def nodf(aW):
 	W = nestadj(aW)

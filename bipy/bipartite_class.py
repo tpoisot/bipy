@@ -9,19 +9,26 @@ from mainfuncs import *
 class bipartite:
 	## This class defines a bipartite object with all structural infos
 	def __init__ (self,web):
+		# Read the matrix
 		self.web = web
-		self.adjacency = adjacency(web)
-		self.connectance = connectance(web)
-		self.size = websize(web)
-		self.upsp = len(web)
-		self.losp = len(web[0])
+		# General infos
+		self.upsp = len(self.web)
+		self.losp = len(self.web[0])
+		self.size = self.upsp * self.losp
+		# Connectance
+		self.adjacency = adjacency(self.web)
+		self.nlink = linknum(self.web)
+		self.connectance = self.nlink / float(self.size)
+		# Specificity and all
 		self.generality = generality(web)
 		self.vulnerability = vulnerability(web)
+		self.specificity = specificity(web)
+		# Nestedness
 		NODF = nodf(web)
 		self.nodf = NODF[0]
 		self.nodf_up = NODF[2]
 		self.nodf_low = NODF[1]
-		self.specificity = specificity(web)
+		# Placeholder for references
 		self.ref = []
 
 class ref:
