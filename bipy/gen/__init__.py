@@ -1,6 +1,6 @@
 ## GENERAL FUNCTIONS
 
-__version__ = "2"
+__version__ = "3"
 
 print "General functions (r. "+__version__+") loaded"
 from mathandle import *

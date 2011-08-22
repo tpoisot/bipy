@@ -43,11 +43,15 @@ time_D  = []
 time_C  = []
 time_D2 = []
 time_C2 = []
-for i in range(50):
+time_sD = []
+time_sC = []
+for i in range(10):
 	time_D.append(time_it(null1,data))
 	time_C.append(time_it(null1,w))
 	time_D2.append(time_it(null2,data))
 	time_C2.append(time_it(null2,w))
+	time_sD.append(time_it(sortbydegree,data))
+	time_sC.append(time_it(sortbydegree,w))
 
 print ""
 print ""
@@ -60,6 +64,11 @@ print "Mean time (in ms) for a null-model based on marginal sums"
 print "class should be 40 % faster with the demo data"
 print("With the class object : "+str(mean(time_C2)))
 print("With the raw object   : "+str(mean(time_D2)))
+print ""
+print "Mean time (in ms) to sort a matrix by degree"
+print "class should be 40 % faster with the demo data"
+print("With the class object : "+str(mean(time_sC)))
+print("With the raw object   : "+str(mean(time_sD)))
 
 # EXAMPLE OF GRAPHICS
 # If you have pyx installed, uncomment the following : 

@@ -77,15 +77,29 @@ def sortbydegree(W):
 	# Sort a matrix by degree
 	# Better for visualization
 	# Required for nestedness
+	
+	if hasattr(W,'connectance'):
+		g = W.generality
+		v = W.vulnerability
+		upsp = W.upsp
+		losp = W.losp
+		web = W.web
+	else:
+		g = generality(W)
+		v = vulnerability(W)
+		upsp = len(W)
+		losp = len(W[0])
+		web = W
+		
 	## Step 1 : sort TLO
-	rG = rank(generality(W))
-	nW = np.zeros((len(W),len(W[0])))
-	for ro in range(0,len(W)):
-		nW[rG[ro]] = W[ro]
+	rG = rank(g)
+	nW = np.zeros((upsp,losp))
+	for ro in range(0,upsp):
+		nW[rG[ro]] = web[ro]
 	## Step 2 : sort BLO
 	nW = nW.T
-	dW = np.zeros((len(W),len(W[0]))).T
-	rG = rank(generality(nW))
-	for ro in range(0,len(W[0])):
+	dW = np.zeros((upsp,losp)).T
+	rG = rank(v)
+	for ro in range(0,losp):
 		dW[rG[ro]] = nW[ro]
 	return dW.T

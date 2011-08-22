@@ -1,6 +1,6 @@
 ## NULL MODELS
 
-__version__ = "1"
+__version__ = "2"
 
 print "Null models (r. "+__version__+") loaded "
 
