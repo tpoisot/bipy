@@ -9,7 +9,10 @@ def Ncal(W,iter=99,null=1):
 	Ntot = []
 	Nlow = []
 	Ntop = []
-	Nes = nodf(W)
+	if hasattr(W,'nodf'):
+		Nes [W.nodf,W.nodf_low,W.nodf_up]
+	else:
+		Nes = nodf(W)
 	## Iteration
 	for i in range(iter):
 		if null == 1:
