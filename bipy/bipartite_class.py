@@ -10,8 +10,11 @@ class bipartite:
 	## This class defines a bipartite object with all structural infos
 	def __init__ (self,web):
 		self.web = web
+		self.adjacency = adjacency(web)
 		self.connectance = connectance(web)
-		self.size = websize(web)		
+		self.size = websize(web)
+		self.upsp = len(web)
+		self.losp = len(web[0])
 		self.generality = generality(web)
 		self.vulnerability = vulnerability(web)
 		NODF = nodf(web)

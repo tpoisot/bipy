@@ -39,19 +39,27 @@ def time_it(f, *args):
        f(*args)
        return (time.clock() - start)*1000
 
-time_D = []
-time_C = []
+time_D  = []
+time_C  = []
+time_D2 = []
+time_C2 = []
 for i in range(50):
 	time_D.append(time_it(null1,data))
 	time_C.append(time_it(null1,w))
+	time_D2.append(time_it(null2,data))
+	time_C2.append(time_it(null2,w))
 
 print ""
 print ""
 print "Mean time (in ms) for a null-model based on connectance"
-print "class should be roughly 100 ms faster with a network"
-print "size of "+str(w.size)+" interactions."
+print "class should be 10ms faster with the demo data"
 print("With the class object : "+str(mean(time_C)))
 print("With the raw object   : "+str(mean(time_D)))
+print ""
+print "Mean time (in ms) for a null-model based on marginal sums"
+print "class should be 40 % faster with the demo data"
+print("With the class object : "+str(mean(time_C2)))
+print("With the raw object   : "+str(mean(time_D2)))
 
 # EXAMPLE OF GRAPHICS
 # If you have pyx installed, uncomment the following : 

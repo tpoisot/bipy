@@ -30,17 +30,28 @@ def null2(W):
 	# probability that a row and a column
 	# have an interaction in the overall
 	# web
-	W = adjacency(W)
-	g = generality(W)
-	v = vulnerability(W)
-	for i in range(len(W)):
-		g[i] = g[i]/float(len(W[0]))
-	for j in range(len(W[0])):
-		v[j] = v[j]/float(len(W))
+	
+	if hasattr(W,'connectance'):
+		adj = W.adjacency
+		g = W.generality
+		v = W.vulnerability
+		upsp = W.upsp
+		losp = W.losp
+	else:
+		adj = adjacency(W)
+		g = generality(W)
+		v = vulnerability(W)
+		upsp = len(adj)
+		losp = len(adj[0])
+		
+	for i in range(upsp):
+		g[i] = g[i]/float(losp)
+	for j in range(losp):
+		v[j] = v[j]/float(upsp)
 	# Generate a random web
-	Wp = np.zeros((len(W),len(W[0])))
-	for i in range(len(W)):
-		for j in range(len(W[0])):
+	Wp = np.zeros((upsp,losp))
+	for i in range(upsp):
+		for j in range(losp):
 			IsInt = np.random.uniform(0,1,(1,))
 			ProbInt = (g[i]+v[j])/2
 			if ProbInt > IsInt:
