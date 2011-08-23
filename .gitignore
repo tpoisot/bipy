@@ -48,3 +48,7 @@ bipy/getref.pyc
 bipy/mod/lpbrim.pyc
 
 bipy/mod/__init__.pyc
+
+bipy/gra/__init__.pyc
+
+bipy/gra/plotwebs.pyc

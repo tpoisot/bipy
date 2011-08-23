@@ -74,8 +74,10 @@ print("With the class object : "+str(mean(time_sC)))
 print("With the raw object   : "+str(mean(time_sD)))
 
 # EXAMPLE OF GRAPHICS
+#
 # If you have pyx installed, uncomment the following : 
-# from pyx import *
+#
+# plotMatrix(w)
 # 
 # text.set(mode="latex")
 # text.preamble(r"\usepackage{fourier}")
