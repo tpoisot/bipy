@@ -41,3 +41,21 @@ def specificity(W):
 			i = i+1
 		spe.append(round(tspe,3))
 	return spe	
+
+def ssi(W):
+	# Measures the Species Specialization Index
+	# usefull to discriminate among highly specialized organisms
+	#	Julliard, R, et al. (2006) Ecol Lett 9(11) 1237-1244 10.1111/j.1461-0248.2006.00977.x
+	spe = []
+	n = len(W[0]) # Number of resources
+	normfac = n * np.sqrt((n-1)/float(n))
+	for fit in W:
+		# For each species in the web
+		tspe = 0
+		Pbar = mean(fit)
+		tnfac = normfac * Pbar
+		for sp in fit:
+			tspe += (sp-Pbar) ** 2
+		spe.append(np.sqrt(tspe)/tnfac)
+	return spe
+
