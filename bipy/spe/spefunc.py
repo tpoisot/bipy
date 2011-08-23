@@ -59,3 +59,23 @@ def ssi(W):
 		spe.append(np.sqrt(tspe)/tnfac)
 	return spe
 
+
+def IR(W):
+	# Correlation matrix of responses
+	rho = np.corrcoef(W)
+	# Standard deviations of responses
+	sig = []
+	for fit in W:
+		sig.append(round(np.std(fit),4))
+	# Correction factor
+	cfac = len(W)*(len(W)-1)
+	# Measures
+	tR = 0
+	tI = 0
+	for i in range(len(W)-1):
+		for j in range((i+1),len(W)):
+			tR += (sig[i]-sig[j]) ** 2
+			tI += sig[i]*sig[j]*(1-rho[i][j])
+	R = tR / (2 * cfac)
+	I = tI / cfac
+	return [R,I]
