@@ -13,3 +13,5 @@ h = [1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
 
 print ""
 print "Qbip: "+str(Qbip(w,g,h))
+print ""
+LP(w)
