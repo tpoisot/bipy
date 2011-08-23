@@ -13,7 +13,7 @@ from .gen import *
 from .nul import *
 from .nes import *
 from .spe import *
-
+from .mod import *
 from mainfuncs import *
 from bipartite_class import *
 from getref import *

@@ -44,3 +44,7 @@ bipy/getref.pyc
 bipy/getref.pyc
 
 .DS_Store
+
+bipy/mod/lpbrim.pyc
+
+bipy/mod/__init__.pyc
