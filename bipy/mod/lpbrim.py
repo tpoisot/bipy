@@ -27,6 +27,7 @@ def Qbip(W,g,h):
 
 ## LP method
 def LP(W):
+	OptimStep = 0
 	print "LP: LP started"
 	w = W.adjacency ## This version of modularity is BINARY
 	# Community objects
@@ -55,7 +56,11 @@ def LP(W):
 	while oriBip < refBip:
 		oriBip = refBip
 		# We propagate the UTL species labels
-		for j in range(W.losp):
+		# The order of the nodes being updated
+		# is choosen at random
+		jOrder = range(W.losp)
+		random.shuffle(jOrder) 
+		for j in jOrder:
 			# We get a void object to get neighboring labels
 			vNL = []
 			for i in range(W.upsp):
@@ -66,7 +71,11 @@ def LP(W):
 			# We then add the most common label
 			h[j] = mostFrequent(vNL)
 		# We propagate the LTL species labels
-		for i in range(W.upsp):
+		# The order of the nodes being updated
+		# is choosen at random
+		iOrder = range(W.upsp)
+		random.shuffle(iOrder)
+		for i in iOrder:
 			# We get a void object to get neighboring labels
 			vNL = []
 			for j in range(W.losp):
@@ -78,9 +87,11 @@ def LP(W):
 			g[i] = mostFrequent(vNL)
 		# We then recalculate the modularity
 		refBip = Qbip(W,g,h)
+		OptimStep += 1
 	# Once we are OUTSIDE the loop (the modularity is stabilized)
 	# we return the current Qbip and the community partition
-	print "LP: optimal found for Qbip "+str(refBip)
+	print "LP: converged after "+str(OptimStep)+" events"
+	print "LP: Optimal Qbip "+str(refBip)
 	out = [refBip,g,h]
 	return out
 

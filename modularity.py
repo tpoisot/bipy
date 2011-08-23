@@ -12,6 +12,7 @@ g = [1,1,1,1,2,2,2,2,2,3,3,3,3,3]
 h = [1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
 
 print ""
-print "Qbip: "+str(Qbip(w,g,h))
+print "The modular network was hand-made"
+print "so that we expect Qbip: "+str(Qbip(w,g,h))
 print ""
 LP(w)
