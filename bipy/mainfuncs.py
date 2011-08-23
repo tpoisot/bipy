@@ -26,6 +26,7 @@ def meanperf(W):
 		perf.append(round(tspe,3))
 	return perf
 
+
 def rank(V):
 	# Returns the rank of a vector
 	# with no ties
@@ -40,7 +41,8 @@ def rank(V):
 				V[j] = min(V)-1
 				break
 	return rn
-	
+
+
 def mean(V):
 	# Mean value
 	mn = float(0)
@@ -48,6 +50,7 @@ def mean(V):
 		mn += v
 	m = mn / len(V)
 	return m
+
 
 def surp(V):
 	# Given a vector, returns the
@@ -67,6 +70,7 @@ def surp(V):
 		tsum = float(tsum)/Nbits
 		sur.append(tsum)
 	return sur
+
 
 def eH(V):
 	# Exponent of Shannon's entropy
@@ -98,11 +102,13 @@ def eH(V):
 			pLNp += uP[i]*np.log(uP[i])
 	Hprime = 0 - pLNp - np.log(len(uV))
 	return np.exp(Hprime)
-	
+
+
 def qrange(V):
 	# Difference between maximal and minimal values
 	# of a vector
 	return max(V)-min(V)
+
 
 def d2h(V,bin='sturgis'):
 	# Returns the values needed to draw an histogram in PyX
@@ -151,7 +157,8 @@ def count(V):
 				tcnt += 1
 		cnt.append(tcnt)
 	return zip(r,cnt)
-	
+
+
 def spread(V,m,M):
 	mi = min(V)
 	for i in range(len(V)):
@@ -163,3 +170,11 @@ def spread(V,m,M):
 		V[i] = V[i] + m
 	return V
 	
+
+
+def uniquify(seq): 
+    # not order preserving 
+    set = {} 
+    map(set.__setitem__, seq, []) 
+    return sorted(set.keys())
+

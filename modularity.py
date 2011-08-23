@@ -8,11 +8,11 @@ w = bipartite(readweb('modular.web'),t=False)
 prettyprint(w.web)
 
 ## These are the correct modules
-g = [1,1,1,1,2,2,2,2,2,3,3,3,3,3]
-h = [1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
+og = [1,1,1,1,2,2,2,2,2,3,3,3,3,3]
+oh = [1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
 
 print ""
 print "The modular network was hand-made"
-print "so that we expect Qbip: "+str(Qbip(w,g,h))
+print "so that we expect 3 modules and Qbip: "+str(Qbip(w,og,oh))
 print ""
-LP(w)
+findModules(w,10) # Needs a number of replicates
