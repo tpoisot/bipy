@@ -8,8 +8,10 @@ from mainfuncs import *
 
 class bipartite:
 	## This class defines a bipartite object with all structural infos
-	def __init__ (self,web):
+	def __init__ (self,web,t=False):
 		# Read the matrix
+		if t:
+			web = web.T
 		self.web = web
 		# General infos
 		self.upsp = len(self.web)

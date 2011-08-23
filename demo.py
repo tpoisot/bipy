@@ -18,7 +18,8 @@ print "Nestedness (NODF)     : "+str(nodf(data)[0])+" "
 print ""
 print ""
 
-w = bipartite(readweb('demo.web').T)
+# The bipartite class is able to transpose the matrix
+w = bipartite(readweb('demo.web'),t=True)
 demo_ref = {"jstor":2422308}
 w.ref = ref(demo_ref)
 print "Some general infos (using the bipartite class):"
