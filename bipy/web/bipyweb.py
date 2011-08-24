@@ -6,7 +6,7 @@ import tempfile
 import os
 from ..bipartite_class import *
 
-def readRemoteWeb(url,as_bip=True):
+def readRemoteWeb(url,as_bip=True,t=False):
 	"""Copy the contents of a file from a given URL
 	to a local file.
 	"""
@@ -17,6 +17,6 @@ def readRemoteWeb(url,as_bip=True):
 	f.close()
 	web = readweb(f.name)
 	if as_bip:
-		web = bipartite(web)
+		web = bipartite(web,t)
 	os.unlink(f.name)
 	return web
