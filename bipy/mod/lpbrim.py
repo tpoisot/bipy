@@ -269,4 +269,38 @@ def Qr(w,mod):
 	return realized
 
 
+## Separate modules
+def splitWeb(W,mod,path='.',prefix='web_',ext='web',minU=3,minL=3):
+	if mod[1] == 0:
+		np.savetxt(path+'/'+prefix+'full.'+ext,W.web,delimiter=' ')
+	else:
+		# We start with the modules
+		g = mod[2]
+		h = mod[3]
+		uMod = uniquify(g)
+		for mod in uMod:
+			# For each module
+			nUp = 0
+			nLo = 0
+			for i in g:
+				if i == mod:
+					nUp += 1
+			for i in h:
+				if i == mod:
+					nLo += 1
+			nWeb = np.zeros((nUp,nLo))
+			cRow = -1
+			for i in range(W.upsp):
+				cCol = -1
+				if g[i] == mod:
+					cRow += 1
+					for j in range(W.losp):
+						if h[j] ==mod:
+							cCol +=1
+							nWeb[cRow][cCol] = W.web[i][j]
+			if nUp >= minU:
+				if nLo >= minL:
+					np.savetxt(path+'/'+prefix+str(mod)+'.'+ext,nWeb,delimiter=' ')
+	return 0
+
 ## END OF FILE
