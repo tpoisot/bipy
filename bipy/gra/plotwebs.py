@@ -34,14 +34,7 @@ def plotModules(w,mod,filename='web',col=True):
 	h = mod[3]
 	ch = sorted(h,reverse=True)
 	W = sortbymodule(w,g,h)
-	ListOfColors = [color.cmyk.Gray,
-		color.cmyk.RedOrange,
-		color.cmyk.NavyBlue,
-		color.cmyk.ForestGreen,
-		color.cmyk.YellowOrange,
-		color.cmyk.Black,
-		color.cmyk.RedViolet,
-		color.cmyk.ProcessBlue]
+	ListOfColors = [color.gradient.Hue.select(i, (mod[1]+1)) for i in range(mod[1]+1)]
 	# Plot
 	c = canvas.canvas()
 	for i in range(w.upsp):
@@ -56,9 +49,9 @@ def plotModules(w,mod,filename='web',col=True):
 				yd = 0.8*GS
 				if col:
 					if cg[i] == ch[j]:
-						CCol = ListOfColors[cg[i]]
+						CCol = ListOfColors[(cg[i]-1)]
 					else:
-						CCol = ListOfColors[0]
+						CCol = color.cmyk.Gray
 				else:
 					CCol = color.gray.black
 				c.stroke(path.rect(xc, yc, xd, yd),[deco.stroked.clear,deco.filled([CCol])])
