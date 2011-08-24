@@ -52,3 +52,7 @@ bipy/mod/__init__.pyc
 bipy/gra/__init__.pyc
 
 bipy/gra/plotwebs.pyc
+
+bipy/web/__init__.pyc
+
+bipy/web/bipyweb.pyc

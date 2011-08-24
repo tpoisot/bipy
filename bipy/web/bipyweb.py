@@ -1,12 +1,22 @@
 # Bipy functions for the web
 
-def download(url):
+from ..gen import *
+import urllib
+import tempfile
+import os
+from ..bipartite_class import *
+
+def readRemoteWeb(url,as_bip=True):
 	"""Copy the contents of a file from a given URL
 	to a local file.
 	"""
-	import urllib
+	f = tempfile.NamedTemporaryFile(delete=False)
 	webFile = urllib.urlopen(url)
-	localFile = open(url.split('/')[-1], 'w')
-	localFile.write(webFile.read())
+	f.write(webFile.read())
 	webFile.close()
-	localFile.close()
+	f.close()
+	web = readweb(f.name)
+	if as_bip:
+		web = bipartite(web)
+	os.unlink(f.name)
+	return web
