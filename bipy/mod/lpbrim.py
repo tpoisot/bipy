@@ -254,15 +254,19 @@ def sortbymodule(W,g,h):
 ## Realized modularity
 ## Which proportion of the interactions are mare within modules ?
 def Qr(w,mod):
-	g = mod[2]
-	h = mod[3]
-	Nint = 0
-	# Plot
-	for i in range(w.upsp):
-		for j in range(w.losp):
-			if w.adjacency[i][j] == 1:
-				if g[i] == h[j]:
-					Nint += 1
-	return Nint/float(w.nlink)
+	if mod[0] == 0:
+		realized = 0
+	else :
+		g = mod[2]
+		h = mod[3]
+		Nint = 0
+		for i in range(w.upsp):
+			for j in range(w.losp):
+				if w.adjacency[i][j] == 1:
+					if g[i] == h[j]:
+						Nint += 1
+	 	realized = Nint/float(w.nlink)
+	return realized
+
 
 ## END OF FILE
