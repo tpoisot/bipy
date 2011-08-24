@@ -8,4 +8,4 @@
 
 See the wiki at <http://bipy.timotheepoisot.fr/> for examples
 
-Features : null models, measures of nestedness, modularity detection, visualization of networks, and other things
+Features : null models, measures of nestedness, modularity detection, visualization of networks, ability to read data from the web, and other things
