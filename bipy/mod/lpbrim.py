@@ -170,6 +170,7 @@ def BRIM(W,part):
 ## Find modules
 def findModules(W,reps=10,outstep=5):
 	topmod = 0
+	out = [0,0,0,0]
 	if reps >= 100:
 		print "Done	Best Q	Best M"
 		print "----------------------"
