@@ -3,16 +3,18 @@ from bipy import *
 print "Reading the network file..."
 print ""
 
-
 w = bipartite(readweb('modular.web'),t=False)
 prettyprint(w.web)
 
-## These are the correct modules
-og = [1,1,1,1,2,2,2,2,2,3,3,3,3,3]
-oh = [1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3]
-
 print ""
 print "The modular network was hand-made"
-print "so that we expect 3 modules and Qbip: "+str(Qbip(w,og,oh))
+print "so that we expect 3 modules"
 print ""
-findModules(w,10) # Needs a number of replicates
+#w = bipartite(readweb('demo.web'),t=True)
+modulinfo = findModules(w,50) # Needs a number of replicates
+
+# The following line prints a web grouped by modules
+# the 'col' option is currently buggy and should not be used
+plotModules(w,modulinfo,filename='web_by_modules',col=False)
+# compare with the result of the function printing it by degree
+plotMatrix(w,filename='web_by_degree',asnest=True)

@@ -183,5 +183,20 @@ def findModules(W,reps=10):
 	print 'Found '+str(out[1])+' modules with Qbip of '+str(topmod)
 	return out
 
+## Sort by modules
+def sortbymodule(W,g,h):
+	# Sort a matrix by module
+	## Step 1 : sort TLO
+	rG = rank(g)
+	nW = np.zeros((W.upsp,W.losp))
+	for ro in range(0,W.upsp):
+		nW[rG[ro]] = W.web[ro]
+	## Step 2 : sort BLO
+	nW = nW.T
+	dW = np.zeros((W.upsp,W.losp)).T
+	rG = rank(h)
+	for ro in range(0,W.losp):
+		dW[rG[ro]] = nW[ro]
+	return dW.T
 
 ## END OF FILE
