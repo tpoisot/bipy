@@ -1,8 +1,8 @@
 ## MAIN PACKAGE
 
-__version__ = "0.3"
+__name__ = "bipy"
 
-print "BIPY (bipartite network analysis using python) v. "+__version__+" loaded"
+print "BIPY (bipartite network analysis using python) loaded"
 print "---"
 print "Timothee Poisot - Universite Montpellier 2 - Contact : tpoisot@um2.fr"
 print "---"
@@ -15,6 +15,7 @@ from .nes import *
 from .spe import *
 from .mod import *
 from .gra import *
+from .web import * # Web functions
 from mainfuncs import *
 from bipartite_class import *
 from getref import *
