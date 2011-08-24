@@ -185,18 +185,56 @@ def findModules(W,reps=10):
 
 ## Sort by modules
 def sortbymodule(W,g,h):
-	# Sort a matrix by module
-	## Step 1 : sort TLO
+	sg = sorted(np.copy(g),reverse=True)
+	sh = sorted(np.copy(h),reverse=True)
+	# Step 1 : Sort a matrix by module
+	## Step 1a : sort TLO
 	rG = rank(g)
 	nW = np.zeros((W.upsp,W.losp))
 	for ro in range(0,W.upsp):
 		nW[rG[ro]] = W.web[ro]
-	## Step 2 : sort BLO
+	## Step 1b : sort BLO
 	nW = nW.T
 	dW = np.zeros((W.upsp,W.losp)).T
 	rG = rank(h)
 	for ro in range(0,W.losp):
 		dW[rG[ro]] = nW[ro]
-	return dW.T
+	web = np.copy(dW.T)
+	# Step 2 : Sort each module by degree
+	uniqueMod = sorted(uniquify(sg),reverse=True)
+	## Step 2a : sort TLO
+	totalMadeInt = 0
+	tempIntCnt = 0
+	tdeg = generality(web)
+	nweb = np.zeros(np.shape(web))
+	for module in uniqueMod:
+		totalMadeInt += tempIntCnt
+		tempIntCnt = 0
+		cdeg = []
+		for sp in range(len(tdeg)):
+			if sg[sp] == module:
+				cdeg.append(tdeg[sp])
+		rnk = rank(cdeg)
+		for ro in range(len(rnk)):
+			nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
+			tempIntCnt += 1
+	web = np.copy(nweb.T)
+	## Step 2b : sort BLO
+	totalMadeInt = 0
+	tempIntCnt = 0
+	tdeg = generality(web)
+	nweb = np.zeros(np.shape(web))
+	for module in uniqueMod:
+		totalMadeInt += tempIntCnt
+		tempIntCnt = 0
+		cdeg = []
+		for sp in range(len(tdeg)):
+			if sh[sp] == module:
+				cdeg.append(tdeg[sp])
+		rnk = rank(cdeg)
+		for ro in range(len(rnk)):
+			nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
+			tempIntCnt += 1
+	return nweb.T
 
 ## END OF FILE

@@ -30,9 +30,9 @@ def plotModules(w,mod,filename='web',col=True):
 	GS = 0.5
 	# Organise web by communities
 	g = mod[2]
-	cg = sorted(g)
+	cg = sorted(g,reverse=True)
 	h = mod[3]
-	ch = sorted(h)
+	ch = sorted(h,reverse=True)
 	W = sortbymodule(w,g,h)
 	ListOfColors = [color.cmyk.Gray,
 		color.cmyk.RedOrange,
