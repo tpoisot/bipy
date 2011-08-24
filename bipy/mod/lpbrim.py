@@ -168,8 +168,12 @@ def BRIM(W,part):
 
 
 ## Find modules
-def findModules(W,reps=10):
+def findModules(W,reps=10,outstep=5):
 	topmod = 0
+	if reps >= 100:
+		print "Done	Best Q	Best M"
+		print "----------------------"
+	nstep = outstep
 	for repl in range(reps):
 		LPpart = LP(W)
 		BRIMpart = BRIM(W,LPpart)
@@ -180,8 +184,16 @@ def findModules(W,reps=10):
 		if Q > topmod:
 			topmod = Q
 			out = [Q,Nmod,TopPart,BotPart]
-	print 'Found '+str(out[1])+' modules with Qbip of '+str(topmod)
+		if reps >= 100:
+			if (repl/float(reps))*100 >= nstep:
+				print"{0}%	{1} 	{2}".format(str(nstep), str(out[0]), str(out[1]))
+				nstep += outstep
+#	print 'Found '+str(out[1])+' modules with Qbip of '+str(topmod)
+	print "----------------------"
+	print"{0}%	{1}	{2}".format(str(100),str(out[0]), str(out[1]))
+	print "----------------------"
 	return out
+
 
 ## Sort by modules
 def sortbymodule(W,g,h):
