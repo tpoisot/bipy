@@ -10,7 +10,7 @@ print ""
 print "The modular network was hand-made"
 print "so that we expect 3 modules"
 print ""
-w = bipartite(readweb('demo.web'),t=True)
+#w = bipartite(readweb('demo.web'),t=True)
 modulinfo = findModules(w,100,5) # Needs a number of replicates
 
 # The following line prints a web grouped by modules
