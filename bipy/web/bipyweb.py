@@ -1,10 +1,13 @@
 # Bipy functions for the web
+# https://github.com/petehunt/PyMySQL is needed
 
 from ..gen import *
 from ..bipartite_class import *
 
 import urllib
 import tempfile
+import pymysql
+pymysql.install_as_MySQLdb()
 import MySQLdb
 import os
 
@@ -24,9 +27,15 @@ def readRemoteWeb(url,as_bip=True,t=False):
 	return web	
 
 
-#def readFromSql(i):
-#	Host = SQL09.FREEMYSQL.NET
-#	User = tpoisot
-#	Pass = wDB1312bp
-#	db = MySQLdb.connect(host=Host, user=User, passwd=Pass, db="networks")
-#	return 0
+def readFromSql(i):
+	Host = 'SQL09.FREEMYSQL.NET'
+	User = 'tpoisot'
+	Pass = 'wDB1312bp'
+	db = MySQLdb.connect(host=Host, user=User, passwd=Pass, db="networks")
+	cursor = db.cursor()
+	cursor.execute('USE networks')
+	# Fetch webs
+	cursor.execute("SELECT * FROM `webs` LIMIT 30")
+	re = cursor.fetchall()
+	print re
+	return 0
