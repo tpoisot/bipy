@@ -25,6 +25,9 @@ class bipartite:
 		self.generality = generality(web)
 		self.vulnerability = vulnerability(web)
 		self.specificity = specificity(web)
+		self.rr = RR(web)
+		self.ssi = ssi(web)
+		self.mperf = meanperf(web)
 		# Nestedness
 		NODF = nodf(web)
 		self.nodf = NODF[0]

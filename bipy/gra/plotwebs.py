@@ -9,9 +9,9 @@ def plotMatrix(w,filename='web',asnest=True):
 	GS = 0.5
 	c = canvas.canvas()
 	if asnest:
-		W = np.copy(sortbydegree(w.adjacency))
+		W = np.copy(sortbydegree(w.web))
 	else:
-		W = np.copy(w.adjacency)
+		W = np.copy(w.web)
 	for i in range(w.upsp):
 		c.text(-0.1, GS*(i+0.7), str(i+1),[text.halign.boxcenter, text.halign.flushcenter])
 		for j in range(w.losp):

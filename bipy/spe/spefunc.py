@@ -79,3 +79,12 @@ def IR(W):
 	R = tR / (2 * cfac)
 	I = tI / cfac
 	return [R,I]
+
+
+def RR(W):
+	ge = generality(W)
+	R = len(W[0])
+	rr = []
+	for i in range(len(ge)):
+		rr.append((R-ge[i])/float(R-1))
+	return rr
