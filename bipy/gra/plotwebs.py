@@ -19,7 +19,7 @@ def plotMatrix(w,filename='web',asnest=True,withcolors=True):
 			for j in range(w.losp):
 				W[i][j] = round((W[i][j]/float(MLink))*100,0)
 		# Define the color gradient
-		ListOfColors = [color.gradient.WhiteRed.select(i, 101) for i in range(101)]
+		ListOfColors = [color.gradient.Gray.select(i, 101) for i in range(101)]
 	for i in range(w.upsp):
 		c.text(-0.1, GS*(i+0.7), str(i+1),[text.halign.boxcenter, text.halign.flushcenter])
 		for j in range(w.losp):

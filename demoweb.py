@@ -19,5 +19,7 @@ at a later time."""
 print ""
 print "Accessing and printing web number 2"
 print ""
+DBw = getWebById(AllId[1])
 
-prettyprint(getWebById(AllId[1]).web)
+prettyprint(DBw.web)
+plotMatrix(DBw)
