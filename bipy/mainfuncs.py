@@ -12,18 +12,27 @@ import numpy as np
 import random
 ##########
 
-def meanperf(W):
+def mean(V):
+	# Mean value
+	mn = float(0)
+	for v in V:
+		mn += v
+	m = mn / len(V)
+	return m
+
+def meanperf(W,novoid=False):
 	# Mean performance of all TL species
 	perf = []
 	fit = 0
 	for fit in W:
-		tspe = 0
-		i = 0
-		while i < len(fit):
-			tspe = tspe + fit[i]
-			i = i+1
-		tspe = tspe / len(fit)
-		perf.append(round(tspe,3))
+		tspe = []
+		for tfit in fit:
+			if novoid:
+				if tfit>0:
+					tspe.append(tfit)
+			else:
+				tspe.append(tfit)
+		perf.append(mean(tspe))
 	return perf
 
 
@@ -41,15 +50,6 @@ def rank(V):
 				V[j] = min(V)-1
 				break
 	return rn
-
-
-def mean(V):
-	# Mean value
-	mn = float(0)
-	for v in V:
-		mn += v
-	m = mn / len(V)
-	return m
 
 
 def surp(V):
