@@ -8,4 +8,4 @@ ResUrl = "http://www.nceas.ucsb.edu/interactionweb/data/host_parasite/text_matri
 #rw = readRemoteWeb(ResUrl,True,True)
 #prettyprint(sortbydegree(rw.web))
 
-readFromSql(1)
+plotMatrix(readFromSql(1))

@@ -37,5 +37,10 @@ def readFromSql(i):
 	# Fetch webs
 	cursor.execute("SELECT * FROM `webs` LIMIT 30")
 	re = cursor.fetchall()
-	print re
-	return 0
+	# Write the web to a temp file
+	f = tempfile.NamedTemporaryFile(delete=False)
+	f.write(re[0][0])
+	f.close()
+	web = bipartite(readweb(f.name))
+	os.unlink(f.name)
+	return web
