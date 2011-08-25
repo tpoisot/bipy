@@ -5,13 +5,21 @@ from pyx import *
 from ..gen import *
 from ..mod import *
 
-def plotMatrix(w,filename='web',asnest=True):
+def plotMatrix(w,filename='web',asnest=True,withcolors=True):
 	GS = 0.5
 	c = canvas.canvas()
 	if asnest:
 		W = np.copy(sortbydegree(w.web))
 	else:
 		W = np.copy(w.web)
+	# If we work with colors
+	if withcolors:
+		MLink = max(w.bperf)
+		for i in range(w.upsp):
+			for j in range(w.losp):
+				W[i][j] = round((W[i][j]/float(MLink))*100,0)
+		# Define the color gradient
+		ListOfColors = [color.gradient.WhiteRed.select(i, 101) for i in range(101)]
 	for i in range(w.upsp):
 		c.text(-0.1, GS*(i+0.7), str(i+1),[text.halign.boxcenter, text.halign.flushcenter])
 		for j in range(w.losp):
@@ -22,7 +30,10 @@ def plotMatrix(w,filename='web',asnest=True):
 				yc = GS*i+(GS/2)
 				xd = 0.8*GS
 				yd = 0.8*GS
-				c.stroke(path.rect(xc, yc, xd, yd),[deco.filled([color.gray.black])])
+				if withcolors:
+					c.stroke(path.rect(xc, yc, xd, yd),[deco.stroked.clear,deco.filled([ListOfColors[int(W[i][j])]])])
+				else:
+					c.stroke(path.rect(xc, yc, xd, yd),[deco.stroked.clear,deco.filled([color.gray.black])])
 	c.writePDFfile(filename)
 	return 0
 
@@ -47,13 +58,13 @@ def plotModules(w,mod,filename='web',col=True):
 				yc = GS*i+(GS/2)
 				xd = 0.8*GS
 				yd = 0.8*GS
-				if col:
-					if cg[i] == ch[j]:
+				if cg[i] == ch[j]:
+					if col:
 						CCol = ListOfColors[(cg[i]-1)]
 					else:
-						CCol = color.cmyk.Gray
+						CCol = color.gray.black
 				else:
-					CCol = color.gray.black
+					CCol = color.cmyk.Gray
 				c.stroke(path.rect(xc, yc, xd, yd),[deco.stroked.clear,deco.filled([CCol])])
 	c.writePDFfile(filename)
 	return 0
