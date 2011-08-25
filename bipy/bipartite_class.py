@@ -28,6 +28,7 @@ class bipartite:
 		self.rr = RR(web)
 		self.ssi = ssi(web)
 		self.mperf = meanperf(web)
+		self.bperf = HighLink(web)
 		# Nestedness
 		NODF = nodf(web)
 		self.nodf = NODF[0]

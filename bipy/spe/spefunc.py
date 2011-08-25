@@ -88,3 +88,10 @@ def RR(W):
 	for i in range(len(ge)):
 		rr.append((R-ge[i])/float(R-1))
 	return rr
+
+
+def HighLink(W):
+	hl = []
+	for i in range(len(W)):
+		hl.append(max(W[i]))
+	return hl
