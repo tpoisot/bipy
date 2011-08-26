@@ -4,7 +4,7 @@
 
 **Author** : Timothee Poisot <tpoisot@um2.fr>  
 **Language** : Python  
-**Requires** : numpy, scipy, pyx, pymysql, tempfile, urllib 
+**Requires** : numpy, scipy, pyx, pymysql, tempfile, urllib, pp 
 
 See the wiki at <http://bipy.timotheepoisot.fr/> for examples
 
