@@ -1,33 +1,30 @@
 import pp
-from collections import Counter
 from ..nul import *
 from ..mainfuncs import *
 from .lpbrim import *
 
+import time
+
+def LPBRIM(W):
+	import scipy as sp
+	import numpy as np
+	LPpart = LP(W)
+	BRIMpart = BRIM(W,LPpart)
+	return BRIMpart
+
 ## Find modules
-def p_findModules(W,ncpu=1):
-	topmod = 0
-	out = [0,0,0,0]
-	if reps >= 100:
-		print "Done	Best Q	Best M"
-		print "----------------------"
-	nstep = outstep
-	for repl in range(reps):
-		LPpart = LP(W)
-		BRIMpart = BRIM(W,LPpart)
-		Q = BRIMpart[0]
-		Nmod = len(uniquify(BRIMpart[1]))
-		TopPart = BRIMpart[1]
-		BotPart = BRIMpart[2]
-		if Q > topmod:
-			topmod = Q
-			out = [Q,Nmod,TopPart,BotPart]
-		if reps >= 100:
-			if (repl/float(reps))*100 >= nstep:
-				print"{0}%	{1} 	{2}".format(str(nstep), str(out[0]), str(out[1]))
-				nstep += outstep
-#	print 'Found '+str(out[1])+' modules with Qbip of '+str(topmod)
-	print "----------------------"
-	print"{0}%	{1}	{2}".format(str(100),str(out[0]), str(out[1]))
-	print "----------------------"
+def p_findModules(W,reps=10,ncpu=1):
+	maxMod = 0
+	LPBRIM(W)
+	ListOfArgs = []
+	for i in range(reps):
+		ListOfArgs.append(W)
+	# Start parallel server
+	job_server = pp.Server(ncpu, ppservers=())
+	print "Starting parallel optimization of modularity on", job_server.get_ncpus(), "CPU(s)"
+	jobs = [(input, job_server.submit(LPBRIM, (input,), (LP, BRIM, mostFrequent, Qbip, getRTfp, uniquify, getCVfromCM, ), ("random","collections",))) for input in ListOfArgs]
+	for input, job in jobs:
+		if job()[0] > maxMod:
+			maxMod = job()[0]
+			out = job()
 	return out

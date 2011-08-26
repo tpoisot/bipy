@@ -1,14 +1,13 @@
 ## LP-BRIM modularity in bipartite webs
-from collections import Counter
+import collections
 from ..nul import *
 from ..mainfuncs import *
-
 
 ## Find the most frequent element of a list
 def mostFrequent(L):
 	l = L
 	random.shuffle(l)
-	c = Counter(l)
+	c = collections.Counter(l)
 	return c.most_common(1)[0][0]
 
 
@@ -27,6 +26,8 @@ def Qbip(W,gg,gh):
 
 ## LP method
 def LP(W):
+	import scipy as sp
+	import numpy as np
 	OptimStep = 0
 #	print "LP-BRIM: LP started"
 	w = W.adjacency ## This version of modularity is BINARY
@@ -98,6 +99,7 @@ def LP(W):
 
 ## Create the R and T matrix from a partition
 def getRTfp(tg,th):
+	import numpy as np
 	ug = uniquify(tg)
 	uh = uniquify(th)
 	c = len(ug)
@@ -127,6 +129,7 @@ def getCVfromCM(cm):
 
 ## BRIM procedure
 def BRIM(W,part):
+	import numpy as np
 #	print "LP-BRIM: BRIM started"
 	# part is an object returned by LP
 	ig = part[1]
@@ -192,9 +195,10 @@ def findModules(W,reps=10,outstep=5):
 				print"{0}%	{1} 	{2}".format(str(nstep), str(out[0]), str(out[1]))
 				nstep += outstep
 #	print 'Found '+str(out[1])+' modules with Qbip of '+str(topmod)
-	print "----------------------"
-	print"{0}%	{1}	{2}".format(str(100),str(out[0]), str(out[1]))
-	print "----------------------"
+	if reps >= 100:
+		print "----------------------"
+		print"{0}%	{1}	{2}".format(str(100),str(out[0]), str(out[1]))
+		print "----------------------"
 	return out
 
 

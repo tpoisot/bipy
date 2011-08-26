@@ -3,8 +3,8 @@
 *bipy* is a collection of python scripts to analyze and visualize two-mode (bipartite) networks, mostly aimed at ecological datasets
 
 **Author** : Timothee Poisot <tpoisot@um2.fr>  
-**Language** : Python  
-**Requires** : numpy, scipy, pyx, pymysql, tempfile, urllib, pp 
+**Language** : Python  > 2.5 (*the Apple version won't work!*)  
+**Requires** : numpy, scipy, pyx, pymysql, tempfile, urllib, pprocess 
 
 See the wiki at <http://bipy.timotheepoisot.fr/> for examples
 
