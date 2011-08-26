@@ -1,4 +1,5 @@
 from bipy import *
+import time
 
 print "Reading the network file..."
 print ""
@@ -10,7 +11,7 @@ prettyprint(w.web)
 # Uncomment to test
 # Of course, you need to have a multi-core machine
 #start_time = time.time()
-#print p_findModules(w,reps=10,ncpu=1)
+#p_modules = p_findModules(w,reps=1000,ncpu=7)
 #print "Time elapsed: ", time.time() - start_time, "s"
 # Tests with the demo data : 1000 repls in 2.3 sec
 
@@ -19,7 +20,7 @@ print "The modular network was hand-made"
 print "so that we expect 3 modules"
 print ""
 start_time = time.time()
-print findModules(w,reps=50)
+modules = findModules(w,reps=50)
 print "Time elapsed: ", time.time() - start_time, "s"
 
 #w = bipartite(readweb('demo.web'),t=True)
