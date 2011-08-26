@@ -24,7 +24,8 @@ def closeDBconnect(dbo):
 	return 0
 
 
-def websOnDB(cat,dbo):
+def websOnDB(dbo,cat='all'):
+	ListOfId = []
 	cursor = dbo.cursor()
 	cursor.execute('USE networks')
 	# Fetch webs
@@ -48,7 +49,7 @@ def websOnDB(cat,dbo):
 
 
 
-def getWebById(id=0,dbo):
+def getWebById(dbo,id=0):
 	cursor = dbo.cursor()
 	cursor.execute('USE networks')
 	# Fetch webs
