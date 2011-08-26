@@ -1,14 +1,18 @@
 ## LP-BRIM modularity in bipartite webs
-import collections
 from ..nul import *
 from ..mainfuncs import *
 
 ## Find the most frequent element of a list
 def mostFrequent(L):
-	l = L
-	random.shuffle(l)
-	c = collections.Counter(l)
-	return c.most_common(1)[0][0]
+	uVal = uniquify(L)
+	random.shuffle(uVal)
+	cnt = {}
+	for u in uVal:
+		cnt[str(u)] = 0
+	for l in L:
+		cnt[str(l)] += 1
+	MaxLab = max(cnt, key=cnt.get)
+	return MaxLab
 
 
 ## Compute Barber's bipartite modularity

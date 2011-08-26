@@ -22,7 +22,7 @@ def p_findModules(W,reps=10,ncpu=1):
 	# Start parallel server
 	job_server = pp.Server(ncpu, ppservers=())
 	print "Starting parallel optimization of modularity on", job_server.get_ncpus(), "CPU(s)"
-	jobs = [(input, job_server.submit(LPBRIM, (input,), (LP, BRIM, mostFrequent, Qbip, getRTfp, uniquify, getCVfromCM, ), ("random","collections",))) for input in ListOfArgs]
+	jobs = [(input, job_server.submit(LPBRIM, (input,), (LP, BRIM, mostFrequent, Qbip, getRTfp, uniquify, getCVfromCM, ), ("random",))) for input in ListOfArgs]
 	for input, job in jobs:
 		if job()[0] > maxMod:
 			maxMod = job()[0]
