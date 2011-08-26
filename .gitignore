@@ -58,3 +58,5 @@ bipy/web/__init__.pyc
 bipy/web/bipyweb.pyc
 
 bipy/mod/p_findMod.pyc
+
+bipy/web/bipydb.pyc
