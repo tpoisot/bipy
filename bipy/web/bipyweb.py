@@ -31,13 +31,13 @@ def websOnDB(dbo,cat='all'):
 	# Fetch webs
 	cursor.execute("SELECT * FROM `webs` LIMIT 30")
 	re = cursor.fetchall()
-	print 'ID	NAME		CATEGORY'
+	print 'ID	NAME		CATEGORY	UTL	LTL'
 	for web in re:
-		if len(str(web[2])) < 10:
+		if len(str(web[2])) < 8:
 			TabOrNot = '	'
 		else:
 			TabOrNot = ''
-		OutStr = '{0}	{1}{2}	{3}'.format(str(web[1]),str(web[2]),TabOrNot,str(web[3]))
+		OutStr = '{0}	{1}{2}	{3}	{4}	{5}'.format(str(web[1]),str(web[2]),TabOrNot,str(web[3]),str(web[9]),str(web[10]))
 		if cat == 'all':
 			print OutStr
 			ListOfId.append(web[1])

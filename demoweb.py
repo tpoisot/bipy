@@ -22,8 +22,8 @@ at a later time."""
 print ""
 print "Accessing and printing web number 2"
 print ""
-DBw = getWebById(db,AllId[1])
 
+DBw = getWebById(db,AllId[1])
 prettyprint(DBw.web)
 plotMatrix(DBw)
 
