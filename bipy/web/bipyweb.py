@@ -1,5 +1,6 @@
 # Bipy functions for the web
 # https://github.com/petehunt/PyMySQL is needed
+# in replacement of MySQLdb
 
 from ..gen import *
 from ..bipartite_class import *
@@ -11,28 +12,20 @@ pymysql.install_as_MySQLdb()
 import MySQLdb
 import os
 
-def readRemoteWeb(url,as_bip=True,t=False):
-	"""Copy the contents of a file from a given URL
-	to a local file.
-	"""
-	f = tempfile.NamedTemporaryFile(delete=False)
-	webFile = urllib.urlopen(url)
-	f.write(webFile.read())
-	webFile.close()
-	f.close()
-	web = readweb(f.name)
-	if as_bip:
-		web = bipartite(web,t)
-	os.unlink(f.name)
-	return web	
+def connectToDB(h='SQL09.FREEMYSQL.NET',u='tpoisot',p='wDB1312bp'):
+	db = MySQLdb.connect(host=h, user=u, passwd=p, db="networks")
+	print "Connection to the database established"
+	return db
 
-def getListOfWebs(cat='all'):
-	Host = 'SQL09.FREEMYSQL.NET'
-	User = 'tpoisot'
-	Pass = 'wDB1312bp'
-	ListOfId = []
-	db = MySQLdb.connect(host=Host, user=User, passwd=Pass, db="networks")
-	cursor = db.cursor()
+
+def closeDBconnect(dbo):
+	dbo.close()
+	print "Connection to the database closed"
+	return 0
+
+
+def websOnDB(cat,dbo):
+	cursor = dbo.cursor()
 	cursor.execute('USE networks')
 	# Fetch webs
 	cursor.execute("SELECT * FROM `webs` LIMIT 30")
@@ -54,12 +47,9 @@ def getListOfWebs(cat='all'):
 	return ListOfId
 
 
-def getWebById(id=0):
-	Host = 'SQL09.FREEMYSQL.NET'
-	User = 'tpoisot'
-	Pass = 'wDB1312bp'
-	db = MySQLdb.connect(host=Host, user=User, passwd=Pass, db="networks")
-	cursor = db.cursor()
+
+def getWebById(id=0,dbo):
+	cursor = dbo.cursor()
 	cursor.execute('USE networks')
 	# Fetch webs
 	cursor.execute("SELECT * FROM webs WHERE id = "+str(id)+" LIMIT 30")
@@ -78,3 +68,18 @@ def getWebById(id=0):
 			web.ref = ref(bib)
 	os.unlink(f.name)
 	return web
+
+
+##### OTHER WEB FUNCTIONS
+
+def readRemoteWeb(url,as_bip=True,t=False):
+	f = tempfile.NamedTemporaryFile(delete=False)
+	webFile = urllib.urlopen(url)
+	f.write(webFile.read())
+	webFile.close()
+	f.close()
+	web = readweb(f.name)
+	if as_bip:
+		web = bipartite(web,t)
+	os.unlink(f.name)
+	return web	
