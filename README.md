@@ -2,6 +2,8 @@
 
 *bipy* is a collection of python scripts to analyze and visualize two-mode (bipartite) networks, mostly aimed at ecological datasets
 
+*bipy* is released under the terms of the GNU GPL <http://en.wikipedia.org/wiki/GNU_General_Public_License>
+
 **Author** : Timothee Poisot <tpoisot@um2.fr>  
 **Language** : Python  >= 2.6  
 **Requires** : numpy, scipy, pyx, pymysql, tempfile, urllib, pp 
