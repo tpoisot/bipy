@@ -3,8 +3,6 @@ from ..nul import *
 from ..mainfuncs import *
 from .lpbrim import *
 
-import time
-
 def LPBRIM(W):
 	import scipy as sp
 	import numpy as np
@@ -15,7 +13,6 @@ def LPBRIM(W):
 ## Find modules
 def p_findModules(W,reps=10,ncpu=1):
 	maxMod = 0
-	LPBRIM(W)
 	ListOfArgs = []
 	for i in range(reps):
 		ListOfArgs.append(W)
