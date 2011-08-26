@@ -3,7 +3,6 @@ from collections import Counter
 from ..nul import *
 from ..mainfuncs import *
 
-import pp
 
 ## Find the most frequent element of a list
 def mostFrequent(L):
