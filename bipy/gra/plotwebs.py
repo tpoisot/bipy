@@ -12,7 +12,7 @@ def plotMatrix(w,filename='web',asnest=True,withcolors=True):
 		W = np.copy(sortbydegree(w.web))
 	else:
 		W = np.copy(w.web)
-	# If we work with colors
+	# If we show the colors for different link strengths
 	if withcolors:
 		MLink = max(w.bperf)
 		for i in range(w.upsp):
