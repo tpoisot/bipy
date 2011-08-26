@@ -28,7 +28,7 @@ print ""
 
 DBw = getWebById(db,AllId[1])
 prettyprint(DBw.web)
-plotMatrix(DBw)
+#plotMatrix(DBw)
 
 # Close the database connection !
 # Do not forget to do it, or else ...
