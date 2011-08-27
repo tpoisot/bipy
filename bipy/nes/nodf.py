@@ -5,7 +5,7 @@ from ..nul import *
 from ..spe import *
 from ..gen import *
 
-def Ncal(W,iter=99,null=1):
+def Ncal(W,reps=99,null=1):
 	Ntot = []
 	Nlow = []
 	Ntop = []
@@ -14,7 +14,7 @@ def Ncal(W,iter=99,null=1):
 	else:
 		Nes = nodf(W)
 	## Iteration
-	for i in range(iter):
+	for i in range(reps):
 		if null == 1:
 			Nprime = nodf(null1(W))
 		if null == 2:
