@@ -33,7 +33,6 @@ def LP(W):
 	import scipy as sp
 	import numpy as np
 	OptimStep = 0
-#	print "LP-BRIM: LP started"
 	w = W.adjacency ## This version of modularity is BINARY
 	# Community objects
 	g = []
@@ -53,11 +52,9 @@ def LP(W):
 		g.append(mostFrequent(vNL))
 	# We calculate basal modularity
 	refBip = Qbip(W,g,h)
-#	print "LP-BRIM: initial Qbip "+str(refBip)
 	oriBip = -1
 	# Then go on to optimize
 	# The LP procedure stops whenever the modularity stops increasing
-#	print "LP-BRIM: LP in progress"
 	while oriBip < refBip:
 		oriBip = refBip
 		# We propagate the UTL species labels
@@ -95,8 +92,6 @@ def LP(W):
 		OptimStep += 1
 	# Once we are OUTSIDE the loop (the modularity is stabilized)
 	# we return the current Qbip and the community partition
-#	print "LP-BRIM: LP converged after "+str(OptimStep)+" events"
-#	print "LP-BRIM: LP found an optimal Qbip "+str(refBip)
 	out = [refBip,g,h]
 	return out
 
