@@ -129,7 +129,6 @@ def getCVfromCM(cm):
 ## BRIM procedure
 def BRIM(W,part):
 	import numpy as np
-#	print "LP-BRIM: BRIM started"
 	# part is an object returned by LP
 	ig = part[1]
 	ih = part[2]
@@ -145,7 +144,6 @@ def BRIM(W,part):
 				B[i][j] -= (W.generality[i]*W.vulnerability[j])/float(W.nlink)
 	# begin BRIM optimization
 	refQbip = -1
-#	print "LP-BRIM: BRIM is refining the partition"
 	while refQbip < iQbip:
 		refQbip = iQbip
 		# Step 1 : BT
@@ -167,7 +165,6 @@ def BRIM(W,part):
 		ng = getCVfromCM(R)
 		nh = getCVfromCM(T)
 		iQbip = Qbip(W,ng,nh)
-#	print "LP-BRIM: BRIM converged to an optimal Qbip "+str(iQbip)
 	return [iQbip,ng,nh]
 
 
