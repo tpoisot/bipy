@@ -69,3 +69,28 @@ def getWebById(id=0):
 	os.unlink(f.name)
 	
 	return web
+
+
+def registerAsContributor(infos,outfile='./WDB_contribinfos.txt'):
+	f = open(outfile, 'w')
+	url = 'http://bipy.alwaysdata.net/adduser.py?'+urllib.urlencode(infos)
+	infos = urllib.urlopen(url).read()
+	xml = minidom.parseString(infos)
+	i = xml.getElementsByTagName('contrib')[0]
+	#
+	print "Thank you "+valNode(i,'rname')+" "+valNode(i,'rsname')+", "
+	print "your registration was successful. Please keep all these informations."
+	print "They are written in the file "+str(outfile)
+	print ""
+	if len(valNode(i,'msg')) > 0:
+		print valNode(i,'msg')
+	print "USERNAME: "+valNode(i,'user')
+	f.write("USERNAME: "+valNode(i,'user')+'\n')
+	print "PASSWORD: "+valNode(i,'pwd')
+	f.write("PASSWORD: "+valNode(i,'pwd')+'\n')
+	print "API KEY : "+valNode(i,'apikey')
+	f.write("API KEY : "+valNode(i,'apikey')+'\n')
+	print "EMAIL   : "+valNode(i,'eml')
+	f.write("EMAIL   : "+valNode(i,'eml')+'\n')
+	
+	return web
