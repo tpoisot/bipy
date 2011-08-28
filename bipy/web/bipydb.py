@@ -27,8 +27,7 @@ def valNode(obj,name):
 def getWebsFromDB(cat='all'):
 	ListOfId = []
 	url = 'http://bipy.alwaysdata.net/getdatabycat.py?cat='+cat
-	infos = urllib.urlopen(url).read()
-		
+	infos = urllib.urlopen(url).read()	
 	xml = minidom.parseString(infos)
 	ids = xml.getElementsByTagName('web')
 	
@@ -50,23 +49,23 @@ def getWebsFromDB(cat='all'):
 	return 0
 
 
-def getWebById(dbo,id=0):
-	cursor = dbo.cursor()
-	cursor.execute('USE networks')
-	# Fetch webs
-	cursor.execute("SELECT * FROM webs WHERE id = "+str(id)+" LIMIT 30")
-	re = cursor.fetchall()
-	# Write the web to a temp file
+def getWebById(id=0):
+	url = 'http://bipy.alwaysdata.net/getdatabyid.py?id='+str(id)
+	infos = urllib.urlopen(url).read()	
+	xml = minidom.parseString(infos)
+	ids = xml.getElementsByTagName('web')[0]
+	#
 	f = tempfile.NamedTemporaryFile(delete=False)
-	f.write(re[0][0])
+	f.write(valNode(ids,'int'))
 	f.close()
 	web = bipartite(readweb(f.name))
-	if len(re[0][4]) > 0:
-		bib = {'doi':re[0][4]}
+	if len(valNode(ids,'doi')) > 0:
+		bib = {'doi':valNode(ids,'doi')}
 		web.ref = ref(bib)
 	else:
-		if len(re[0][5]) > 0:
-			bib = {'pmid':re[0][4]}
+		if len(valNode(ids,'pmid')) > 0:
+			bib = {'pmid':valNode(ids,'pmid')}
 			web.ref = ref(bib)
 	os.unlink(f.name)
+	
 	return web

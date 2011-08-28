@@ -17,3 +17,5 @@ print "Reading a list of all networks available in the WebDB"
 print ""
 AllId = getWebsFromDB(cat='all')
 print ""
+
+print getWebById(2).ref.fulltext
