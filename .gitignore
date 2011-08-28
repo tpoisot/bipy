@@ -60,3 +60,5 @@ bipy/web/bipyweb.pyc
 bipy/mod/p_findMod.pyc
 
 bipy/web/bipydb.pyc
+
+bipy/getref.pyc
