@@ -94,3 +94,9 @@ def registerAsContributor(infos,outfile='./WDB_contribinfos.txt'):
 	f.write("EMAIL   : "+valNode(i,'eml')+'\n')
 	
 	return web
+
+
+def contributeNetwork(bpobj,addinfos,apikey='')
+	
+	getWebsFromDB(cat=addinfos['cat'])
+	return 0
