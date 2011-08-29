@@ -6,7 +6,7 @@
 
 **Author** : Timothee Poisot <tpoisot@um2.fr>  
 **Language** : Python  >= 2.6  
-**Requires** : numpy, scipy, pyx, pymysql, tempfile, urllib, pp 
+**Requires** : numpy, scipy, pyx, tempfile, urllib, pp 
 
 See the wiki at <http://bipy.timotheepoisot.fr/> for examples
 
@@ -17,6 +17,6 @@ See the wiki at <http://bipy.timotheepoisot.fr/> for examples
 **modularity detection** : LP-BRIM algorithm with asynchronous random propagation, uses Barber's modularity, including parallel version of it using *p_findModules*
 **visualization of networks** : *plotMatrix* and *plotModules*, with the possibility to color links according to their strength  
 **ability to read data from the web** : *readRemoteWeb* with the URL of a textfile  
-**integration with a database** : still heacily experimental, but allows to request webs and informations from a central database  
+**integration with a database** : still heavily experimental, but allows to request webs and informations from a central database  
 **integration of bibliographical informations** : can associate a dataset with a DOI, PMID, or JSTOR stable identifier, and get a link or the full references of the paper  
-**a feature-rich class** : defines the *bipartite* class to automate most of the calculations and gain time when using null models
+**a feature-rich class** : defines the *bipartite* class to automate most of the calculations and gain time when using null models  

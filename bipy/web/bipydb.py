@@ -96,7 +96,17 @@ def registerAsContributor(infos,outfile='./WDB_contribinfos.txt'):
 	return web
 
 
-def contributeNetwork(bpobj,addinfos,apikey='')
+def contributeNetwork(bpobj,addinfos,apikey=''):
 	
 	getWebsFromDB(cat=addinfos['cat'])
 	return 0
+
+
+def myApiKey(user,pwd):
+	cinf = {'u':user,'p':pwd}
+	url = 'http://bipy.alwaysdata.net/myapikey.py?'+urllib.urlencode(cinf)
+	infos = urllib.urlopen(url).read()	
+	xml = minidom.parseString(infos)
+	ids = xml.getElementsByTagName('apk')[0]
+	apk = valNode(ids,'apikey')
+	return apk
