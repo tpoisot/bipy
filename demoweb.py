@@ -18,5 +18,7 @@ print ""
 AllId = getWebsFromDB(cat='all')
 print ""
 
-print getWebById(2).ref.fulltext
-print getWebById(2).name
+W = getWebById(2)
+
+print W.ref.fulltext
+print W.name

@@ -97,9 +97,42 @@ def registerAsContributor(infos,outfile='./WDB_contribinfos.txt'):
 	return web
 
 
-def contributeNetwork(bpobj,addinfos,apikey=''):
+def contributeNetwork(bpobj,cat='',utl='',ltl='',desc='',apikey='',public=True):
 	
-	getWebsFromDB(cat=addinfos['cat'])
+	# Check for references
+	rpmid = ''
+	rdoi = ''
+	rjstor = ''
+	if hasattr(bpobj.ref,'pmid'):
+		rpmid = bpobj.ref.pmid
+	if hasattr(bpobj.ref,'doi'):
+		rdoi = bpobj.ref.doi
+	if hasattr(bpobj.ref,'jstor'):
+		rjstor = bpobj.ref.jstor
+	
+	if public:
+		ispublic = 1
+	else:
+		ispublic = 0
+	
+	UrlArgs = {'w':webAsStr(bpobj),
+	'n':bpobj.name,
+	'c':cat,
+	'u':utl,
+	'l':ltl,
+	'r.d':rdoi,
+	'r.p':rpmid,
+	'r.j':rjstor,
+	'd':desc,
+	'apk':apikey,
+	'ispublic':ispublic
+	}
+	
+	url = 'http://bipy.alwaysdata.net/addnetwork.py?'+urllib.urlencode(UrlArgs)
+	infos = urllib.urlopen(url).read()
+	
+	print urllib.urlencode(UrlArgs)
+	getWebsFromDB(cat=cat)
 	return 0
 
 
