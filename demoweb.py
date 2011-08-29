@@ -19,3 +19,4 @@ AllId = getWebsFromDB(cat='all')
 print ""
 
 print getWebById(2).ref.fulltext
+print getWebById(2).name

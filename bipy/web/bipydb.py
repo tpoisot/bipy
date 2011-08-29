@@ -59,6 +59,7 @@ def getWebById(id=0):
 	f.write(valNode(ids,'int'))
 	f.close()
 	web = bipartite(readweb(f.name))
+	web.name = valNode(ids,'name')
 	if len(valNode(ids,'doi')) > 0:
 		bib = {'doi':valNode(ids,'doi')}
 		web.ref = ref(bib)

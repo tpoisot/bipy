@@ -36,6 +36,8 @@ class bipartite:
 		self.nodf_low = NODF[1]
 		# Placeholder for references
 		self.ref = []
+		# For the name
+		self.name = ''
 
 class ref:
 	## This class defines references for a dataset
