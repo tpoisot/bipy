@@ -1,6 +1,4 @@
-# Bipy functions for the web
-# https://github.com/petehunt/PyMySQL is needed
-# in replacement of MySQLdb
+# Bipy functions for the EWDB
 
 from ..gen import *
 from ..bipartite_class import *
@@ -72,7 +70,7 @@ def getWebById(id=0):
 	return web
 
 
-def registerAsContributor(infos,outfile='./WDB_contribinfos.txt'):
+def registerAsContributor(infos,outfile='./EWDB_contribinfos.txt'):
 	f = open(outfile, 'w')
 	url = 'http://bipy.alwaysdata.net/adduser.py?'+urllib.urlencode(infos)
 	infos = urllib.urlopen(url).read()
