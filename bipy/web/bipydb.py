@@ -22,9 +22,9 @@ def valNode(obj,name):
 	return content
 
 
-def getWebsFromDB(cat='all'):
+def getWebsFromDB(cat='all',apk=''):
 	ListOfId = []
-	url = 'http://bipy.alwaysdata.net/getdatabycat.py?cat='+cat
+	url = 'http://bipy.alwaysdata.net/getdatabycat.py?cat='+cat+'&apk='+apk
 	infos = urllib.urlopen(url).read()	
 	xml = minidom.parseString(infos)
 	ids = xml.getElementsByTagName('web')
@@ -47,8 +47,8 @@ def getWebsFromDB(cat='all'):
 	return 0
 
 
-def getWebById(id=0):
-	url = 'http://bipy.alwaysdata.net/getdatabyid.py?id='+str(id)
+def getWebById(id=0,apk=''):
+	url = 'http://bipy.alwaysdata.net/getdatabyid.py?id='+str(id)+'&apk='+str(apk)
 	infos = urllib.urlopen(url).read()	
 	xml = minidom.parseString(infos)
 	ids = xml.getElementsByTagName('web')[0]
@@ -129,7 +129,6 @@ def contributeNetwork(bpobj,cat='',utl='',ltl='',desc='',apikey='',public=True):
 	url = 'http://bipy.alwaysdata.net/addnetwork.py?'+urllib.urlencode(UrlArgs)
 	infos = urllib.urlopen(url).read()
 	
-	print urllib.urlencode(UrlArgs)
 	getWebsFromDB(cat=cat)
 	return 0
 

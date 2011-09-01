@@ -62,3 +62,5 @@ bipy/mod/p_findMod.pyc
 bipy/web/bipydb.pyc
 
 bipy/getref.pyc
+
+.DS_Store

@@ -37,6 +37,7 @@ def plotMatrix(w,filename='web',asnest=True,withcolors=True):
 	c.writePDFfile(filename)
 	return 0
 
+
 def plotModules(w,mod,filename='web',col=True):
 	GS = 0.5
 	# Organise web by communities
