@@ -110,11 +110,11 @@ def qrange(V):
 	return max(V)-min(V)
 
 
-def d2h(V,bin='sturgis'):
+def d2h(V,bin='sturgis',prop=True):
 	# Returns the values needed to draw an histogram in PyX
 	#
 	# bin can take the values 'sturgis' or 'rice'
-	
+	nInd = len(V)
 	## Number of bins in the histogram
 	if bin == 'sturgis':
 		nbin = np.ceil(1+np.log2(len(V)))
@@ -137,7 +137,10 @@ def d2h(V,bin='sturgis'):
 		for j in range(len(V)):
 			if (brange <= V[j]) & (V[j] < trange):
 				tcount += 1
-		ys.append(tcount)
+		if prop:
+			ys.append(tcount/float(nInd))
+		else:
+			ys.append(tcount)
 		xs.append(rmean)
 	# And finally...
 	return zip(xs,ys)
