@@ -78,8 +78,11 @@ def IR(W):
 			tI += sig[i]*sig[j]*(1-rho[i][j])
 	R = tR / (2 * cfac)
 	I = tI / cfac
-	R = R / float(np.std(W))
-	I = I / float(np.std(I))
+	
+	VarW = np.std(W)*float(np.std(W))
+	
+	R = R / float(VarW)
+	I = I / float(VarW)
 	return [R,I]
 
 
