@@ -312,7 +312,7 @@ def excessModularity(w,m,reps=1000):
 	Qsim = []
 	wQr = Qr(w,m)
 	for i in range(reps):
-		Tnul = bipartite(null2(w.adjacency))
+		TNul = bipartite(null2(w.adjacency))
 		ExcQ = wQr - Qr(TNul,m)
 		Qsim.append(ExcQ)
 	return [mean(Qsim),Qsim]
