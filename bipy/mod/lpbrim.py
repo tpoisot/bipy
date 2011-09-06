@@ -1,6 +1,7 @@
 ## LP-BRIM modularity in bipartite webs
 from ..nul import *
 from ..mainfuncs import *
+from ..bipartite_class import *
 
 ## Find the most frequent element of a list
 def mostFrequent(L):
