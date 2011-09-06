@@ -305,4 +305,17 @@ def splitWeb(W,mod,path='.',prefix='web_',ext='web',minU=3,minL=3):
 					np.savetxt(path+'/'+prefix+str(mod)+'.'+ext,nWeb,delimiter=' ')
 	return 0
 
+
+## excess modularity
+def excessModularity(w,m,reps=1000):
+	Qsim = []
+	wQr = Qr(web,mod)
+	for i in range(reps):
+		Tnul = bipartite(null2(web.adjacency))
+		ExcQ = wQr - Qr(TNul,mod)
+		Qsim.append(ExcQ)
+	return [mean(Qsim),Qsim]
+
+
+
 ## END OF FILE
