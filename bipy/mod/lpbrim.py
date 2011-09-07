@@ -316,16 +316,4 @@ def splitWeb(W,mod,path='.',prefix='web_',ext='web',minU=3,minL=3):
 	return 0
 
 
-## excess modularity
-def excessModularity(w,m,reps=1000):
-	Qsim = []
-	wQr = Qr(w,m)
-	for i in range(reps):
-		TNul = bipartite(null2(w.adjacency))
-		ExcQ = wQr - Qr(TNul,m)
-		Qsim.append(ExcQ)
-	return [mean(Qsim),Qsim]
-
-
-
 ## END OF FILE
