@@ -3,8 +3,11 @@ import numpy as np
 from ..mainfuncs import *
 from ..gen import *
 from ..spe import *
+import pp
 
+## Null model C (needs the size and connectance)
 def nullC(ntop=30,nbottom=30,conn=0.5):
+	import numpy as np
 	Nsize = ntop * nbottom
 	Wp = np.zeros((ntop,nbottom))
 	for i in range(ntop):
@@ -14,6 +17,8 @@ def nullC(ntop=30,nbottom=30,conn=0.5):
 				Wp[i][j] = 1
 	return fixmat(Wp)
 
+
+## Null model 1 (connectance based)
 def null1(W):
 	# Generate a random network based on the
 	# overall connectance of the web
@@ -25,12 +30,14 @@ def null1(W):
 		Wp = nullC(len(W),len(W[0]),C)
 	return fixmat(Wp)
 
+
+## Null model 2 (constrained)
 def null2(W):
 	# Generate a random network based on the
 	# probability that a row and a column
 	# have an interaction in the overall
 	# web
-	
+	import numpy as np
 	if hasattr(W,'connectance'):
 		adj = W.adjacency
 		g = W.generality
@@ -58,3 +65,34 @@ def null2(W):
 				Wp[i][j] = 1
 	return fixmat(Wp)
 	
+
+
+## Parallel wrapper for the null model 1
+def p_null1(W,nreps=100,ncpu=2):
+	# Generate a long replication of the web
+	ListOfArgs = []
+	for i in range(nreps):
+		ListOfArgs.append(W)
+	# Initiate parallel
+	job_server = pp.Server(ncpu, ppservers=())
+	print "Starting parallel generation of null models on", job_server.get_ncpus(), "CPU(s)"
+	jobs = [(input, job_server.submit(null1, (input,), (fixmat, websize, generality, vulnerability, nullC, ), ())) for input in ListOfArgs]
+	ListOfNulls = []
+	for input, job in jobs:
+		ListOfNulls.append(job())
+	return ListOfNulls
+
+## Parallel wrapper for the null model 2
+def p_null2(W,nreps=100,ncpu=2):
+	# Generate a long replication of the web
+	ListOfArgs = []
+	for i in range(nreps):
+		ListOfArgs.append(W)
+	# Initiate parallel
+	job_server = pp.Server(ncpu, ppservers=())
+	print "Starting parallel generation of null models on", job_server.get_ncpus(), "CPU(s)"
+	jobs = [(input, job_server.submit(null2, (input,), (fixmat, websize, generality, vulnerability, ), ())) for input in ListOfArgs]
+	ListOfNulls = []
+	for input, job in jobs:
+		ListOfNulls.append(job())
+	return ListOfNulls
