@@ -20,7 +20,7 @@ print "The modular network was hand-made"
 print "so that we expect 3 modules"
 print ""
 start_time = time.time()
-modules = findModules(w,reps=50)
+modules = findModules(w,reps=100)
 print "Time elapsed: ", time.time() - start_time, "s"
 
 #w = bipartite(readweb('demo.web'),t=True)

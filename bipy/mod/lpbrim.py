@@ -169,6 +169,20 @@ def BRIM(W,part):
 	return [iQbip,ng,nh]
 
 
+## Single LPBRIM Run
+def LPBRIM(W):
+	import scipy as sp
+	import numpy as np
+	LPpart = LP(W)
+	BRIMpart = BRIM(W,LPpart)
+	Q = BRIMpart[0]
+	Nmod = len(uniquify(BRIMpart[1]))
+	TopPart = BRIMpart[1]
+	BotPart = BRIMpart[2]
+	out = [Q,Nmod,TopPart,BotPart]
+	return out
+
+
 ## Find modules
 def findModules(W,reps=10,outstep=5):
 	topmod = 0
@@ -178,15 +192,10 @@ def findModules(W,reps=10,outstep=5):
 		print "----------------------"
 	nstep = outstep
 	for repl in range(reps):
-		LPpart = LP(W)
-		BRIMpart = BRIM(W,LPpart)
-		Q = BRIMpart[0]
-		Nmod = len(uniquify(BRIMpart[1]))
-		TopPart = BRIMpart[1]
-		BotPart = BRIMpart[2]
-		if Q > topmod:
-			topmod = Q
-			out = [Q,Nmod,TopPart,BotPart]
+		run = LPBRIM(W)
+		if run[0] > topmod:
+			topmod = run[0]
+			out = run
 		if reps >= 100:
 			if (repl/float(reps))*100 >= nstep:
 				print"{0}%	{1} 	{2}".format(str(nstep), str(out[0]), str(out[1]))

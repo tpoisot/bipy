@@ -3,13 +3,6 @@ from ..nul import *
 from ..mainfuncs import *
 from .lpbrim import *
 
-def LPBRIM(W):
-	import scipy as sp
-	import numpy as np
-	LPpart = LP(W)
-	BRIMpart = BRIM(W,LPpart)
-	return BRIMpart
-
 ## Find modules
 def p_findModules(W,reps=10,ncpu=1):
 	maxMod = 0
