@@ -10,6 +10,7 @@ def getDevNest(w,list):
 		ni = nodf(i)
 		deviation.append(w.nodf-ni[0])
 	return deviation
+
 	
 ## excess modularity
 def getDevMod(w,m,list):
