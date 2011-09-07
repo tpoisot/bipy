@@ -3,13 +3,14 @@
 __name__ = "bipy"
 
 # Load the null models utilities
-from .gen import *
-from .nul import *
-from .nes import *
-from .spe import *
-from .mod import *
-from .gra import *
+from .gen import * # General functions
+from .nul import * # Null models
+from .nes import * # Nestedness related functions
+from .spe import * # Specificity
+from .mod import * # Modularity detection
+from .gra import * # Graphic utilities
 from .web import * # Web functions
-from mainfuncs import *
-from bipartite_class import *
-from getref import *
+from .tes import * # Test of deviation from null models
+from mainfuncs import * # Other functions
+from bipartite_class import * # General class for bipartite webs
+from getref import * # Functions to get the bibliographical infos
