@@ -107,10 +107,8 @@ def nullModel(W,null=1,nreps=1,ncpus=1):
 	while len(out) < nreps:
 		if null == 1:		
 			tnmod = null1(W)
-			if (websize(tnmod) == W.size):
-				out.append(null1(W))
 		else:
 			tnmod = null2(W)
-			if (websize(tnmod) == W.size):
-				out.append(tnmod)
+			if (len(tnmod)==W.upsp)&(len(tnmod[0])==W.losp):
+				out.append(null1(W))
 	return out
