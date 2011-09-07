@@ -103,22 +103,22 @@ def p_null2(W,nreps=100,ncpu=2):
 
 ## Global wrapper around the null models
 def nullModel(W,null=1,nreps=1,ncpus=1):
-	nreps= 50*nreps
+	gnreps= 30*nreps
 	if ncpus == 1:
 		out = []
 		if null == 1:
-			for i in range(nreps):
+			for i in range(gnreps):
 				tnmod = null1(W)
 				if (websize(tnmod) == W.size):
 					out.append(null1(W))
 		else:
-			for i in range(nreps):
+			for i in range(gnreps):
 				tnmod = null1(W)
 				if (websize(tnmod) == W.size):
 					out.append(null1(W))
 	else:
 		if null == 1:
-			out = p_null1(W,nreps=nreps,ncpu=ncpus)
+			out = p_null1(W,nreps=gnreps,ncpu=ncpus)
 		else:
-			out = p_null2(W,nreps=nreps,ncpu=ncpus)
-	return out
+			out = p_null2(W,nreps=gnreps,ncpu=ncpus)
+	return out[:nreps]

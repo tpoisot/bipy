@@ -30,6 +30,3 @@ print "Mean number of parasites      : "+str(mean(w.vulnerability))+" "
 print "Nestedness (NODF)             : "+str(w.nodf)+" "
 print "Network size                  : "+str(w.size)+" "
 output_citinfo(w)
-
-ln = nullModel(w,1,100,2)
-print getDevNest(w,ln)

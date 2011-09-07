@@ -1,11 +1,10 @@
 ## Tests of deviation from the null models
 
 from ..nes import *
+from ..mod import *
 
 ## excess modularity
 def getDevNest(w,list):
-	print w.upsp
-	print w.losp
 	deviation = []
 	for i in list:
 		ni = nodf(i)
