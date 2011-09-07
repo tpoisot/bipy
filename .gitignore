@@ -68,3 +68,7 @@ bipy/getref.pyc
 bipy/tes/__init__.pyc
 
 bipy/tes/tests.pyc
+
+.pydevproject
+
+.project
