@@ -82,6 +82,7 @@ def p_null1(W,nreps=100,ncpu=2):
 		ListOfNulls.append(job())
 	return ListOfNulls
 
+
 ## Parallel wrapper for the null model 2
 def p_null2(W,nreps=100,ncpu=2):
 	# Generate a long replication of the web
@@ -96,3 +97,21 @@ def p_null2(W,nreps=100,ncpu=2):
 	for input, job in jobs:
 		ListOfNulls.append(job())
 	return ListOfNulls
+
+
+## Global wrapper around the null models
+def nullModel(W,null=1,nreps=1,ncpus=1):
+	if ncpus == 1:
+		out = []
+		if null == 1:
+			for i in range(nreps):
+				out.append(null1(W))
+		else:
+			for i in range(nreps):
+				out.append(null2(W))
+	else:
+		if null == 1:
+			out = p_null1(W,nreps=nreps,ncpu=ncpus)
+		else:
+			out = p_null2(W,nreps=nreps,ncpu=ncpus)
+	return out
