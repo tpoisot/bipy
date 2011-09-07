@@ -6,7 +6,7 @@ from ..mainfuncs import *
 
 def fixmat(aW):
 	import numpy as np
-	W = aW
+	W = np.copy(aW)
 	# Fix a matrix so that there are no empty row
 	# or empty columns, issues a message is some rows
 	# were removed

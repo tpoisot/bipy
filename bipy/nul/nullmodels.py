@@ -37,28 +37,16 @@ def null2(W):
 	# probability that a row and a column
 	# have an interaction in the overall
 	# web
-	import numpy as np
-	if hasattr(W,'connectance'):
-		adj = W.adjacency
-		g = W.generality
-		v = W.vulnerability
-		upsp = W.upsp
-		losp = W.losp
-	else:
-		adj = adjacency(W)
-		g = generality(W)
-		v = vulnerability(W)
-		upsp = len(adj)
-		losp = len(adj[0])
-		
-	for i in range(upsp):
-		g[i] = g[i]/float(losp)
-	for j in range(losp):
-		v[j] = v[j]/float(upsp)
+	g = []
+	v = []
+	for i in range(W.upsp):
+		g.append(W.generality[i]/float(W.losp))
+	for j in range(W.losp):
+		v.append(W.vulnerability[j]/float(W.upsp))
 	# Generate a random web
-	Wp = np.zeros((upsp,losp))
-	for i in range(upsp):
-		for j in range(losp):
+	Wp = np.zeros((W.upsp,W.losp))
+	for i in range(W.upsp):
+		for j in range(W.losp):
 			IsInt = np.random.uniform(0,1,(1,))
 			ProbInt = (g[i]+v[j])/2
 			if ProbInt > IsInt:
@@ -104,11 +92,17 @@ def p_null2(W,nreps=100,ncpu=2):
 ## Global wrapper around the null models
 def nullModel(W,null=1,nreps=1,ncpus=1):
 	out = []
+	i = 0
 	while len(out) < nreps:
-		if null == 1:		
+		i += 1
+		## Do the null web
+		if null == 1:
 			tnmod = null1(W)
 		else:
 			tnmod = null2(W)
-			if (len(tnmod)==W.upsp)&(len(tnmod[0])==W.losp):
-				out.append(null1(W))
+		## Check it
+		sha = tnmod.shape
+		if (sha[0]==W.upsp)&(sha[1]==W.losp):
+			out.append(null1(W))
+	print str(nreps)+' null webs generated in '+str(i)+' iterations'
 	return out
