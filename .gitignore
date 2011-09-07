@@ -64,3 +64,7 @@ bipy/web/bipydb.pyc
 bipy/getref.pyc
 
 .DS_Store
+
+bipy/tes/__init__.pyc
+
+bipy/tes/tests.pyc

@@ -79,7 +79,8 @@ def p_null1(W,nreps=100,ncpu=2):
 	jobs = [(input, job_server.submit(null1, (input,), (fixmat, websize, generality, vulnerability, nullC, ), ())) for input in ListOfArgs]
 	ListOfNulls = []
 	for input, job in jobs:
-		ListOfNulls.append(job())
+		if (websize(job()) == W.size):
+			ListOfNulls.append(job())
 	return ListOfNulls
 
 
@@ -95,20 +96,26 @@ def p_null2(W,nreps=100,ncpu=2):
 	jobs = [(input, job_server.submit(null2, (input,), (fixmat, websize, generality, vulnerability, ), ())) for input in ListOfArgs]
 	ListOfNulls = []
 	for input, job in jobs:
-		ListOfNulls.append(job())
+		if (websize(job()) == W.size):
+			ListOfNulls.append(job())
 	return ListOfNulls
 
 
 ## Global wrapper around the null models
 def nullModel(W,null=1,nreps=1,ncpus=1):
+	nreps= 50*nreps
 	if ncpus == 1:
 		out = []
 		if null == 1:
 			for i in range(nreps):
-				out.append(null1(W))
+				tnmod = null1(W)
+				if (websize(tnmod) == W.size):
+					out.append(null1(W))
 		else:
 			for i in range(nreps):
-				out.append(null2(W))
+				tnmod = null1(W)
+				if (websize(tnmod) == W.size):
+					out.append(null1(W))
 	else:
 		if null == 1:
 			out = p_null1(W,nreps=nreps,ncpu=ncpus)
