@@ -77,6 +77,7 @@ def prettyprint(W):
 	    print tLine
 	return 0
 
+
 def sortbydegree(W):
 	# Sort a matrix by degree
 	# Better for visualization
