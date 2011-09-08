@@ -65,6 +65,8 @@ class bipartite:
 		self.ref = []
 		# For the name
 		self.name = ''
+	
+
 
 class ref:
 	## This class defines references for a dataset
