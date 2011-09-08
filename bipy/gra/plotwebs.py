@@ -48,7 +48,7 @@ def plotBModules(w,mod,filename='web',withcolors=True):
 	h = np.copy(mod[3])
 	ch = sorted(h,reverse=True)
 	# Aspect ratio (these parameters seem to be OK)
-	yp = max((max(w.upsp,w.losp)/float(min(w.upsp,w.losp))*5),6)
+	yp = max((max(w.upsp,w.losp)/float(min(w.upsp,w.losp))*5),8)
 	# Next...
 	ListOfColors = [color.gradient.Hue.select(i, (mod[1]+1)) for i in range(mod[1]+1)]
 	###### Plot
@@ -66,10 +66,19 @@ def plotBModules(w,mod,filename='web',withcolors=True):
 			if W[i][j] > 0:
 				lwid = round((W[i][j]/float(MLink)),0)*0.05
 				if cg[i] == ch[j]:
-					lcol = color.gray.black
+					continue
 				else:
-					lcol = color.cmyk.Gray
-				c.stroke(path.line(1, top_height[i], yp, bot_height[j]),[deco.stroked([lcol]),style.linewidth(lwid)])
+					c.stroke(path.line(1, top_height[i], yp, bot_height[j]),[deco.stroked([color.cmyk.Gray]),style.linewidth(lwid)])
+				
+	# Plot the lines first
+	for i in range(w.upsp):
+		for j in range(w.losp):
+			if W[i][j] > 0:
+				lwid = round((W[i][j]/float(MLink)),0)*0.05
+				if cg[i] == ch[j]:
+					c.stroke(path.line(1, top_height[i], yp, bot_height[j]),[deco.stroked([color.gray.black]),style.linewidth(lwid)])
+				else:
+					continue
 	# Plot the beads
 	for i in range(w.upsp):
 		c.text(0.5, top_height[i], w.upnames[i],[text.parbox(3), text.halign.right])
@@ -95,7 +104,7 @@ def plotBMatrix(w,filename='web',withcolors=True):
 	W = np.copy(w.web)
 #	w = bipartite(w)
 	# Aspect ratio (these parameters seem to be OK)
-	yp = max((max(w.upsp,w.losp)/float(min(w.upsp,w.losp))*5),6)
+	yp = max((max(w.upsp,w.losp)/float(min(w.upsp,w.losp))*5),8)
 	###### Plot
 	# Get the line length
 	MLink = max(w.bperf)
