@@ -232,6 +232,9 @@ def sortbymodule(W,g,h):
 		dW[rG[ro]] = nW[ro]
 		vBnames[rG[ro]] = oBnames[ro]
 	web = np.copy(dW.T)
+	# New temp files for the names
+	oBnames = np.copy(vBnames)
+	oTnames = np.copy(vTnames)
 	# Step 2 : Sort each module by degree
 	uniqueMod = sorted(uniquify(sg),reverse=True)
 	## Step 2a : sort TLO
@@ -249,6 +252,7 @@ def sortbymodule(W,g,h):
 		rnk = rank(cdeg)
 		for ro in range(len(rnk)):
 			nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
+			vTnames[totalMadeInt+rnk[ro]] = oTnames[totalMadeInt+ro]
 			tempIntCnt += 1
 	web = np.copy(nweb.T)
 	## Step 2b : sort BLO
@@ -266,6 +270,7 @@ def sortbymodule(W,g,h):
 		rnk = rank(cdeg)
 		for ro in range(len(rnk)):
 			nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
+			vBnames[totalMadeInt+rnk[ro]] = oBnames[totalMadeInt+ro]
 			tempIntCnt += 1
 	Fweb = bipartite(np.copy(nweb.T))
 	Fweb.upnames = vTnames
