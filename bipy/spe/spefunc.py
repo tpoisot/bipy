@@ -62,24 +62,24 @@ def ssi(W):
 
 def IR(W):
 	# Correlation matrix of responses
-	rho = np.corrcoef(W)
+	rho = np.corrcoef(W.web)
 	# Standard deviations of responses
 	sig = []
-	for fit in W:
+	for fit in W.web:
 		sig.append(round(np.std(fit),4))
 	# Correction factor
-	cfac = len(W)*(len(W)-1)
+	cfac = W.upsp*(W.upsp-1)
 	# Measures
 	tR = 0
 	tI = 0
-	for i in range(len(W)-1):
-		for j in range((i+1),len(W)):
+	for i in range(W.upsp-1):
+		for j in range((i+1),W.upsp):
 			tR += (sig[i]-sig[j]) ** 2
 			tI += sig[i]*sig[j]*(1-rho[i][j])
 	R = tR / (2 * cfac)
 	I = tI / cfac
 	
-	VarW = np.std(W)*float(np.std(W))
+	VarW = np.std(W.web)*float(np.std(W.web))
 	
 	R = R / float(VarW)
 	I = I / float(VarW)

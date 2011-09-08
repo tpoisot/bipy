@@ -23,13 +23,8 @@ def nullC(ntop=30,nbottom=30,conn=0.5):
 def null1(W):
 	# Generate a random network based on the
 	# overall connectance of the web
-	if hasattr(W,'connectance'):
-		C = W.connectance
-		Wp = nullC(len(W.web),len(W.web[0]),C)
-	else:
-		C = connectance(W)
-		Wp = nullC(len(W),len(W[0]),C)
-	return fixmat(Wp)
+	Wp = nullC(W.upsp,W.losp,W.connectance)
+	return mini_bipartite(fixmat(Wp))
 
 
 ## Null model 2 (constrained)
@@ -52,7 +47,7 @@ def null2(W):
 			ProbInt = (g[i]+v[j])/2
 			if ProbInt > IsInt:
 				Wp[i][j] = 1
-	return fixmat(Wp)
+	return mini_bipartite(fixmat(Wp))
 	
 
 
