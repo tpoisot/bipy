@@ -7,7 +7,7 @@ from ..mod import *
 def getDevNest(w,list):
 	deviation = []
 	for i in list:
-		ni = nodf(i)
+		ni = i.nodf
 		deviation.append(w.nodf-ni[0])
 	return deviation
 
@@ -17,6 +17,6 @@ def getDevMod(w,m,list):
 	Qsim = []
 	wQr = Qr(w,m)
 	for i in list:
-		ExcQ = wQr - Qr(bipartite(i),m)
+		ExcQ = wQr - Qr(i,m)
 		Qsim.append(ExcQ)
 	return Qsim
