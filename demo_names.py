@@ -7,12 +7,16 @@ print ""
 rw = bipartite(readweb('fonseca.web'))
 rw.upnames = ['Caba','Azal','Azis','Azaf','AlD','Alpr','Alaf','SoA','Alau','CrB','AzHC','AzG','CrD','AzCO','Phmi','CrA','AzTO','CrC','Azsc','Psni','Psco','AzD','Azpo','CrE','AzQ']
 rw.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy','Hiph','Dusa','Cono','Coaf','Tobu','Magu','Mapo','Tapo','Tamy','Amaf']
-modules = findModules(rw,100)
+modules = findModules(rw,200)
 
+print ""
+print "Some statistics about the whole network"
+print ""
 print 'N  : '+str(rw.nodf)
 print 'Qb : '+str(modules[0])
 print 'Qr : '+str(Qr(rw,modules))
-
+print 'm  : '+str(modules[1])
+print ""
 print "Some statistics for the upper trophic level species"
 print ""
 print "--------------------------------"
