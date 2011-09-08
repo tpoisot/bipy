@@ -44,10 +44,12 @@ def fixmat(aW):
 		# Finally...
 		return nW
 
+
 def readweb(fname):
 	# Read a web from a text matrix with top trophic level organisms as rows
 	data = np.loadtxt(fname)
 	return fixmat(data)
+
 	
 def adjacency(aW):
 	# Output the adjacency matrix
@@ -59,6 +61,7 @@ def adjacency(aW):
 			if aW[to,bo] > 0:
 				W[to,bo] = 1
 	return W
+
 
 def prettyprint(W):
 	# Outputs a text version of the matrix
