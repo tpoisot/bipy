@@ -11,7 +11,7 @@ def plotWeb(w,minfo='',filename='web',asnest=True,asbeads=False,colors=True):
 		# If the modules infos are void...
 		if asnest:
 			# If we want the web to be nested
-			tW = sortbydegree(w)
+			tW = np.copy(sortbydegree(w))
 			W = bipartite(tW[0])
 			W.upnames=tW[1]
 			W.lonames=tW[2]

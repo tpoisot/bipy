@@ -41,6 +41,7 @@ def sortbydegree(W):
 		if hasattr(W,'connectance'):
 			vBnames[rG[ro]] = oBnames[ro]
 	Fweb = np.copy(dW.T)
+	# This is an horrible horrible solution
 	if hasattr(W,'connectance'):
 		Fweb = [Fweb,vTnames,vBnames]
 	return Fweb
