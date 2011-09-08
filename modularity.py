@@ -27,6 +27,9 @@ print "Time elapsed: ", time.time() - start_time, "s"
 #modulinfo = findModules(w,100,5) # Needs a number of replicates
 
 # The following line prints a web grouped by modules
-#plotModules(w,modulinfo,filename='web_by_modules',col=True)
+#plotModules(w,modules,filename='web_by_modules',col=True)
 # compare with the result of the function printing it by degree
 #plotMatrix(w,filename='web_by_degree',asnest=True)
+
+plotWeb(w,asnest=True,filename='web_N')
+plotWeb(w,modules,asnest=True,filename='web_M')

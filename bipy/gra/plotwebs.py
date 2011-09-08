@@ -5,14 +5,35 @@ from pyx import *
 from ..gen import *
 from ..mod import *
 
-def plotMatrix(w,filename='web',asnest=True,withcolors=True):
-	GS = 0.5
-	c = canvas.canvas()
-	if asnest:
-		W = np.copy(sortbydegree(w.web))
+# Generic function for plotting
+def plotWeb(w,minfo='',filename='web',asnest=True,asbeads=False,colors=True):
+	if minfo=='':
+		# If the modules infos are void...
+		if asnest:
+			# If we want the web to be nested
+			W = np.copy(sortbydegree(w.web))
+		else:
+			# Else
+			W = np.copy(w.web)
+		# We plot the web as a matrix
+		plotMatrix(W,filename=filename,withcolors=colors)
 	else:
-		W = np.copy(w.web)
-	# If we show the colors for different link strengths
+		# If we give modules as an argument...
+		g = np.copy(minfo[2])
+		h = np.copy(minfo[3])
+		W = np.copy(sortbymodule(w,g,h))
+		# And... the plot
+		plotModules(W,minfo,filename=filename,withcolors=colors)
+	# In the end, we output the web sorted as in the plot
+	# This may be useful
+	return W
+
+
+def plotMatrix(w,filename='web',withcolors=True):
+	GS = 0.5
+	W = np.copy(w)
+	w = bipartite(w)
+	c = canvas.canvas()
 	if withcolors:
 		MLink = max(w.bperf)
 		for i in range(w.upsp):
@@ -38,14 +59,15 @@ def plotMatrix(w,filename='web',asnest=True,withcolors=True):
 	return 0
 
 
-def plotModules(w,mod,filename='web',col=True):
+def plotModules(w,mod,filename='web',withcolors=True):
 	GS = 0.5
 	# Organise web by communities
-	g = mod[2]
+	W = np.copy(w)
+	g = np.copy(mod[2])
 	cg = sorted(g,reverse=True)
-	h = mod[3]
+	h = np.copy(mod[3])
 	ch = sorted(h,reverse=True)
-	W = sortbymodule(w,g,h)
+	w = mini_bipartite(w)
 	ListOfColors = [color.gradient.Hue.select(i, (mod[1]+1)) for i in range(mod[1]+1)]
 	# Plot
 	c = canvas.canvas()
@@ -60,7 +82,7 @@ def plotModules(w,mod,filename='web',col=True):
 				xd = 0.8*GS
 				yd = 0.8*GS
 				if cg[i] == ch[j]:
-					if col:
+					if withcolors:
 						CCol = ListOfColors[(cg[i]-1)]
 					else:
 						CCol = color.gray.black
