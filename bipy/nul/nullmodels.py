@@ -4,6 +4,7 @@ from ..mainfuncs import *
 from ..gen import *
 from ..spe import *
 import pp
+from sys import stdout
 
 ## Null model C (needs the size and connectance)
 def nullC(ntop=30,nbottom=30,conn=0.5):
@@ -104,5 +105,10 @@ def nullModel(W,null=1,nreps=1,ncpus=1):
 		sha = tnmod.shape
 		if (sha[0]==W.upsp)&(sha[1]==W.losp):
 			out.append(null1(W))
-	print str(nreps)+' null webs generated in '+str(i)+' iterations'
+		currentRep = round(100*(len(out)/float(nreps)),0)
+		for i in range(1,20):
+			stdout.write("\r%g   " % currentRep)
+			stdout.flush()
+	stdout.write("\r    \r\n")
+	print str(nreps)+' null webs generated in '+str(i)+' iterations\n'
 	return out
