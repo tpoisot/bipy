@@ -106,9 +106,8 @@ def nullModel(W,null=1,nreps=1,ncpus=1):
 		if (sha[0]==W.upsp)&(sha[1]==W.losp):
 			out.append(null1(W))
 		currentRep = round(100*(len(out)/float(nreps)),0)
-		for i in range(1,20):
-			stdout.write("\r%g   " % currentRep)
-			stdout.flush()
+		stdout.write("\r%g   " % currentRep)
+		stdout.flush()
 	stdout.write("\r    \r\n")
 	print str(nreps)+' null webs generated in '+str(i)+' iterations\n'
 	return out
