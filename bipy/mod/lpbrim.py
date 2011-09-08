@@ -213,17 +213,24 @@ def sortbymodule(W,g,h):
 	sg = sorted(np.copy(g),reverse=True)
 	sh = sorted(np.copy(h),reverse=True)
 	# Step 1 : Sort a matrix by module
+	## VOID VECTORS FOR THE SORTED SPECIES NAMES
+	oTnames = W.upnames
+	oBnames = W.lonames
+	vTnames = np.copy(oTnames)
+	vBnames = np.copy(oBnames)
 	## Step 1a : sort TLO
 	rG = rank(g)
 	nW = np.zeros((W.upsp,W.losp))
 	for ro in range(0,W.upsp):
 		nW[rG[ro]] = W.web[ro]
+		vTnames[rG[ro]] = oTnames[ro]
 	## Step 1b : sort BLO
 	nW = nW.T
 	dW = np.zeros((W.upsp,W.losp)).T
 	rG = rank(h)
 	for ro in range(0,W.losp):
 		dW[rG[ro]] = nW[ro]
+		vBnames[rG[ro]] = oBnames[ro]
 	web = np.copy(dW.T)
 	# Step 2 : Sort each module by degree
 	uniqueMod = sorted(uniquify(sg),reverse=True)
@@ -260,7 +267,10 @@ def sortbymodule(W,g,h):
 		for ro in range(len(rnk)):
 			nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
 			tempIntCnt += 1
-	return nweb.T
+	Fweb = bipartite(np.copy(nweb.T))
+	Fweb.upnames = vTnames
+	Fweb.lonames = vBnames
+	return Fweb
 
 
 ## Realized modularity

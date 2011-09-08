@@ -4,6 +4,48 @@ from .gendesc import *
 from ..spe import *
 from ..mainfuncs import *
 
+def sortbydegree(W):
+	# Sort a matrix by degree
+	# Better for visualization
+	# Required for nestednes
+	if hasattr(W,'connectance'):
+		g = W.generality
+		v = W.vulnerability
+		upsp = W.upsp
+		losp = W.losp
+		web = W.web
+		## VOID VECTORS FOR THE SORTED SPECIES NAMES
+		oTnames = W.upnames
+		oBnames = W.lonames
+		vTnames = np.copy(oTnames)
+		vBnames = np.copy(oBnames)
+	else:
+		g = generality(W)
+		v = vulnerability(W)
+		upsp = len(W)
+		losp = len(W[0])
+		web = W
+	## Step 1 : sort TLO
+	rG = rank(g)
+	nW = np.zeros((upsp,losp))
+	for ro in range(0,upsp):
+		nW[rG[ro]] = web[ro]
+		if hasattr(W,'connectance'):
+			vTnames[rG[ro]] = oTnames[ro]
+	## Step 2 : sort BLO
+	nW = nW.T
+	dW = np.zeros((upsp,losp)).T
+	rG = rank(v)
+	for ro in range(0,losp):
+		dW[rG[ro]] = nW[ro]
+		if hasattr(W,'connectance'):
+			vBnames[rG[ro]] = oBnames[ro]
+	Fweb = np.copy(dW.T)
+	if hasattr(W,'connectance'):
+		Fweb = [Fweb,vTnames,vBnames]
+	return Fweb
+
+
 def fixmat(aW):
 	import numpy as np
 	W = np.copy(aW)
@@ -76,38 +118,6 @@ def prettyprint(W):
 	            tLine = tLine+'- '
 	    print tLine
 	return 0
-
-
-def sortbydegree(W):
-	# Sort a matrix by degree
-	# Better for visualization
-	# Required for nestedness
-	
-	if hasattr(W,'connectance'):
-		g = W.generality
-		v = W.vulnerability
-		upsp = W.upsp
-		losp = W.losp
-		web = W.web
-	else:
-		g = generality(W)
-		v = vulnerability(W)
-		upsp = len(W)
-		losp = len(W[0])
-		web = W
-		
-	## Step 1 : sort TLO
-	rG = rank(g)
-	nW = np.zeros((upsp,losp))
-	for ro in range(0,upsp):
-		nW[rG[ro]] = web[ro]
-	## Step 2 : sort BLO
-	nW = nW.T
-	dW = np.zeros((upsp,losp)).T
-	rG = rank(v)
-	for ro in range(0,losp):
-		dW[rG[ro]] = nW[ro]
-	return dW.T
 
 
 def toN3D(bip,filename='w3b.web'):

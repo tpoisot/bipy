@@ -26,9 +26,9 @@ def Ncal(W,reps=99,null=1):
 
 	
 def nestadj(aW):
-	W = aW
+	W = sortbydegree(aW)
 	# Returns as sorted binary matrix
-	return adjacency(sortbydegree(W))
+	return adjacency(W)
 
 	
 def compareones(w1,w2,tn):

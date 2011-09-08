@@ -11,10 +11,13 @@ def plotWeb(w,minfo='',filename='web',asnest=True,asbeads=False,colors=True):
 		# If the modules infos are void...
 		if asnest:
 			# If we want the web to be nested
-			W = np.copy(sortbydegree(w.web))
+			tW = sortbydegree(w)
+			W = bipartite(tW[0])
+			W.upnames=tW[1]
+			W.lonames=tW[2]
 		else:
 			# Else
-			W = np.copy(w.web)
+			W = np.copy(w)
 		# We plot the web as a matrix
 		if asbeads:
 			plotBMatrix(W,filename=filename,withcolors=colors)
@@ -24,7 +27,7 @@ def plotWeb(w,minfo='',filename='web',asnest=True,asbeads=False,colors=True):
 		# If we give modules as an argument...
 		g = np.copy(minfo[2])
 		h = np.copy(minfo[3])
-		W = np.copy(sortbymodule(w,g,h))
+		W = sortbymodule(w,g,h)
 		# And... the plot
 		if asbeads:
 			plotBModules(W,minfo,filename=filename,withcolors=colors)
@@ -39,12 +42,11 @@ def plotWeb(w,minfo='',filename='web',asnest=True,asbeads=False,colors=True):
 def plotBModules(w,mod,filename='web',withcolors=True):
 	GS = 0.5
 	# Organise web by communities
-	W = np.copy(w)
+	W = np.copy(w.web)
 	g = np.copy(mod[2])
 	cg = sorted(g,reverse=True)
 	h = np.copy(mod[3])
 	ch = sorted(h,reverse=True)
-	w = bipartite(w)
 	# Aspect ratio (these parameters seem to be OK)
 	yp = max((max(w.upsp,w.losp)/float(min(w.upsp,w.losp))*5),6)
 	# Next...
@@ -70,12 +72,14 @@ def plotBModules(w,mod,filename='web',withcolors=True):
 				c.stroke(path.line(1, top_height[i], yp, bot_height[j]),[deco.stroked([lcol]),style.linewidth(lwid)])
 	# Plot the beads
 	for i in range(w.upsp):
+		c.text(0.5, top_height[i], w.upnames[i],[text.parbox(3), text.halign.right])
 		if withcolors:
 			CCol = ListOfColors[(cg[i]-1)]
 		else:
 			CCol = color.gray.black
 		c.fill(path.circle(1, top_height[i], GS*0.6),[deco.stroked.clear,deco.filled([CCol])])
 	for j in range(w.losp):
+		c.text(yp+0.5, bot_height[j], w.lonames[j],[text.parbox(3), text.halign.left])
 		if withcolors:
 			CCol = ListOfColors[(ch[j]-1)]
 		else:
@@ -88,8 +92,8 @@ def plotBModules(w,mod,filename='web',withcolors=True):
 # Plot a nested web as beads
 def plotBMatrix(w,filename='web',withcolors=True):
 	GS = 0.5
-	W = np.copy(w)
-	w = bipartite(w)
+	W = np.copy(w.web)
+#	w = bipartite(w)
 	# Aspect ratio (these parameters seem to be OK)
 	yp = max((max(w.upsp,w.losp)/float(min(w.upsp,w.losp))*5),6)
 	###### Plot
@@ -109,11 +113,14 @@ def plotBMatrix(w,filename='web',withcolors=True):
 				c.stroke(path.line(1, top_height[i], yp, bot_height[j]),[deco.stroked([color.gray.black]),style.linewidth(lwid)])
 	# Plot the beads
 	for i in range(w.upsp):
+		c.text(0.5, top_height[i], w.upnames[i],[text.parbox(3), text.halign.right])
 		c.fill(path.circle(1, top_height[i], GS*0.6),[deco.stroked.clear,deco.filled([color.gray.black])])
 	for j in range(w.losp):
+		c.text(yp+0.5, bot_height[j], w.lonames[j],[text.parbox(3), text.halign.left])
 		c.fill(path.circle(yp, bot_height[j], GS*0.6),[deco.stroked.clear,deco.filled([color.gray.black])])
 	c.writePDFfile(filename)
 	return 0
+
 
 # Plot a web as a nested matrix
 def plotMatrix(w,filename='web',withcolors=True):

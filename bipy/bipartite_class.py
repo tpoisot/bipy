@@ -32,7 +32,6 @@ class mini_bipartite:
 	
 
 
-
 class bipartite:
 	## This class defines a bipartite object with all structural infos
 	def __init__ (self,web,t=False):
@@ -63,6 +62,9 @@ class bipartite:
 		self.nodf_low = NODF[1]
 		# Placeholder for references
 		self.ref = []
+		# Placeholder for species names
+		self.upnames = range(self.upsp)
+		self.lonames = range(self.losp)
 		# For the name
 		self.name = ''
 	
