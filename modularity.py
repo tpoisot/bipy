@@ -30,6 +30,3 @@ print "Time elapsed: ", time.time() - start_time, "s"
 #plotModules(w,modules,filename='web_by_modules',col=True)
 # compare with the result of the function printing it by degree
 #plotMatrix(w,filename='web_by_degree',asnest=True)
-
-plotWeb(w,asnest=True,filename='web_N')
-plotWeb(w,modules,asnest=True,filename='web_M')

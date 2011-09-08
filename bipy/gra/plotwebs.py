@@ -16,19 +16,106 @@ def plotWeb(w,minfo='',filename='web',asnest=True,asbeads=False,colors=True):
 			# Else
 			W = np.copy(w.web)
 		# We plot the web as a matrix
-		plotMatrix(W,filename=filename,withcolors=colors)
+		if asbeads:
+			plotBMatrix(W,filename=filename,withcolors=colors)
+		else:
+			plotMatrix(W,filename=filename,withcolors=colors)
 	else:
 		# If we give modules as an argument...
 		g = np.copy(minfo[2])
 		h = np.copy(minfo[3])
 		W = np.copy(sortbymodule(w,g,h))
 		# And... the plot
-		plotModules(W,minfo,filename=filename,withcolors=colors)
+		if asbeads:
+			plotBModules(W,minfo,filename=filename,withcolors=colors)
+		else:
+			plotModules(W,minfo,filename=filename,withcolors=colors)
 	# In the end, we output the web sorted as in the plot
 	# This may be useful
 	return W
 
 
+# Plot a modular web as beads
+def plotBModules(w,mod,filename='web',withcolors=True):
+	GS = 0.5
+	# Organise web by communities
+	W = np.copy(w)
+	g = np.copy(mod[2])
+	cg = sorted(g,reverse=True)
+	h = np.copy(mod[3])
+	ch = sorted(h,reverse=True)
+	w = bipartite(w)
+	# Aspect ratio (these parameters seem to be OK)
+	yp = max((max(w.upsp,w.losp)/float(min(w.upsp,w.losp))*5),6)
+	# Next...
+	ListOfColors = [color.gradient.Hue.select(i, (mod[1]+1)) for i in range(mod[1]+1)]
+	###### Plot
+	# Get the line length
+	MLink = max(w.bperf)
+	# Get the positions of the nodes
+	mnodes = max(w.upsp,w.losp)
+	top_height = spread(range(w.upsp),1,mnodes)
+	bot_height = spread(range(w.losp),1,mnodes)
+	# Plot
+	c = canvas.canvas()
+	# Plot the lines first
+	for i in range(w.upsp):
+		for j in range(w.losp):
+			if W[i][j] > 0:
+				lwid = round((W[i][j]/float(MLink)),0)*0.05
+				if cg[i] == ch[j]:
+					lcol = color.gray.black
+				else:
+					lcol = color.cmyk.Gray
+				c.stroke(path.line(1, top_height[i], yp, bot_height[j]),[deco.stroked([lcol]),style.linewidth(lwid)])
+	# Plot the beads
+	for i in range(w.upsp):
+		if withcolors:
+			CCol = ListOfColors[(cg[i]-1)]
+		else:
+			CCol = color.gray.black
+		c.fill(path.circle(1, top_height[i], GS*0.6),[deco.stroked.clear,deco.filled([CCol])])
+	for j in range(w.losp):
+		if withcolors:
+			CCol = ListOfColors[(ch[j]-1)]
+		else:
+			CCol = color.gray.black
+		c.fill(path.circle(yp, bot_height[j], GS*0.6),[deco.stroked.clear,deco.filled([CCol])])
+	c.writePDFfile(filename)
+	return 0
+
+
+# Plot a nested web as beads
+def plotBMatrix(w,filename='web',withcolors=True):
+	GS = 0.5
+	W = np.copy(w)
+	w = bipartite(w)
+	# Aspect ratio (these parameters seem to be OK)
+	yp = max((max(w.upsp,w.losp)/float(min(w.upsp,w.losp))*5),6)
+	###### Plot
+	# Get the line length
+	MLink = max(w.bperf)
+	# Get the positions of the nodes
+	mnodes = max(w.upsp,w.losp)
+	top_height = spread(range(w.upsp),1,mnodes)
+	bot_height = spread(range(w.losp),1,mnodes)
+	# Plot
+	c = canvas.canvas()
+	# Plot the lines first
+	for i in range(w.upsp):
+		for j in range(w.losp):
+			if W[i][j] > 0:
+				lwid = round((W[i][j]/float(MLink)),0)*0.05
+				c.stroke(path.line(1, top_height[i], yp, bot_height[j]),[deco.stroked([color.gray.black]),style.linewidth(lwid)])
+	# Plot the beads
+	for i in range(w.upsp):
+		c.fill(path.circle(1, top_height[i], GS*0.6),[deco.stroked.clear,deco.filled([color.gray.black])])
+	for j in range(w.losp):
+		c.fill(path.circle(yp, bot_height[j], GS*0.6),[deco.stroked.clear,deco.filled([color.gray.black])])
+	c.writePDFfile(filename)
+	return 0
+
+# Plot a web as a nested matrix
 def plotMatrix(w,filename='web',withcolors=True):
 	GS = 0.5
 	W = np.copy(w)
@@ -59,6 +146,7 @@ def plotMatrix(w,filename='web',withcolors=True):
 	return 0
 
 
+# Plot a web as a modular matrix
 def plotModules(w,mod,filename='web',withcolors=True):
 	GS = 0.5
 	# Organise web by communities
