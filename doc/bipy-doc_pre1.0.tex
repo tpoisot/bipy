@@ -1,0 +1,53 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[nols,b5paper]{tufte-book}
+
+\usepackage{booktabs}
+
+
+\usepackage{mathspec}
+\usepackage{fontspec,xltxtra,xunicode}
+\defaultfontfeatures{Mapping=tex-text}
+\setromanfont[Mapping=tex-text]{Warnock Pro}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Frutiger LT Std}
+\setmonofont[Scale=MatchLowercase]{Andale Mono}
+\setmathfont(Greek,Latin,Digits){Warnock Pro}
+
+\title{bipy -- documentation}
+\author{Timothée Poisot}
+\date{Version pre 1.0}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+
+\texttt{bipy} is a set of functions written in Python, whose goal is to make it easy to analyze and visualize bipartite networks. This document describes the use of the \texttt{bipy}. This documentation is valid only for the versions before the 1.0 release (scheduled to occur sometime in the fall or winter of 2011). The aim of this documentation is to present only the ``high-level'' functions, i.e. these that the user will need to perform the analyses (although \texttt{bipy} was conceived to automate most of the analyses, so there are a very small number of functions that need to be known). In addition, some background about the measures used and the most important references will be given.
+
+\subsection{Installing \texttt{bipy}}
+
+\texttt{bipy} can be obtained on \emph{GitHub} (http://github.com/tpoisot/bipy). There are a number of required additional software. Obviously, \texttt{bipy} requires a Python installation, preferentially 2.6 or 2.7. For those of you with a Mac, you need to download the version from python.org (http://www.python.org/getit/).
+
+Once this is done, 
+
+\subsection{Do I need to know Python ?}
+
+
+\chapter{Loading data}
+
+This chapter describes how to load data in a format that can be understood by \texttt{bipy}.
+
+\chapter{Species--level metrics}
+
+\chapter{Network--level metrics}
+
+\chapter{Null models}
+
+\chapter{Graphics}
+
+\chapter{API}
+
+\end{document}
