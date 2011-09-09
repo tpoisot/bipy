@@ -9,14 +9,13 @@ import os
 
 ##### OTHER WEB FUNCTIONS
 
-def readRemoteWeb(url,as_bip=True,t=False):
+def readRemoteWeb(url,t=False):
 	f = tempfile.NamedTemporaryFile(delete=False)
 	webFile = urllib.urlopen(url)
 	f.write(webFile.read())
 	webFile.close()
 	f.close()
 	web = readweb(f.name)
-	if as_bip:
-		web = bipartite(web,t)
+	web = bipartite(web,t)
 	os.unlink(f.name)
 	return web	

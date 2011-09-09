@@ -6,6 +6,8 @@ from .spe import *
 from getref import *
 from mainfuncs import *
 
+import tkFileDialog
+
 class mini_bipartite:
 	## This class defines a bipartite object with all structural infos
 	def __init__ (self,web,t=False):
@@ -96,3 +98,12 @@ class ref:
 		if self.link == '':
 			self.link = ' (no link available)'
 
+
+def loadweb(file='',t=False):
+	if file == '':
+		filename = tkFileDialog.askopenfilename()
+	else:
+		filename = file
+	# Read the web
+	w = bipartite(readweb(filename),t=t)
+	return w
