@@ -3,6 +3,7 @@ import numpy as np
 from ..mainfuncs import *
 from ..gen import *
 from ..spe import *
+from ..bipartite_class import *
 import pp
 from sys import stdout
 
@@ -97,7 +98,7 @@ def nullModel(W,null=1,nreps=1,ncpus=1):
 		else:
 			tnmod = null2(W)
 		## Check it
-		sha = tnmod.shape
+		sha = tnmod.web.shape
 		if (sha[0]==W.upsp)&(sha[1]==W.losp):
 			out.append(null1(W))
 		currentRep = round(100*(len(out)/float(nreps)),0)

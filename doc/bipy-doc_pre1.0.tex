@@ -159,6 +159,8 @@ web.upnames = ['herb1','herb2','herb3',...]
 
 \texttt{bipy} internally takes care of re-ordering the species names when the matrix is sorted (to reflect nestedness or modularity). In addition, the species names are used in some visualizations, and when generating species-level metrics summaries. 
 
+If you do not specify species names, then \texttt{bipy} will assign number to each of the species, starting with 0 for the first species in your file, and increasing.
+
 \subsection{Adding bibliographical references}
 
 When comparing several datasets, it may be interesting to know where the data come from. \texttt{bipy} is able to extract bibliographic information from several identifiers, and to generate a link to the original paper.
@@ -180,7 +182,25 @@ This uses some \textsc{ncbi} functions to get the original data, so you need to 
 
 \chapter{Graphics}
 
-\texttt{bipy} comes with several ways to visualize the data, which are meant to reflect the properties of the networks.
+\texttt{bipy} comes with several ways to visualize the data, which are meant to reflect the properties of the networks. There are two broad ways to visualize networks: as a matrix, and as ``balls and strings''. The visualizations relies on the \emph{Pyx} library, because it produces high quality (publication ready) graphics. This means that the \emph{Pyx} library, along with \LaTeX, need to be installed on your system.
+
+In order to simplify the use of \texttt{bipy}, all of the plotting is handled by the function \texttt{plotWeb}. The number of arguments you can pass to is varies as a function of wether you want your visualization to reflect the nested or modular properties of the data.
+
+\subsection{Nested webs}
+
+
+
+\subsection{Modular webs}
+
+In order to plot a network so as to reflect its modularity, you need to pass a second argument to \texttt{plotWeb}:
+
+\begin{lstlisting}[caption=plotting a modular network]
+web = loadweb('mydata.web')
+mod = findModules(mod,1000)
+plotWeb(web,mod,filename='mydata-modular')
+\end{lstlisting}
+
+Note that when plotting a modular network, within each module, the species will be sorted by degree (so within each module, the visualization reflects the nestedness).
 
 \chapter{Example scripts\label{c:ex}}
 

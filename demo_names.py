@@ -7,7 +7,7 @@ print ""
 rw = bipartite(readweb('fonseca.web'))
 rw.upnames = ['Caba','Azal','Azis','Azaf','AlD','Alpr','Alaf','SoA','Alau','CrB','AzHC','AzG','CrD','AzCO','Phmi','CrA','AzTO','CrC','Azsc','Psni','Psco','AzD','Azpo','CrE','AzQ']
 rw.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy','Hiph','Dusa','Cono','Coaf','Tobu','Magu','Mapo','Tapo','Tamy','Amaf']
-modules = findModules(rw,200)
+modules = findModules(rw,50)
 
 print ""
 print "Some statistics about the whole network"
@@ -26,5 +26,5 @@ for i in range(rw.upsp):
 	print str(rw.upnames[i])+'\t'+str(rw.generality[i])+'\t'+str(round(rw.specificity[i],2))+'\t'+str(modules[2][i])
 print "--------------------------------"
 
-plotWeb(rw,modules,asbeads=True)
-plotWeb(rw,asnest=True,asbeads=True,filename='webN')
+#plotWeb(rw,modules,asbeads=True)
+#plotWeb(rw,asnest=True,asbeads=True,filename='webN')
