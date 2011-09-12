@@ -87,10 +87,10 @@ def p_null2(W,nreps=100,ncpu=2):
 
 
 ## Global wrapper around the null models
-def nullModel(W,null=1,nreps=1,ncpus=1):
+def nullModel(W,null=1,nreps=1,ncpus=1,maxiter=10000):
 	out = []
 	i = 0
-	while len(out) < nreps:
+	while (len(out) < nreps)&(i<maxiter):
 		i += 1
 		## Do the null web
 		if null == 1:
