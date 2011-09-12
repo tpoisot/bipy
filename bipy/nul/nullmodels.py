@@ -49,7 +49,6 @@ def null2(W):
 			if ProbInt > IsInt:
 				Wp[i][j] = 1
 	return mini_bipartite(fixmat(Wp))
-	
 
 
 ## Parallel wrapper for the null model 1
@@ -100,7 +99,7 @@ def nullModel(W,null=1,nreps=1,ncpus=1,maxiter=10000):
 		## Check it
 		sha = tnmod.web.shape
 		if (sha[0]==W.upsp)&(sha[1]==W.losp):
-			out.append(null1(W))
+			out.append(tnmod)
 		currentRep = round(100*(len(out)/float(nreps)),0)
 		stdout.write("\r%g   " % currentRep)
 		stdout.flush()
