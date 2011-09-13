@@ -25,7 +25,12 @@ def null1(W):
 	# Generate a random network based on the
 	# overall connectance of the web
 	Wp = nullC(W.upsp,W.losp,W.connectance)
-	return mini_bipartite(fixmat(Wp))
+	fmw = fixmat(Wp)
+	if len(fmw.shape) == 2:
+		fmw = mini_bipartite(fmw)
+	else:
+		fmw = np.zeros((0,0))
+	return fmw
 
 
 ## Null model 2 (constrained)
@@ -48,7 +53,12 @@ def null2(W):
 			ProbInt = (g[i]+v[j])/2
 			if ProbInt > IsInt:
 				Wp[i][j] = 1
-	return mini_bipartite(fixmat(Wp))
+	fmw = fixmat(Wp)
+	if len(fmw.shape) == 2:
+		fmw = mini_bipartite(fmw)
+	else:
+		fmw = np.zeros((0,0))
+	return fmw
 
 
 ## Parallel wrapper for the null model 1

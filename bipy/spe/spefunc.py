@@ -81,8 +81,12 @@ def IR(W):
 	
 	VarW = np.std(W.web)*float(np.std(W.web))
 	
-	R = R / float(VarW)
-	I = I / float(VarW)
+	if (VarW == 0):
+		R = 0
+		I = 0
+	else:
+		R = R / float(VarW)
+		I = I / float(VarW)
 	return [R,I]
 
 
