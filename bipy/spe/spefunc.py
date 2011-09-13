@@ -21,6 +21,23 @@ def vulnerability(W):
 	vul = generality(W.T)
 	return vul
 
+
+def sp_pdi(f):
+	fit = np.copy(f)
+	tspe = 0
+	fit = sorted(fit,reverse=True)
+	i = 0
+	ma = max(fit)
+	while i < len(fit):
+		fit[i] = fit[i]/float(ma)
+		i = i+1
+	i = 1
+	while i < len(fit):
+		tspe = tspe + ((fit[0]-fit[i])/(len(fit)-1))
+		i = i+1
+	return tspe
+
+
 def specificity(W):
 	# Measures the specialization using the Paired Differences Index
 	#	Poisot, T, et al. (2011) Biol Lett 7(2) 201-204 10.1098/rsbl.2010.0774
@@ -28,19 +45,9 @@ def specificity(W):
 	spe = []
 	fit = 0
 	for fit in W:
-		tspe = 0
-		fit = sorted(fit,reverse=True)
-		i = 0
-		ma = max(fit)
-		while i < len(fit):
-			fit[i] = fit[i]/float(ma)
-			i = i+1
-		i = 1
-		while i < len(fit):
-			tspe = tspe + ((fit[0]-fit[i])/(len(fit)-1))
-			i = i+1
-		spe.append(round(tspe,3))
+		spe.append(round(sp_pdi(fit),3))
 	return spe	
+
 
 def ssi(W):
 	# Measures the Species Specialization Index
