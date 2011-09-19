@@ -2,6 +2,7 @@ from .gen import *
 from .nul import *
 from .nes import *
 from .spe import *
+from .mod import *
 
 from getref import *
 from mainfuncs import *
@@ -62,6 +63,8 @@ class bipartite:
 		self.nodf = NODF[0]
 		self.nodf_up = NODF[2]
 		self.nodf_low = NODF[1]
+		# Placeholder for modularity
+		self.modules = ''
 		# Placeholder for references
 		self.ref = []
 		# Placeholder for species names
@@ -69,6 +72,37 @@ class bipartite:
 		self.lonames = range(self.losp)
 		# For the name
 		self.name = ''
+		
+	## Species-level function
+	def specieslevel(self,modreps=100):
+		# Create a filename
+		if self.name != '':
+			filename = self.name+'_species.txt'
+		else:
+			filename = 'web_species.txt'
+		print 'Species-level data will be saved to '+filename
+		# Check the modules
+		if self.modules == '':
+			self.modules = modules(self,reps=modreps)
+		1
+		# Return the data
+		return 0
+		
+	## Network-level function
+	def networklevel(self):
+		return 0
+	
+
+
+class modules:
+	## A class for the modules
+	def __init__(self,w,reps=100):
+		modinfos = findModules(w,reps=reps)
+		self.Q = modinfos[0]
+		self.N = modinfos[1]
+		self.up_modules = modinfos[2]
+		self.low_modules = modinfos[3]
+		self.Qr = Qr(w,modinfos)
 	
 
 
