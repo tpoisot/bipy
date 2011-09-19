@@ -80,13 +80,11 @@ class bipartite:
 			filename = self.name+'_species.txt'
 		else:
 			filename = 'web_species.txt'
-		print 'Species-level data will be saved to '+filename
 		# Check the modules
 		if self.modules == '':
 			self.modules = modules(self,reps=modreps)
 		# Loop on the species
 		f = open(filename, 'w')
-		print 'SPEC\tLEVEL\tDEGREE\tSPE\tSSI\tMOD'
 		f.write('SPEC\tLEVEL\tDEGREE\tSPE\tSSI\tMOD\n')
 		for i in range(self.upsp):
 			print str(self.upnames[i])+'\tTOP\t'+str(self.generality[i])+'\t'+str(self.specificity[i])+'\t'+str(self.ssi[i])+'\t'+str(self.modules.up_modules[i])
@@ -96,20 +94,35 @@ class bipartite:
 			f.write(str(self.lonames[i])+'\tBOTTOM\t'+str(self.vulnerability[i])+'\tNA\tNA\t'+str(self.modules.low_modules[i])+'\n')
 		f.close()
 		# Return the data
+		print 'Species-level data saved to '+filename
 		return 0
 		
 	## Network-level function
-	def networklevel(self):
+	def networklevel(self,modreps=50,nullreps=100,null=null2):
 		# Create a filename
 		if self.name != '':
 			filename = self.name+'_network.txt'
 		else:
 			filename = 'web_network.txt'
-		print 'Species-level data will be saved to '+filename
 		# Check the modules
 		if self.modules == '':
 			self.modules = modules(self,reps=modreps)
 		# Print the data
+		f = open(filename, 'w')
+		f.write('NAME\t'+self.name+'\n')
+		f.write('SIZE\t'+str(self.size)+'\n')
+		f.write('UP_SP\t'+str(self.upsp)+'\n')
+		f.write('LO_SP\t'+str(self.losp)+'\n')
+		f.write('CONN\t'+str(self.connectance)+'\n')
+		f.write('NODF\t'+str(self.nodf)+'\n')
+		f.write('NODF_UP\t'+str(self.nodf_up)+'\n')
+		f.write('NODF_LO\t'+str(self.nodf_low)+'\n')
+		f.write('QBIP\t'+str(self.modules.Q)+'\n')
+		f.write('NMOD\t'+str(self.modules.N)+'\n')
+		f.write('QR\t'+str(self.modules.Qr)+'\n')
+		f.close()
+		# Return the data
+		print 'Network-level data saved to '+filename
 		return 0
 	
 
