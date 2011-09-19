@@ -81,14 +81,14 @@ def plotBModules(w,mod,filename='web',withcolors=True):
 					continue
 	# Plot the beads
 	for i in range(w.upsp):
-		c.text(0.5, top_height[i], w.upnames[i],[text.parbox(3), text.halign.right])
+		c.text(0.5, top_height[i], w.upnames[i],[text.parbox(2), text.halign.right])
 		if withcolors:
 			CCol = ListOfColors[(cg[i]-1)]
 		else:
 			CCol = color.gray.black
 		c.fill(path.circle(1, top_height[i], GS*0.6),[deco.stroked.clear,deco.filled([CCol])])
 	for j in range(w.losp):
-		c.text(yp+0.5, bot_height[j], w.lonames[j],[text.parbox(3), text.halign.left])
+		c.text(yp+0.5, bot_height[j], w.lonames[j],[text.parbox(2), text.halign.left])
 		if withcolors:
 			CCol = ListOfColors[(ch[j]-1)]
 		else:
@@ -122,10 +122,10 @@ def plotBMatrix(w,filename='web',withcolors=True):
 				c.stroke(path.line(1, top_height[i], yp, bot_height[j]),[deco.stroked([color.gray.black]),style.linewidth(lwid)])
 	# Plot the beads
 	for i in range(w.upsp):
-		c.text(0.5, top_height[i], w.upnames[i],[text.parbox(3), text.halign.right])
+		c.text(0.5, top_height[i], w.upnames[i],[text.parbox(2), text.halign.right])
 		c.fill(path.circle(1, top_height[i], GS*0.6),[deco.stroked.clear,deco.filled([color.gray.black])])
 	for j in range(w.losp):
-		c.text(yp+0.5, bot_height[j], w.lonames[j],[text.parbox(3), text.halign.left])
+		c.text(yp+0.5, bot_height[j], w.lonames[j],[text.parbox(2), text.halign.left])
 		c.fill(path.circle(yp, bot_height[j], GS*0.6),[deco.stroked.clear,deco.filled([color.gray.black])])
 	c.writePDFfile(filename)
 	return 0
@@ -134,8 +134,8 @@ def plotBMatrix(w,filename='web',withcolors=True):
 # Plot a web as a nested matrix
 def plotMatrix(w,filename='web',withcolors=True):
 	GS = 0.5
-	W = np.copy(w)
-	w = bipartite(w)
+	W = np.copy(w.web)
+#	w = bipartite(w)
 	c = canvas.canvas()
 	if withcolors:
 		MLink = max(w.bperf)
@@ -145,10 +145,10 @@ def plotMatrix(w,filename='web',withcolors=True):
 		# Define the color gradient
 		ListOfColors = [color.gradient.Gray.select(i, 101) for i in range(101)]
 	for i in range(w.upsp):
-		c.text(-0.1, GS*(i+0.7), str(i+1),[text.halign.boxcenter, text.halign.flushcenter])
+		c.text(-0.1, GS*(i+0.7), w.upnames[i],[text.parbox(2), text.halign.right])
 		for j in range(w.losp):
 			if i == 0:
-				c.text(GS*(j+0.9), -0.1, str(j+1),[text.halign.boxcenter, text.halign.flushcenter])
+				c.text(GS*(j+0.9), -0.1, w.lonames[j],[text.parbox(2), text.halign.right, trafo.rotate(90)])
 			if W[i][j] > 0:
 				xc = GS*j+(GS/2)
 				yc = GS*i+(GS/2)
@@ -166,20 +166,20 @@ def plotMatrix(w,filename='web',withcolors=True):
 def plotModules(w,mod,filename='web',withcolors=True):
 	GS = 0.5
 	# Organise web by communities
-	W = np.copy(w)
+	W = np.copy(w.web)
 	g = np.copy(mod[2])
 	cg = sorted(g,reverse=True)
 	h = np.copy(mod[3])
 	ch = sorted(h,reverse=True)
-	w = mini_bipartite(w)
+#	w = mini_bipartite(w)
 	ListOfColors = [color.gradient.Hue.select(i, (mod[1]+1)) for i in range(mod[1]+1)]
 	# Plot
 	c = canvas.canvas()
 	for i in range(w.upsp):
-		c.text(-0.1, GS*(i+0.7), str(i+1),[text.halign.boxcenter, text.halign.flushcenter])
+		c.text(-0.1, GS*(i+0.7), w.upnames[i],[text.parbox(2), text.halign.right])
 		for j in range(w.losp):
 			if i == 0:
-				c.text(GS*(j+0.9), -0.1, str(j+1),[text.halign.boxcenter, text.halign.flushcenter])
+				c.text(GS*(j+0.9), -0.1, w.lonames[j],[text.parbox(2), text.halign.right, trafo.rotate(90)])
 			if W[i][j] > 0:
 				xc = GS*j+(GS/2)
 				yc = GS*i+(GS/2)

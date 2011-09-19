@@ -26,5 +26,7 @@ for i in range(rw.upsp):
 	print str(rw.upnames[i])+'\t'+str(rw.generality[i])+'\t'+str(round(rw.specificity[i],2))+'\t'+str(modules[2][i])
 print "--------------------------------"
 
-#plotWeb(rw,modules,asbeads=True)
-#plotWeb(rw,asnest=True,asbeads=True,filename='webN')
+plotWeb(rw,modules,asbeads=True,filename='web_modules')
+plotWeb(rw,asnest=True,asbeads=True,filename='web_degree')
+plotWeb(rw,modules,asbeads=False,filename='mat_modules')
+plotWeb(rw,asnest=True,asbeads=False,filename='mat_degree',colors=False)
