@@ -22,13 +22,3 @@ print ""
 start_time = time.time()
 modules = findModules(w,reps=10)
 print "Time elapsed: ", time.time() - start_time, "s"
-
-#w = bipartite(readweb('demo.web'),t=True)
-#modulinfo = findModules(w,100,5) # Needs a number of replicates
-
-# The following line prints a web grouped by modules
-#plotModules(w,modules,filename='web_by_modules',col=True)
-# compare with the result of the function printing it by degree
-#plotMatrix(w,filename='web_by_degree',asnest=True)
-
-w.specieslevel()

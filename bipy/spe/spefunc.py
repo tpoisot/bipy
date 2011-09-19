@@ -63,7 +63,7 @@ def ssi(W):
 		tnfac = normfac * Pbar
 		for sp in fit:
 			tspe += (sp-Pbar) ** 2
-		spe.append(np.sqrt(tspe)/tnfac)
+		spe.append(round(np.sqrt(tspe)/tnfac,3))
 	return spe
 
 

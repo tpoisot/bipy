@@ -84,12 +84,32 @@ class bipartite:
 		# Check the modules
 		if self.modules == '':
 			self.modules = modules(self,reps=modreps)
-		1
+		# Loop on the species
+		f = open(filename, 'w')
+		print 'SPEC\tLEVEL\tDEGREE\tSPE\tSSI\tMOD'
+		f.write('SPEC\tLEVEL\tDEGREE\tSPE\tSSI\tMOD\n')
+		for i in range(self.upsp):
+			print str(self.upnames[i])+'\tTOP\t'+str(self.generality[i])+'\t'+str(self.specificity[i])+'\t'+str(self.ssi[i])+'\t'+str(self.modules.up_modules[i])
+			f.write(str(self.upnames[i])+'\tTOP\t'+str(self.generality[i])+'\t'+str(self.specificity[i])+'\t'+str(self.ssi[i])+'\t'+str(self.modules.up_modules[i])+'\n')
+		for i in range(self.losp):
+			print str(self.lonames[i])+'\tBOTTOM\t'+str(self.vulnerability[i])+'\tNA\tNA\t'+str(self.modules.low_modules[i])
+			f.write(str(self.lonames[i])+'\tBOTTOM\t'+str(self.vulnerability[i])+'\tNA\tNA\t'+str(self.modules.low_modules[i])+'\n')
+		f.close()
 		# Return the data
 		return 0
 		
 	## Network-level function
 	def networklevel(self):
+		# Create a filename
+		if self.name != '':
+			filename = self.name+'_network.txt'
+		else:
+			filename = 'web_network.txt'
+		print 'Species-level data will be saved to '+filename
+		# Check the modules
+		if self.modules == '':
+			self.modules = modules(self,reps=modreps)
+		# Print the data
 		return 0
 	
 

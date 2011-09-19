@@ -184,10 +184,10 @@ def LPBRIM(W):
 
 
 ## Find modules
-def findModules(W,reps=10,outstep=5):
+def findModules(W,reps=10,outstep=5,step_print=False):
 	topmod = 0
 	out = [0,0,0,0]
-	if reps >= 100:
+	if (reps >= 100)&(step_print):
 		print "Done	Best Q	Best M"
 		print "----------------------"
 	nstep = outstep
@@ -197,11 +197,11 @@ def findModules(W,reps=10,outstep=5):
 			topmod = run[0]
 			out = run
 		if reps >= 100:
-			if (repl/float(reps))*100 >= nstep:
+			if ((repl/float(reps))*100 >= nstep)&(step_print):
 				print"{0}%	{1} 	{2}".format(str(nstep), str(out[0]), str(out[1]))
 				nstep += outstep
 #	print 'Found '+str(out[1])+' modules with Qbip of '+str(topmod)
-	if reps >= 100:
+	if (reps >= 100)&(step_print):
 		print "----------------------"
 		print"{0}%	{1}	{2}".format(str(100),str(out[0]), str(out[1]))
 		print "----------------------"
