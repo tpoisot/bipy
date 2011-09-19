@@ -96,16 +96,13 @@ def p_null2(W,nreps=100,ncpu=2):
 
 
 ## Global wrapper around the null models
-def nullModel(W,null=1,nreps=1,ncpus=1,maxiter=10000):
+def nullModel(W,fun=null1,nreps=1,ncpus=1,maxiter=10000):
 	out = []
 	i = 0
 	while (len(out) < nreps)&(i<maxiter):
 		i += 1
 		## Do the null web
-		if null == 1:
-			tnmod = null1(W)
-		else:
-			tnmod = null2(W)
+		tnmod = fun(W)
 		## Check it
 		sha = tnmod.web.shape
 		if (sha[0]==W.upsp)&(sha[1]==W.losp):
