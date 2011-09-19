@@ -9,32 +9,6 @@ from mainfuncs import *
 
 import tkFileDialog
 
-class mini_bipartite:
-	## This class defines a bipartite object with all structural infos
-	def __init__ (self,web,t=False):
-		# Read the matrix
-		if t:
-			web = web.T
-		self.web = web
-		# General infos
-		self.upsp = len(self.web)
-		self.losp = len(self.web[0])
-		self.size = self.upsp * self.losp
-		# Connectance
-		self.adjacency = adjacency(self.web)
-		self.nlink = linknum(self.web)
-		self.connectance = self.nlink / float(self.size)
-		# Specificity and all
-		self.generality = generality(web)
-		self.vulnerability = vulnerability(web)
-		# Nestedness
-		NODF = nodf(web)
-		self.nodf = NODF[0]
-		self.nodf_up = NODF[2]
-		self.nodf_low = NODF[1]
-	
-
-
 class bipartite:
 	## This class defines a bipartite object with all structural infos
 	def __init__ (self,web,t=False):
@@ -87,10 +61,8 @@ class bipartite:
 		f = open(filename, 'w')
 		f.write('SPEC\tLEVEL\tDEGREE\tSPE\tSSI\tMOD\n')
 		for i in range(self.upsp):
-			print str(self.upnames[i])+'\tTOP\t'+str(self.generality[i])+'\t'+str(self.specificity[i])+'\t'+str(self.ssi[i])+'\t'+str(self.modules.up_modules[i])
 			f.write(str(self.upnames[i])+'\tTOP\t'+str(self.generality[i])+'\t'+str(self.specificity[i])+'\t'+str(self.ssi[i])+'\t'+str(self.modules.up_modules[i])+'\n')
 		for i in range(self.losp):
-			print str(self.lonames[i])+'\tBOTTOM\t'+str(self.vulnerability[i])+'\tNA\tNA\t'+str(self.modules.low_modules[i])
 			f.write(str(self.lonames[i])+'\tBOTTOM\t'+str(self.vulnerability[i])+'\tNA\tNA\t'+str(self.modules.low_modules[i])+'\n')
 		f.close()
 		# Return the data
@@ -98,7 +70,7 @@ class bipartite:
 		return 0
 		
 	## Network-level function
-	def networklevel(self,modreps=50,nullreps=100,null=null2):
+	def networklevel(self,modreps=50,nullreps=100,fun=null2):
 		# Create a filename
 		if self.name != '':
 			filename = self.name+'_network.txt'

@@ -3,7 +3,7 @@ import numpy as np
 from ..mainfuncs import *
 from ..gen import *
 from ..spe import *
-from ..bipartite_class import *
+from ..mini_bipartite_class import *
 import pp
 from sys import stdout
 
