@@ -107,7 +107,10 @@ class modules:
 		self.N = modinfos[1]
 		self.up_modules = modinfos[2]
 		self.low_modules = modinfos[3]
-		self.Qr = Qr(w,modinfos)
+		if self.Q > 0:
+			self.Qr = Qr(w,modinfos)
+		else:
+			self.Qr = 1
 	
 
 
