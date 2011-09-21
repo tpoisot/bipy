@@ -21,4 +21,4 @@ rw.modules = modules(rw,reps=50)
 rw.specieslevel()
 
 # Network-level statistics
-rw.networklevel()
+rw.networklevel(nullreps=100,maxiter=1000,fun=null2)

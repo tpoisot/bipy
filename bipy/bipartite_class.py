@@ -3,9 +3,13 @@ from .nul import *
 from .nes import *
 from .spe import *
 from .mod import *
+from .tes import *
 
 from getref import *
 from mainfuncs import *
+
+import scipy as sp
+from scipy import stats
 
 import tkFileDialog
 
@@ -37,6 +41,8 @@ class bipartite:
 		self.nodf = NODF[0]
 		self.nodf_up = NODF[2]
 		self.nodf_low = NODF[1]
+		# Stability
+		self.stability = mean(self.mperf) - np.sqrt(self.upsp*self.losp*self.connectance)
 		# Placeholder for modularity
 		self.modules = ''
 		# Placeholder for references
@@ -70,7 +76,7 @@ class bipartite:
 		return 0
 		
 	## Network-level function
-	def networklevel(self,modreps=50,nullreps=100,fun=null2):
+	def networklevel(self,modreps=50,nullreps=100,fun=null2,maxiter=1000):
 		# Create a filename
 		if self.name != '':
 			filename = self.name+'_network.txt'
@@ -79,6 +85,11 @@ class bipartite:
 		# Check the modules
 		if self.modules == '':
 			self.modules = modules(self,reps=modreps)
+		# Do the null modules
+		NullList = nullModel(self,fun=fun,nreps=nullreps,maxiter=maxiter)
+		DevNest = getDevNest(self,NullList)
+		MeanDev = mean(DevNest)
+		SignifDev = sp.stats.ttest_1samp(DevNest,0)
 		# Print the data
 		f = open(filename, 'w')
 		f.write('NAME\t'+self.name+'\n')
@@ -89,6 +100,8 @@ class bipartite:
 		f.write('NODF\t'+str(self.nodf)+'\n')
 		f.write('NODF_UP\t'+str(self.nodf_up)+'\n')
 		f.write('NODF_LO\t'+str(self.nodf_low)+'\n')
+		f.write('NODF DEV\t'+str(round(MeanDev,3))+'\n')
+		f.write('NODF DEV SIGNIF\t'+str(SignifDev[1])+'\n')
 		f.write('QBIP\t'+str(self.modules.Q)+'\n')
 		f.write('NMOD\t'+str(self.modules.N)+'\n')
 		f.write('QR\t'+str(self.modules.Qr)+'\n')

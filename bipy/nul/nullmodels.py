@@ -111,5 +111,5 @@ def nullModel(W,fun=null1,nreps=1,ncpus=1,maxiter=10000):
 		stdout.write("\r%g   " % currentRep)
 		stdout.flush()
 	stdout.write("\r    \r\n")
-	print str(nreps)+' null webs generated in '+str(i)+' iterations\n'
+	print str(len(out))+' null webs generated in '+str(i)+' iterations\n'
 	return out

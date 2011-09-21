@@ -7,8 +7,7 @@ from ..mod import *
 def getDevNest(w,list):
 	deviation = []
 	for i in list:
-		ni = i.nodf
-		deviation.append(w.nodf-ni[0])
+		deviation.append(w.nodf-i.nodf)
 	return deviation
 
 	

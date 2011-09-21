@@ -29,4 +29,7 @@ class mini_bipartite:
 		self.nodf = NODF[0]
 		self.nodf_up = NODF[2]
 		self.nodf_low = NODF[1]
+		# Stability
+		self.mperf = meanperf(web,novoid=True)
+		self.stability = mean(self.mperf) - np.sqrt(self.upsp*self.losp*self.connectance)
 	
