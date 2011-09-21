@@ -1,3 +1,4 @@
+from .mini_bipartite_class import *
 from .gen import *
 from .nul import *
 from .nes import *
@@ -9,9 +10,20 @@ from getref import *
 from mainfuncs import *
 
 import scipy as sp
+import numpy as np
 from scipy import stats
 
 import tkFileDialog
+
+def loadweb(file='',t=False):
+	if file == '':
+		filename = tkFileDialog.askopenfilename()
+	else:
+		filename = file
+	# Read the web
+	w = bipartite(readweb(filename),t=t)
+	return w
+
 
 class bipartite:
 	## This class defines a bipartite object with all structural infos
@@ -74,7 +86,7 @@ class bipartite:
 		# Return the data
 		print 'Species-level data saved to '+filename
 		return 0
-		
+	
 	## Network-level function
 	def networklevel(self,modreps=50,nullreps=100,fun=null2,maxiter=1000):
 		# Create a filename
@@ -110,6 +122,40 @@ class bipartite:
 		print 'Network-level data saved to '+filename
 		return 0
 	
+	## Module-level functions
+	def modulelevel(self):
+		# Create a filename
+		if self.name != '':
+			filename = self.name+'_modules.txt'
+		else:
+			filename = 'web_modules.txt'
+		# Check the modules
+		if self.modules == '':
+			self.modules = modules(self,reps=modreps)
+		# If modularity
+		if self.modules.N > 1:
+			f = open(filename, 'w')
+			f.write('MOD\tUP SP\tLO SP\tNES\tCONN\n')
+			mods = subWebs(self)
+			cmod = 1
+			for mo in mods:
+				mod_stats = []
+				# Is the network of size 2 or more?
+				NUp = len(mo)
+				NLo = len(mo[0])
+				if (NUp > 1) & (NLo > 1):
+					tnet = mini_bipartite(mo)
+					f.write(str(cmod)+'\t'+str(tnet.upsp)+'\t'+str(tnet.losp)+'\t'+str(tnet.nodf)+'\t'+str(tnet.connectance)+'\n')
+				else:
+					f.write(str(cmod)+'\t'+str(NUp)+'\t'+str(NLo)+'\t'+'NA'+'\t'+'NA'+'\n')
+				cmod += 1
+			f.close()
+		else:
+			print 'There are no modules within this web'
+		# Return 0
+		print 'Module-level data saved to '+filename
+		return 0
+	
 
 
 class modules:
@@ -117,7 +163,10 @@ class modules:
 	def __init__(self,w,reps=100):
 		modinfos = findModules(w,reps=reps)
 		self.Q = modinfos[0]
-		self.N = modinfos[1]
+		if self.Q > 0:
+			self.N = modinfos[1]
+		else:
+			self.N = 1
 		self.up_modules = modinfos[2]
 		self.low_modules = modinfos[3]
 		if self.Q > 0:
@@ -152,13 +201,3 @@ class ref:
 			self.link = self.link_jstor
 		if self.link == '':
 			self.link = ' (no link available)'
-
-
-def loadweb(file='',t=False):
-	if file == '':
-		filename = tkFileDialog.askopenfilename()
-	else:
-		filename = file
-	# Read the web
-	w = bipartite(readweb(filename),t=t)
-	return w

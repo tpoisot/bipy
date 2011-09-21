@@ -1,9 +1,5 @@
 from .gen import *
 from .nes import *
-from .spe import *
-from .mod import *
-
-from getref import *
 from mainfuncs import *
 
 class mini_bipartite:
@@ -33,3 +29,4 @@ class mini_bipartite:
 		self.mperf = meanperf(web,novoid=True)
 		self.stability = mean(self.mperf) - np.sqrt(self.upsp*self.losp*self.connectance)
 	
+

@@ -1,11 +1,12 @@
 import scipy as sp
 import numpy as np
+
+from ..mini_bipartite_class import *
+
 from ..mainfuncs import *
 from ..gen import *
 from ..spe import *
-from ..mini_bipartite_class import *
 import pp
-from sys import stdout
 
 ## Null model C (needs the size and connectance)
 def nullC(ntop=30,nbottom=30,conn=0.5):
@@ -107,9 +108,5 @@ def nullModel(W,fun=null1,nreps=1,ncpus=1,maxiter=10000):
 		sha = tnmod.web.shape
 		if (sha[0]==W.upsp)&(sha[1]==W.losp):
 			out.append(tnmod)
-		currentRep = round(100*(len(out)/float(nreps)),0)
-		stdout.write("\r%g   " % currentRep)
-		stdout.flush()
-	stdout.write("\r    \r\n")
 	print str(len(out))+' null webs generated in '+str(i)+' iterations\n'
 	return out

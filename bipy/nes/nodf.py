@@ -1,30 +1,10 @@
 import scipy as sp
 import numpy as np
 from ..mainfuncs import *
-from ..nul import *
 from ..spe import *
 from ..gen import *
 
-def Ncal(W,reps=99,null=1):
-	Ntot = []
-	Nlow = []
-	Ntop = []
-	if hasattr(W,'nodf'):
-		Nes [W.nodf,W.nodf_low,W.nodf_up]
-	else:
-		Nes = nodf(W)
-	## Iteration
-	for i in range(reps):
-		if null == 1:
-			Nprime = nodf(null1(W))
-		if null == 2:
-			Nprime = nodf(null2(W))
-		Ntot.append(Nes[0]-Nprime[0])
-		Nlow.append(Nes[1]-Nprime[1])
-		Ntop.append(Nes[2]-Nprime[2])
-	return [round(mean(Ntot),2),round(mean(Nlow),2),round(mean(Ntop),2)]
 
-	
 def nestadj(aW):
 	W = sortbydegree(aW)
 	# Returns as sorted binary matrix
