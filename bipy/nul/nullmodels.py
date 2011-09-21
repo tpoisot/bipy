@@ -108,5 +108,6 @@ def nullModel(W,fun=null1,nreps=1,ncpus=1,maxiter=10000):
 		sha = tnmod.web.shape
 		if (sha[0]==W.upsp)&(sha[1]==W.losp):
 			out.append(tnmod)
-	print str(len(out))+' null webs generated in '+str(i)+' iterations\n'
+	if str(len(out)) < nreps:
+		print str(len(out))+' null webs generated in '+str(i)+' iterations\n'
 	return out
