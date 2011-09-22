@@ -99,8 +99,8 @@ def adjacency(aW):
 	ntop = len(aW)
 	nbot = len(aW[0])
 	W = np.zeros(((ntop),(nbot)))
-	for to in range(0,ntop):
-		for bo in range(0,nbot):
+	for to in range(ntop):
+		for bo in range(nbot):
 			if aW[to,bo] > 0:
 				W[to,bo] = 1
 	return W
