@@ -27,8 +27,11 @@ def null1(W):
 	# overall connectance of the web
 	Wp = nullC(W.upsp,W.losp,W.connectance)
 	fmw = fixmat(Wp)
-	if len(fmw.shape) == 2:
-		fmw = mini_bipartite(fmw)
+	if (len(fmw.shape) == 2):
+		if (fmw.shape[0] == W.upsp)&(fmw.shape[1] == W.losp):
+			fmw = mini_bipartite(fmw)
+		else:
+			fmw = np.zeros((0,0))
 	else:
 		fmw = np.zeros((0,0))
 	return fmw
@@ -50,8 +53,11 @@ def null2(W):
 			if ProbInt > IsInt[i][j]:
 				Wp[i][j] = 1
 	fmw = fixmat(Wp)
-	if len(fmw.shape) == 2:
-		fmw = mini_bipartite(fmw)
+	if (len(fmw.shape) == 2):
+		if (fmw.shape[0] == W.upsp)&(fmw.shape[1] == W.losp):
+			fmw = mini_bipartite(fmw)
+		else:
+			fmw = np.zeros((0,0))
 	else:
 		fmw = np.zeros((0,0))
 	return fmw
@@ -100,9 +106,7 @@ def nullModel(W,fun=null1,nreps=1,ncpus=1,maxiter=10000):
 		## Do the null web
 		tnmod = fun(W)
 		## Check it
-		sha = tnmod.web.shape
-		if (sha[0]==W.upsp)&(sha[1]==W.losp):
+		if hasattr(tnmod,'upsp'):
 			out.append(tnmod)
-	if str(len(out)) < nreps:
-		print str(len(out))+' null webs generated in '+str(i)+' iterations\n'
+	print str(len(out))+' null webs generated in '+str(i)+' iterations'
 	return out
