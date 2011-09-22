@@ -40,19 +40,14 @@ def null2(W):
 	# probability that a row and a column
 	# have an interaction in the overall
 	# web
-	g = []
-	v = []
-	for i in range(W.upsp):
-		g.append(W.generality[i]/float(W.losp))
-	for j in range(W.losp):
-		v.append(W.vulnerability[j]/float(W.upsp))
+	# Random matrix of probabilities
+	IsInt = np.random.uniform(0,1,(W.upsp,W.losp))
 	# Generate a random web
 	Wp = np.zeros((W.upsp,W.losp))
 	for i in range(W.upsp):
 		for j in range(W.losp):
-			IsInt = np.random.uniform(0,1,(1,))
-			ProbInt = (g[i]+v[j])/2
-			if ProbInt > IsInt:
+			ProbInt = ((W.generality[i]/float(W.losp))+W.vulnerability[j]/float(W.upsp))/2
+			if ProbInt > IsInt[i][j]:
 				Wp[i][j] = 1
 	fmw = fixmat(Wp)
 	if len(fmw.shape) == 2:

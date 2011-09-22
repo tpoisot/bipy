@@ -20,8 +20,8 @@ rw.modules = modules(rw,reps=50)
 # Species-level statistics
 rw.specieslevel()
 
-# Network-level statistics
-rw.networklevel(nullreps=100,maxiter=1000,fun=null1)
-
 # Module-level statistics
 rw.modulelevel()
+
+# Network-level statistics
+rw.networklevel(nullreps=500,maxiter=500,fun=null2)
