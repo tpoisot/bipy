@@ -23,7 +23,7 @@ def plotWeb(w,minfo='',filename='',asnest=True,asbeads=False,colors=True):
 		if asnest:
 			filename = filename+'_nested'
 			# If we want the web to be nested
-			tW = np.copy(sortbydegree(w))
+			tW = sortbydegree(w)
 			W = mini_bipartite(tW[0])
 			W.upnames=tW[1]
 			W.lonames=tW[2]
