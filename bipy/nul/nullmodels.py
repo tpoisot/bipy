@@ -46,7 +46,7 @@ def null2(W):
 	Wp = np.zeros((W.upsp,W.losp))
 	for i in range(W.upsp):
 		for j in range(W.losp):
-			ProbInt = ((W.generality[i]/float(W.losp))+W.vulnerability[j]/float(W.upsp))/2
+			ProbInt = (W.upsp*W.generality[i]+W.losp*W.vulnerability[j])/float(2*W.size)
 			if ProbInt > IsInt[i][j]:
 				Wp[i][j] = 1
 	fmw = fixmat(Wp)
