@@ -12,13 +12,25 @@ def getDevNest(w,list):
 
 	
 ## excess modularity
-def getDevMod(w,m,list):
+def getDevMod(w,list):
+	m = [w.modules.Q,w.modules.N,w.modules.up_modules,w.modules.low_modules]
 	Qsim = []
 	wQr = Qr(w,m)
 	for i in list:
 		ExcQ = wQr - Qr(i,m)
 		Qsim.append(ExcQ)
 	return Qsim
+
+
+## excess bipartite modularity
+def getDevQ(w,list):
+	Qsim = []
+	wQ = w.modules.Q
+	for i in list:
+		ExcQ = wQ - Qbip(i,w.modules.up_modules,w.modules.low_modules)
+		Qsim.append(ExcQ)
+	return Qsim
+
 
 
 ## remove a species from a matrix

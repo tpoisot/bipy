@@ -131,11 +131,18 @@ class bipartite:
 		# Check the modules
 		if self.modules == '':
 			self.modules = modules(self,reps=modreps)
-		# Do the null modules
+		# Do the null models
 		NullList = nullModel(self,fun=fun,nreps=nullreps,maxiter=maxiter)
+		# Check deviation of nestedness
 		DevNest = getDevNest(self,NullList)
 		MeanDev = mean(DevNest)
+		StdDev = np.std(DevNest)
 		SignifDev = sp.stats.ttest_1samp(DevNest,0)
+		# Check deviation of modularity
+		DevMod = getDevQ(self,NullList)
+		MeanDevMod = mean(DevMod)
+		StdDevMod = np.std(DevMod)
+		SignifDevMod = sp.stats.ttest_1samp(DevMod,0)
 		# Print the data
 		f = open(filename, 'w')
 		f.write('NAME\t'+self.name+'\n')
@@ -146,11 +153,15 @@ class bipartite:
 		f.write('NODF\t'+str(self.nodf)+'\n')
 		f.write('NODF_UP\t'+str(self.nodf_up)+'\n')
 		f.write('NODF_LO\t'+str(self.nodf_low)+'\n')
-		f.write('NODF DEV\t'+str(round(MeanDev,3))+'\n')
-		f.write('NODF DEV SIGNIF\t'+str(SignifDev[1])+'\n')
+		f.write('NODF_DEV\t'+str(round(MeanDev,3))+'\n')
+		f.write('NODF_DEV_SD\t'+str(round(StdDev,3))+'\n')
+		f.write('NODF_DEV_SIGNIF\t'+str(SignifDev[1])+'\n')
 		f.write('QBIP\t'+str(self.modules.Q)+'\n')
 		f.write('NMOD\t'+str(self.modules.N)+'\n')
 		f.write('QR\t'+str(self.modules.Qr)+'\n')
+		f.write('MOD_DEV\t'+str(round(MeanDevMod,3))+'\n')
+		f.write('MOD_DEV_SD\t'+str(round(StdDevMod,3))+'\n')
+		f.write('MOD_DEV_SIGNIF\t'+str(SignifDevMod[1])+'\n')
 		f.close()
 		# Return the data
 		print 'Network-level data saved to '+filename

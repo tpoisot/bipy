@@ -19,6 +19,10 @@ def mostFrequent(L):
 ## Compute Barber's bipartite modularity
 def Qbip(W,gg,gh):
 	tQ = 0
+	if type(gg) == int:
+		gg = [gg]
+	if type(gh) == int:
+		gh = [gh]
 	for i in range(W.upsp):
 		for j in range(W.losp):
 			if gg[i] == gh[j]:
