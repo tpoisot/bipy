@@ -1,7 +1,7 @@
 ## LP-BRIM modularity in bipartite webs
 from ..nul import *
 from ..mainfuncs import *
-from ..bipartite_class import *
+from ..mini_bipartite_class import *
 
 ## Find the most frequent element of a list
 def mostFrequent(L):
@@ -272,7 +272,7 @@ def sortbymodule(W,g,h):
 			nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
 			vBnames[totalMadeInt+rnk[ro]] = oBnames[totalMadeInt+ro]
 			tempIntCnt += 1
-	Fweb = bipartite(np.copy(nweb.T))
+	Fweb = mini_bipartite(np.copy(nweb.T))
 	Fweb.upnames = vTnames
 	Fweb.lonames = vBnames
 	return Fweb

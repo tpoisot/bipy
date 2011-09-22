@@ -8,7 +8,7 @@ class mini_bipartite:
 		# Read the matrix
 		if t:
 			web = web.T
-		self.web = web
+		self.web = fixmat(web)
 		# General infos
 		self.upsp = len(self.web)
 		self.losp = len(self.web[0])
@@ -20,6 +20,9 @@ class mini_bipartite:
 		# Specificity and all
 		self.generality = generality(web)
 		self.vulnerability = vulnerability(web)
+		# Perf
+		self.mperf = meanperf(web,novoid=True)
+		self.bperf = HighLink(web)
 		# Nestedness
 		NODF = nodf(web)
 		self.nodf = NODF[0]

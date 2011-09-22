@@ -1,7 +1,9 @@
 import scipy as sp
 import numpy as np
 
+from ..mini_bipartite_class import *
 from ..bipartite_class import *
+
 
 from pyx import *
 
@@ -11,7 +13,7 @@ from ..mod import *
 # Generic function for plotting
 def plotWeb(w,minfo='',filename='',asnest=True,asbeads=False,colors=True):
 	# Filename
-	if filename = '':
+	if filename == '':
 		if w.name == '':
 			filename = 'web'
 		else:
@@ -22,7 +24,7 @@ def plotWeb(w,minfo='',filename='',asnest=True,asbeads=False,colors=True):
 			filename = filename+'_nested'
 			# If we want the web to be nested
 			tW = np.copy(sortbydegree(w))
-			W = bipartite(tW[0])
+			W = mini_bipartite(tW[0])
 			W.upnames=tW[1]
 			W.lonames=tW[2]
 		else:

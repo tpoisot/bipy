@@ -65,7 +65,7 @@ class bipartite:
 		# Read the matrix
 		if t:
 			web = web.T
-		self.web = web
+		self.web = fixmat(web)
 		# General infos
 		self.upsp = len(self.web)
 		self.losp = len(self.web[0])
