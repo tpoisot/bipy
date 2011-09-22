@@ -13,16 +13,50 @@ import scipy as sp
 import numpy as np
 from scipy import stats
 
+import tempfile
+import os
 import tkFileDialog
 
-def loadweb(file='',t=False):
+def loadweb(file='',t=False,name=''):
 	if file == '':
 		filename = tkFileDialog.askopenfilename()
 	else:
 		filename = file
 	# Read the web
 	w = bipartite(readweb(filename),t=t)
+	w.name = name
 	return w
+
+
+def loadwebNamed(file='',name=''):
+	if file == '':
+		filename = tkFileDialog.askopenfilename()
+	else:
+		filename = file
+	upnames = []
+	lonames = []
+	f = tempfile.NamedTemporaryFile(delete=False)
+	# Read the web
+	fweb = open(filename,'r')
+	cline = 0
+	for line in fweb:
+		if cline == 0:
+			lonames = line.split()
+		else:
+			spl_line = line.split()
+			upnames.append(spl_line[0])
+			tintmat= []
+			for i in range(1,len(spl_line)):
+				f.write(str(float(spl_line[i]))+' ')
+			f.write('\n')
+		cline += 1
+	f.close()
+	web = bipartite(readweb(f.name))
+	os.unlink(f.name)
+	web.name = name
+	web.upnames=upnames
+	web.lonames=lonames
+	return web
 
 
 class bipartite:

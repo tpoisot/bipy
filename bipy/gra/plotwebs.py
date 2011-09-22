@@ -1,5 +1,8 @@
 import scipy as sp
 import numpy as np
+
+from ..bipartite_class import *
+
 from pyx import *
 
 from ..gen import *
