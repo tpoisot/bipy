@@ -9,10 +9,17 @@ from ..gen import *
 from ..mod import *
 
 # Generic function for plotting
-def plotWeb(w,minfo='',filename='web',asnest=True,asbeads=False,colors=True):
+def plotWeb(w,minfo='',filename='',asnest=True,asbeads=False,colors=True):
+	# Filename
+	if filename = '':
+		if w.name == '':
+			filename = 'web'
+		else:
+			filename = w.name
 	if minfo=='':
 		# If the modules infos are void...
 		if asnest:
+			filename = filename+'_nested'
 			# If we want the web to be nested
 			tW = np.copy(sortbydegree(w))
 			W = bipartite(tW[0])
@@ -27,6 +34,7 @@ def plotWeb(w,minfo='',filename='web',asnest=True,asbeads=False,colors=True):
 		else:
 			plotMatrix(W,filename=filename,withcolors=colors)
 	else:
+		filename = filename+'_modular'
 		# If we give modules as an argument...
 		g = np.copy(minfo[2])
 		h = np.copy(minfo[3])
