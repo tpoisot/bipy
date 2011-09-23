@@ -139,10 +139,15 @@ class bipartite:
 		StdDev = np.std(DevNest)
 		SignifDev = sp.stats.ttest_1samp(DevNest,0)
 		# Check deviation of modularity
-		DevMod = getDevQ(self,NullList)
-		MeanDevMod = mean(DevMod)
-		StdDevMod = np.std(DevMod)
-		SignifDevMod = sp.stats.ttest_1samp(DevMod,0)
+		if self.modules.N > 1:
+			DevMod = getDevQ(self,NullList)
+			MeanDevMod = mean(DevMod)
+			StdDevMod = np.std(DevMod)
+			SignifDevMod = sp.stats.ttest_1samp(DevMod,0)
+		else:
+			MeanDevMod = 0
+			StdDevMod = 0
+			SignifDevMod = [0,1]
 		# Print the data
 		f = open(filename, 'w')
 		f.write('NAME\t'+self.name+'\n')
