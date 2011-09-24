@@ -1,11 +1,16 @@
 %!TEX TS-program = xelatex
 %!TEX encoding = UTF-8 Unicode
 
-\documentclass[nols,b5paper]{tufte-book}
+\documentclass[11pt]{scrbook}
+
+\usepackage{geometry}
+\geometry{b5paper}
 
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{listings}
+
+\usepackage{natbib}
 
 \usepackage{mathspec}
 \usepackage{fontspec,xltxtra,xunicode}
@@ -47,8 +52,8 @@
 \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
 
 
-\title[\textsc{bipy user manual}]{bipy user manual}
-\author[\textsc{Timothée Poisot}]{Timothée Poisot}
+\title{bipy user manual}
+\author{Timothée Poisot}
 \date{Version pre 1.0}
 
 \begin{document}
@@ -60,21 +65,21 @@
 
 \texttt{bipy} is a set of functions written in Python, whose goal is to make it easy to analyze and visualize bipartite networks. This document describes the use of the \texttt{bipy}. This documentation is valid only for the versions before the 1.0 release (scheduled to occur sometime in the fall or winter of 2011). The aim of this documentation is to present only the ``high-level'' functions, i.e. these that the user will need to perform the analyses (although \texttt{bipy} was conceived to automate most of the analyses, so there are a very small number of functions that need to be known). In addition, some background about the measures used and the most important references will be given.
 
-This guide should be viewed as a quick walkthrough to the features, and is intended primarily for the people that want to analyze their data without spending much effort in understanding the mechanisms behind the analyses. The ``\nameref{c:ex}'' on p. \pageref{c:ex} gives some complete scripts to perform the most common analyses.
+This guide should be viewed as a quick walkthrough to the features, and is intended primarily for the people that want to analyze their data without spending much effort in understanding the mechanisms behind the analyses. It alos serves the purpose of detailing which measures are used, and why they were chosen.
 
-\subsection{Installing \texttt{bipy}}
+\section{Installing \texttt{bipy}}
 
 \texttt{bipy} can be obtained on \emph{GitHub} (http://github.com/tpoisot/bipy). There are a number of required additional software. Obviously, \texttt{bipy} requires a Python installation, preferentially 2.6 or 2.7. For those of you with a Mac, you need to download the version from python.org (http://www.python.org/getit/).
 
 Once this is done, 
 
-\subsection{Do I need to know Python ?}
+\section{Do I need to know Python ?}
 
 This is a good question! If you just want to have basic informations about your data, the short answer is \textbf{no}. \texttt{bipy} was designed from the beginning to automate most of the calculations, and use the most robust statistics available, so you don't have to play too much with the code. Most of what you will have to do is start python, load your data, and use the summary functions.
 
 If you want to use \texttt{bipy} for more complicated analyses, then \textbf{yes}, learning python will definitely be a huge plus. But if you are willing to adopt a computational approach, chances are you already know a programming language, and you should be able to pick up python really quick.
 
-\subsection{How do I cite \texttt{bipy} ?}
+\section{How do I cite \texttt{bipy} ?}
 
 For the moment, just cite (by replacing the date with the day you downloaded it):
 
@@ -86,17 +91,13 @@ A paper formally describing \texttt{bipy} (along with alternatives in other lang
 
 \chapter{Loading data}
 
-This chapter describes how to load data in a format that can be understood by \texttt{bipy}. There are two different ways to load data in \texttt{bipy}: \emph{via} a text file, or \emph{via} the web \footnote{Actually, there exists a third way to load data, namely the interaction with the \textsc{ewdb} -- given that this database is still highly experimental, and that the server on which it is developed is not ready to support real usage, this will be introduced in future versions of \texttt{bipy}. }. We will cover both in this chapter.
+This chapter describes how to load data in a format that can be understood by \texttt{bipy}. There are two different ways to load data in \texttt{bipy}: \emph{via} a text file, or \emph{via} the web. We will cover both in this chapter.
 
-\subsection{What should the data look like ?}
+\section{What should the data look like ?}
 
 \texttt{bipy} assumes that a bipartite network is nothing more than a matrix, in which each square represents the strength of the interaction between a species from the top trophic level, and a species from the bottom trophic level. Thus, a bipartite network is defined by a matrix $\mathbf{M}$, in which $\mathbf{M}\sb{ij}$ is the strength of the link between upper trophic level species $i$ and lower trophic level species $j$. It is assumed that the rows of $\mathbf{M}$ are the upper trophic level species. This is a notational convention, but we will stick to it through all the documentation.
 
 The advantage of this organization of the data is that it can easily be stored in a text file, with each interaction strength separated by a space, and the different organisms separated by a new line. Thus, the file
-
-\begin{marginfigure}[3cm]
-	\includegraphics[width=4.5cm]{ex-1}
-\end{marginfigure}
 
 \begin{verbatim}
 1 0 0 0 1
@@ -111,7 +112,7 @@ However, an interaction network is much more than the interaction matrix. When a
 
 Loading data will read the interaction matrix, and generate this \texttt{bipartite} object, which will be used in nearly all the analyses after. This requires no input from the user, so getting the data ready to work is really straightforward.
 
-\subsection{Reading data from a local file}
+\section{Reading data from a local file}
 
 Assuming that your data are in this format, and the file is called \texttt{mydata.web}, you can load them
 
@@ -135,7 +136,7 @@ web = loadweb()
 
 \texttt{loadweb} will open the file selection dialog of your operating system, so you can pick your dataset.
 
-\subsection{Reading data from the web}
+\section{Reading data from the web}
 
 The alternative way is to load data stored on the internet. \texttt{bipy} is able to do so by using the \texttt{readRemoteWeb} function, which requires two arguments. The first one is the \textsc{url} of a text file, which stores the interaction matrix. The second tells if the network should be transposed (false by default).
 
@@ -145,7 +146,7 @@ web = readRemoteWeb('http://server/mydata.web'),False)
 
 This method can be used to load networks made publicly available on the \textsc{iwdb} (http://www.nceas.ucsb.edu/interactionweb/), for example.
 
-\subsection{Adding species names}
+\section{Adding species names}
 
 \texttt{bipy} has the ability to store the names of the species in the network. Currently, the way to do it is to assign a value to the properties \texttt{lonames} and \texttt{upnames} of a \texttt{bipartite} object. An easier way to load the data is currently being implemented.
 
@@ -161,7 +162,7 @@ web.upnames = ['herb1','herb2','herb3',...]
 
 If you do not specify species names, then \texttt{bipy} will assign number to each of the species, starting with 0 for the first species in your file, and increasing.
 
-\subsection{Adding bibliographical references}
+\section{Adding bibliographical references}
 
 When comparing several datasets, it may be interesting to know where the data come from. \texttt{bipy} is able to extract bibliographic information from several identifiers, and to generate a link to the original paper.
 
@@ -178,7 +179,34 @@ This uses some \textsc{ncbi} functions to get the original data, so you need to 
 
 \chapter{Network--level metrics}
 
+\section{Nestedness}
+
+\section{Modularity}
+
 \chapter{Null models}
+
+\texttt{bipy} proposes (as of now) two different null models. This chapter presents the
+
+\section{Null models}
+
+The common feature of the null models that are currently implemented is that they will, for each interaction, generate a probability that it is realized, and then draw at random wether it happen or not using a binomial process. For the sake of notational simplicity, we call the probability that $\mathbf{M}\sb{ij}=1$ (i.e. species $i$ and $j$ are interacting) $\mathrm{P}_{ij}$. It should be noted that both null models produce adjacency matrices, i.e. filled only with 0s and 1s.
+
+\subsection{Null model 1 (\texttt{null1})}
+
+The first null model was proposed by \citet{Fortuna2006}. It accounts for the connectance $Co$ of the network, such that for each interaction, $\mathrm{P}_{ij} = Co$. As such, thus null model only accounts for the connectance of the original network.
+
+\subsection{Null model 2 (\texttt{null2})}
+
+The second null model was proposed by \citet{Bascompte2003}. For each species $n$, we calculate its range as being the proportion of the organisms with whim it interacts. Let $\mathrm{R}\sb{n}$ be this range.
+
+For each interaction, the probability of it hapenning at random is
+
+\begin{equation}
+	\mathrm{P}\sb{ij} = \frac{1}{2}\left(\mathrm{R}\sb{i}+\mathrm{R}\sb{j}\right)
+\end{equation}
+
+
+\section{Tests of the deviation of common measures}
 
 \chapter{Graphics}
 
@@ -186,11 +214,11 @@ This uses some \textsc{ncbi} functions to get the original data, so you need to 
 
 In order to simplify the use of \texttt{bipy}, all of the plotting is handled by the function \texttt{plotWeb}. The number of arguments you can pass to is varies as a function of wether you want your visualization to reflect the nested or modular properties of the data.
 
-\subsection{Nested webs}
+\section{Nested webs}
 
 
 
-\subsection{Modular webs}
+\section{Modular webs}
 
 In order to plot a network so as to reflect its modularity, you need to pass a second argument to \texttt{plotWeb}:
 
@@ -203,5 +231,8 @@ plotWeb(web,mod,filename='mydata-modular')
 Note that when plotting a modular network, within each module, the species will be sorted by degree (so within each module, the visualization reflects the nestedness).
 
 \chapter{Example scripts\label{c:ex}}
+
+\bibliographystyle{amnatnat}%
+\bibliography{/Users/tpoisot/Dropbox/library}%
 
 \end{document}
