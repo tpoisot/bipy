@@ -1,7 +1,7 @@
 %!TEX TS-program = xelatex
 %!TEX encoding = UTF-8 Unicode
 
-\documentclass[11pt]{scrbook}
+\documentclass[10pt]{scrbook}
 
 \usepackage{geometry}
 \geometry{b5paper}
@@ -16,9 +16,10 @@
 \usepackage{fontspec,xltxtra,xunicode}
 \defaultfontfeatures{Mapping=tex-text}
 \setromanfont[Mapping=tex-text]{Warnock Pro Light}
+\setmathfont(Greek,Latin,Digits){Warnock Pro Light}
 \setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Frutiger LT Std}
 \setmonofont[Scale=MatchLowercase]{Andale Mono}
-\setmathfont(Greek,Latin,Digits){Warnock Pro Light}
+
 
 \graphicspath{{./figures/}}
 
@@ -180,6 +181,12 @@ This uses some \textsc{ncbi} functions to get the original data, so you need to 
 \chapter{Network--level metrics}
 
 \section{Nestedness}
+
+The measure of nestedness used is \textsc{nodf}, as described by \citet{Almeida-Neto2008}. This measure has the advantage of being robust to most of the variations in network structure (shape and size), and displays a consistent behaviour with regard to connectance (namely, a linear increase). In addition, it is possible to separate the nestedness of the whole network, and of each of the trophic levels.
+
+\textsc{nodf} can be calculated using the \texttt{NNNNNNNN} function.
+
+When using the \texttt{bipartite} class, the values of nestedness can accessed with \texttt{.nodf}, \texttt{.nodf\_up}, and \texttt{.nodf\_low}. These attributes are also used by the \texttt{mini\_bipartite} class.
 
 \section{Modularity}
 
