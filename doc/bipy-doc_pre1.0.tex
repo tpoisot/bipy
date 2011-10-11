@@ -15,10 +15,11 @@
 \usepackage{mathspec}
 \usepackage{fontspec,xltxtra,xunicode}
 \defaultfontfeatures{Mapping=tex-text}
-\setromanfont[Mapping=tex-text]{Warnock Pro Light}
+\setromanfont[Mapping=tex-text]{Warnock Pro}
 \setmathfont(Greek,Latin,Digits){Warnock Pro Light}
 \setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Frutiger LT Std}
 \setmonofont[Scale=MatchLowercase]{Andale Mono}
+\setmathrm{Warnock Pro Light}
 
 
 \graphicspath{{./figures/}}
@@ -177,6 +178,23 @@ output_citinfo(w)
 This uses some \textsc{ncbi} functions to get the original data, so you need to be online to use it. 
 
 \chapter{Species--level metrics}
+
+\section{Degree}
+
+\section{Specificity}
+
+\texttt{bipy} implements three measures of specificity, which are especially suited to the analysis of bipartite networks. SAY MORE.
+
+\subsection{Specificity}
+
+Specificity is measures with the ``paired-differences index'' \citep[\textsc{pdi},][]{PoisotBL2011,PoisotPRSLB2011}. 
+
+\subsection{Species-specialization index}
+
+The ``species-specialization index'' of \citet{Julliard2006} is implemented. When using the  \texttt{bipartite} class, the values of \textsc{ssi} for all species are available in the \texttt{ssi} attribute.
+
+\subsection{Resource--range}
+
 
 \chapter{Network--level metrics}
 
