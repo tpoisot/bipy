@@ -122,7 +122,7 @@ class bipartite:
 		return 0
 	
 	## Network-level function
-	def networklevel(self,modreps=50,nullreps=100,fun=null2,maxiter=1000):
+	def networklevel(self,modreps=50,nullreps=100,fun=null2,maxiter=1000,robseq=300,robupper=True,robfile=False):
 		# Create a filename
 		if self.name != '':
 			filename = self.name+'_network.txt'
@@ -148,26 +148,39 @@ class bipartite:
 			MeanDevMod = 0
 			StdDevMod = 0
 			SignifDevMod = [0,1]
+		# Perform robustness analysis
+		Rrand = extinctRobustness(self,nreps=robseq,removelower=robupper,tofile=robfile)
+		Rwors = extinctRobustness(self,method='gtos',nreps=1,removelower=robupper,tofile=robfile)
+		Rbest = extinctRobustness(self,method='stog',nreps=1,removelower=robupper,tofile=robfile)
+		###################################################
 		# Print the data
 		f = open(filename, 'w')
+		## General informations
 		f.write('NAME\t'+self.name+'\n')
 		f.write('SIZE\t'+str(self.size)+'\n')
 		f.write('UP_SP\t'+str(self.upsp)+'\n')
 		f.write('LO_SP\t'+str(self.losp)+'\n')
 		f.write('CONN\t'+str(self.connectance)+'\n')
+		## Nestedness
 		f.write('NODF\t'+str(self.nodf)+'\n')
 		f.write('NODF_UP\t'+str(self.nodf_up)+'\n')
 		f.write('NODF_LO\t'+str(self.nodf_low)+'\n')
 		f.write('NODF_DEV\t'+str(round(MeanDev,3))+'\n')
 		f.write('NODF_DEV_SD\t'+str(round(StdDev,3))+'\n')
 		f.write('NODF_DEV_SIGNIF\t'+str(SignifDev[1])+'\n')
+		## Modularity
 		f.write('QBIP\t'+str(self.modules.Q)+'\n')
 		f.write('NMOD\t'+str(self.modules.N)+'\n')
 		f.write('QR\t'+str(self.modules.Qr)+'\n')
 		f.write('MOD_DEV\t'+str(round(MeanDevMod,3))+'\n')
 		f.write('MOD_DEV_SD\t'+str(round(StdDevMod,3))+'\n')
 		f.write('MOD_DEV_SIGNIF\t'+str(SignifDevMod[1])+'\n')
+		## Robustness
+		f.write('ROB_RANDOM\t'+str(extinctionScore(Rrand))+'\n')
+		f.write('ROB_GtoS\t'+str(extinctionScore(Rwors))+'\n')
+		f.write('ROB_StoG\t'+str(extinctionScore(Rbest))+'\n')
 		f.close()
+		###################################################
 		# Return the data
 		print 'Network-level data saved to '+filename
 		return 0

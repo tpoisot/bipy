@@ -3,7 +3,7 @@ import copy
 from numpy.random import shuffle
 from .tests import *
 
-def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=50):
+def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=100):
 	######
 	#
 	# method
@@ -28,8 +28,9 @@ def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=50):
 		print 'Starting '+str(nreps)+' decreasing degree (worst case) extinction sequences'
 	
 	# Keep the data somewhere
-	NSP_REMV = []
-	NSP_SURV = []
+	# and make sure that the extreme points are accounted for
+	NSP_REMV = [0,1]
+	NSP_SURV = [1,0]
 	
 	# Actual simulations
 	currentRep = 0
@@ -67,11 +68,13 @@ def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=50):
 			for j in range((i+1),(len(Range)-1)):
 				if Range[j] > cRange:
 					Range[j] -= 1
+					
 			if removelower:
-				NSP_SURV.append(sW.upsp)
+				NSP_REMV.append((i+1)/float(w.losp))
+				NSP_SURV.append(sW.upsp/float(w.upsp))
 			else:
-				NSP_SURV.append(sW.losp)
-			NSP_REMV.append(i)
+				NSP_REMV.append((i+1)/float(w.upsp))
+				NSP_SURV.append(sW.losp/float(w.losp))	
 			
 	# Finally...
 	out = zip(NSP_REMV,NSP_SURV)
@@ -83,4 +86,48 @@ def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=50):
 			f.write('\n')
 		f.close()
 	return zip(NSP_REMV,NSP_SURV)
+
+
+def int_rect(x,y):
+	# Numerical integration using rectangles method
+	AUC = 0
+	LastLowerBound = 0
+	LastUpperBound = 0
+	for i in range(len(x)):
+		# Find span and bounds
+		if(LastUpperBound == LastLowerBound):
+			Span = x[(i+1)]-x[i]
+			LastUpperBound = x[i]+Span/float(2)
+			LastLowerBound = x[i]-Span/float(2)
+		else:
+			LastLowerBound = LastUpperBound
+			HSpan = (x[i]-LastLowerBound)
+			Span = HSpan  *2
+			LastUpperBound = LastLowerBound + Span
+		AUC += y[i]*Span
+	return AUC
+
+def extinctionScore(ext,integrator=int_rect):
+	# Gives the area under the curve for an extinction robustness analysis
 	
+	# Step 1 : aggregate
+	NRem = list(zip(*ext)[0])
+	NSur = list(zip(*ext)[1])
+	
+	MSur = []
+	LRem = uniquify(NRem)
+	
+	for lrem in LRem:
+		tsum = 0
+		tcnt = 0
+		for i in range(len(NSur)):
+			if NRem[i] == lrem:
+				tsum += NSur[i]
+				tcnt += 1
+		MSur.append(tsum/float(tcnt))
+	
+	# Step 2 : perform integration
+	
+	AUC = integrator(LRem,MSur)
+	
+	return AUC
