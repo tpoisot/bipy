@@ -51,7 +51,7 @@ def remSpecies(w,sp=0,fromTop=True):
 		RMat = RMat.T
 	# Check the dimensionality
 	mat = fixmat(RMat)
-	if (len(mat.shape) == 2)&(len(mat)>1)&(len(mat[0])>1):
+	if (len(mat.shape) == 2)&(len(mat)>=1)&(len(mat[0])>=1):
 		mat = mini_bipartite(mat)
 	else:
 		mat = np.zeros((0,0))

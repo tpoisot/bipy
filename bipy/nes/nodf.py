@@ -36,6 +36,8 @@ def getNpaired(W):
 
 
 def nodf(aW):
+	if len(aW[0]==1)|len(aW==1):
+		return [0,0,0]
 	W = nestadj(aW)
 	# Measures NODF
 	#	Almeida-Neto, M, et al. (2008) Oikos 117(8) 1227-1239
