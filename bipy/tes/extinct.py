@@ -20,21 +20,12 @@ def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=50):
 	#
 	######
 	
-	# Number of links for stog/gtos sequences
-	if removelower:
-		Links = np.copy(w.vulnerability)
-		Range = np.array(range(0,w.losp))
-		fTop = False
-	else:
-		Links = np.copy(w.generality)
-		Range = np.array(range(0,w.upsp))
-		fTop = True
-	
-	inds = np.argsort(Links)
-	Range = np.take(Range, inds)
-	
+	if method == 'random':
+		print 'Starting '+str(nreps)+' random extinction sequences'
+	if method == 'stog':
+		print 'Starting '+str(nreps)+' increasing degree (best case) extinction sequences'
 	if method == 'gtos':
-			Range = Range[::-1]
+		print 'Starting '+str(nreps)+' decreasing degree (worst case) extinction sequences'
 	
 	# Keep the data somewhere
 	NSP_REMV = []
@@ -45,7 +36,22 @@ def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=50):
 	
 	# Loop for the extinction sequence
 	while currentRep < nreps:
-		print currentRep
+		
+		# Number of links for stog/gtos sequences
+		if removelower:
+			Links = np.copy(w.vulnerability)
+			Range = np.array(range(0,w.losp))
+			fTop = False
+		else:
+			Links = np.copy(w.generality)
+			Range = np.array(range(0,w.upsp))
+			fTop = True
+	
+		inds = np.argsort(Links)
+		Range = np.take(Range, inds)
+	
+		if method == 'gtos':
+				Range = Range[::-1]
 		sW = copy.deepcopy(w)
 		# Increase the sequence counter
 		currentRep += 1
@@ -77,3 +83,4 @@ def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=50):
 			f.write('\n')
 		f.close()
 	return zip(NSP_REMV,NSP_SURV)
+	
