@@ -49,8 +49,14 @@ def remSpecies(w,sp=0,fromTop=True):
 			ci = ci + 1
 	if not fromTop:
 		RMat = RMat.T
+	# Check the dimensionality
+	mat = fixmat(RMat)
+	if (len(mat.shape) == 2)&(len(mat)>1)&(len(mat[0])>1):
+		mat = mini_bipartite(mat)
+	else:
+		mat = np.zeros((0,0))
 	# Returns a mini bipartite object
-	return mini_bipartite(fixmat(RMat))
+	return mat
 
 
 # Get the contribution of each species to modularity
