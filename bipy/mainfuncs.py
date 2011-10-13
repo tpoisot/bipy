@@ -32,7 +32,7 @@ def meanperf(W,novoid=False):
 					tspe.append(tfit)
 			else:
 				tspe.append(tfit)
-		perf.append(mean(tspe))
+		perf.append(np.mean(tspe))
 	return perf
 
 

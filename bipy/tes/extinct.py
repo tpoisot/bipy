@@ -61,7 +61,7 @@ def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=100)
 			shuffle(Range)
 		# Begin extinctions
 		for i in range(0,(len(Range)-1)):
-			sW = remSpecies(sW,sp=Range[i],fromTop=fTop)
+			sW = remSpecies(sW,sp=Range[i],fromTop=fTop,superMini=True)
 			if sW.__class__.__name__ == 'ndarray':
 				break
 			cRange = Range[i]
@@ -127,7 +127,7 @@ def extinctionScore(ext,integrator=int_rect):
 		MSur.append(tsum/float(tcnt))
 	
 	# Step 2 : perform integration
-	
 	AUC = integrator(LRem,MSur)
 	
-	return AUC
+	return [AUC,LRem,MSur]
+

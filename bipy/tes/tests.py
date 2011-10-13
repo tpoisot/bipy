@@ -34,7 +34,7 @@ def getDevQ(w,list):
 
 
 ## remove a species from a matrix
-def remSpecies(w,sp=0,fromTop=True):
+def remSpecies(w,sp=0,fromTop=True,superMini=False):
 	if fromTop:
 		Mat = np.copy(w.web)
 	else:
@@ -50,9 +50,13 @@ def remSpecies(w,sp=0,fromTop=True):
 	if not fromTop:
 		RMat = RMat.T
 	# Check the dimensionality
-	mat = fixmat(RMat)
+#	mat = fixmat(RMat)
+	mat = RMat
 	if (len(mat.shape) == 2)&(len(mat)>=1)&(len(mat[0])>=1):
-		mat = mini_bipartite(mat)
+		if superMini:
+			mat = super_mini_bipartite(mat)
+		else:
+			mat = mini_bipartite(mat)
 	else:
 		mat = np.zeros((0,0))
 	# Returns a mini bipartite object

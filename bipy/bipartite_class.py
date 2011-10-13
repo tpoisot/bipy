@@ -176,9 +176,9 @@ class bipartite:
 		f.write('MOD_DEV_SD\t'+str(round(StdDevMod,3))+'\n')
 		f.write('MOD_DEV_SIGNIF\t'+str(SignifDevMod[1])+'\n')
 		## Robustness
-		f.write('ROB_RANDOM\t'+str(extinctionScore(Rrand))+'\n')
-		f.write('ROB_GtoS\t'+str(extinctionScore(Rwors))+'\n')
-		f.write('ROB_StoG\t'+str(extinctionScore(Rbest))+'\n')
+		f.write('ROB_RANDOM\t'+str(extinctionScore(Rrand)[0])+'\n')
+		f.write('ROB_GtoS\t'+str(extinctionScore(Rwors)[0])+'\n')
+		f.write('ROB_StoG\t'+str(extinctionScore(Rbest)[0])+'\n')
 		f.close()
 		###################################################
 		# Return the data

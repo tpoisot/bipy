@@ -3,7 +3,7 @@ from .nes import *
 from mainfuncs import *
 
 class mini_bipartite:
-	## This class defines a bipartite object with all structural infos
+	## This class defines a bipartite object with minimal informations
 	def __init__ (self,web,t=False):
 		# Read the matrix
 		if t:
@@ -33,3 +33,22 @@ class mini_bipartite:
 		self.stability = mean(self.mperf) - np.sqrt(self.upsp*self.losp*self.connectance)
 	
 
+
+
+class super_mini_bipartite:
+	## This class defines a bipartite object with super minimal informations
+	def __init__ (self,web,t=False):
+		# Read the matrix
+		if t:
+			web = web.T
+		self.web = fixmat(web)
+		# General infos
+		self.upsp = len(self.web)
+		self.losp = len(self.web[0])
+		self.size = self.upsp * self.losp
+		# Connectance
+		adjMat = adjacency(self.web)
+		self.adjacency = adjMat
+		self.nlink = linknum(adjMat)
+		self.connectance = self.nlink / float(self.size)
+	

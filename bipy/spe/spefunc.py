@@ -9,9 +9,9 @@ def generality(W):
 	gen = []
 	for links in W:
 		nl = 0
-		for link in range(0,len(links)):
-			if links[link] > 0:
-				nl = nl + 1
+		for l in links:
+			if l > 0:
+				nl += 1
 		gen.append(nl)
 	return gen
 
