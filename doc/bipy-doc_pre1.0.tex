@@ -1,6 +1,3 @@
-%!TEX TS-program = xelatex
-%!TEX encoding = UTF-8 Unicode
-
 \documentclass[10pt]{scrbook}
 
 \usepackage{geometry}
@@ -10,17 +7,12 @@
 \usepackage{graphicx}
 \usepackage{listings}
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[upright]{fourier}
+\usepackage[lf]{venturis}
+
 \usepackage{natbib}
-
-\usepackage{mathspec}
-\usepackage{fontspec,xltxtra,xunicode}
-\defaultfontfeatures{Mapping=tex-text}
-\setromanfont[Mapping=tex-text]{Warnock Pro}
-\setmathfont(Greek,Latin,Digits){Warnock Pro Light}
-\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Frutiger LT Std}
-\setmonofont[Scale=MatchLowercase]{Andale Mono}
-\setmathrm{Warnock Pro Light}
-
 
 \graphicspath{{./figures/}}
 
@@ -187,7 +179,7 @@ This uses some \textsc{ncbi} functions to get the original data, so you need to 
 
 \subsection{Specificity}
 
-Specificity is measures with the ``paired-differences index'' \citep[\textsc{pdi},][]{PoisotBL2011,PoisotPRSLB2011}. 
+Specificity is measured with the ``paired-differences index'' \citep[\textsc{pdi},][]{PoisotMEE2011}. 
 
 \subsection{Species-specialization index}
 
@@ -241,8 +233,6 @@ In order to simplify the use of \texttt{bipy}, all of the plotting is handled by
 
 \section{Nested webs}
 
-
-
 \section{Modular webs}
 
 In order to plot a network so as to reflect its modularity, you need to pass a second argument to \texttt{plotWeb}:
@@ -258,6 +248,6 @@ Note that when plotting a modular network, within each module, the species will 
 \chapter{Example scripts\label{c:ex}}
 
 \bibliographystyle{amnatnat}%
-\bibliography{/Users/tpoisot/Dropbox/library}%
+\bibliography{/Users/tpoisot/Dropbox/library.bib}%
 
 \end{document}

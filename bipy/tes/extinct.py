@@ -88,6 +88,96 @@ def extinctRobustness(w,method='random',removelower=True,tofile=False,nreps=100)
 	return zip(NSP_REMV,NSP_SURV)
 
 
+def extinctDegree(w,method='random',removelower=True,tofile=False,nreps=100):
+	######
+	#
+	# method
+	# Must be one of
+	#	random : random removal
+	#	stog : specialists to generalists
+	#	gtos : generalists to specialists
+	#
+	# removelower
+	#	tells if the upper or lower level is removed
+	#
+	# nreps
+	#	Number of extinction sequences to perform
+	#
+	######
+	
+	if method == 'random':
+		print 'Starting '+str(nreps)+' random extinction sequences'
+	if method == 'stog':
+		print 'Starting '+str(nreps)+' increasing degree (best case) extinction sequences'
+	if method == 'gtos':
+		print 'Starting '+str(nreps)+' decreasing degree (worst case) extinction sequences'
+	
+	# Keep the data somewhere
+	# and make sure that the extreme points are accounted for
+	if removelower:
+		NSP_SURV = [1,mean(w.generality)/float(w.losp)]
+		NSP_REMV = [1,0]
+	else:
+		NSP_SURV = [1,mean(w.vulnerability)/float(w.upsp)]
+		NSP_REMV = [1,0]
+	
+	# Actual simulations
+	currentRep = 0
+	
+	# Loop for the extinction sequence
+	while currentRep < nreps:
+		
+		# Number of links for stog/gtos sequences
+		if removelower:
+			Links = np.copy(w.vulnerability)
+			Range = np.array(range(0,w.losp))
+			fTop = False
+		else:
+			Links = np.copy(w.generality)
+			Range = np.array(range(0,w.upsp))
+			fTop = True
+	
+		inds = np.argsort(Links)
+		Range = np.take(Range, inds)
+	
+		if method == 'gtos':
+				Range = Range[::-1]
+		sW = copy.deepcopy(w)
+		# Increase the sequence counter
+		currentRep += 1
+		# Randomize if needed
+		if method == 'random':
+			shuffle(Range)
+		# Begin extinctions
+		for i in range(0,(len(Range)-1)):
+			sW = remSpecies(sW,sp=Range[i],fromTop=fTop,superMini=True)
+			if sW.__class__.__name__ == 'ndarray':
+				break
+			cRange = Range[i]
+			for j in range((i+1),(len(Range)-1)):
+				if Range[j] > cRange:
+					Range[j] -= 1
+					
+			if removelower:
+				NSP_REMV.append((i+1)/float(w.losp))
+				NSP_SURV.append(mean(vulnerability(sW.web))/float(sW.upsp))
+			else:
+				NSP_REMV.append((i+1)/float(w.upsp))
+				NSP_SURV.append(mean(generality(sW.web))/float(sW.losp))
+			
+	# Finally...
+	out = zip(NSP_REMV,NSP_SURV)
+	if tofile:
+		fname = w.name+'_ext_degree_'+method+'.txt'
+		f = open(fname, 'w')
+		for row in out:
+			f.write(" ".join(map(str,row)))
+			f.write('\n')
+		f.close()
+	return zip(NSP_REMV,NSP_SURV)
+
+
+
 def int_rect(x,y):
 	# Numerical integration using rectangles method
 	AUC = 0

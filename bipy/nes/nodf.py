@@ -36,7 +36,7 @@ def getNpaired(W):
 
 
 def nodf(aW):
-	if len(aW[0]==1)|len(aW==1):
+	if (len(aW[0])==1)|(len(aW)==1):
 		return [0,0,0]
 	W = nestadj(aW)
 	# Measures NODF
@@ -58,4 +58,5 @@ def nodf(aW):
 	ColNest = round(NcolSum/ColCor,2)
 	RowNest = round(NrowSum/RowCor,2)
 	NEST = [WholeNest, ColNest, RowNest]
+	print NEST
 	return NEST
