@@ -1,18 +1,7 @@
 import scipy as sp
 import numpy as np
 from ..mainfuncs import *
-from ..gen import
-
-def generality(W):
-	ad = adjacency(W)
-	gen = np.sum(ad,axis=1)
-	return gen
-
-def vulnerability(W):
-	ad = adjacency(W)
-	gen = np.sum(ad,axis=0)
-	return gen
-
+from ..gen import *
 
 def sp_pdi(f):
 	fit = np.copy(f)

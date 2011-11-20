@@ -58,5 +58,4 @@ def nodf(aW):
 	ColNest = round(NcolSum/ColCor,2)
 	RowNest = round(NrowSum/RowCor,2)
 	NEST = [WholeNest, ColNest, RowNest]
-	print NEST
 	return NEST

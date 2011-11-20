@@ -1,8 +1,18 @@
 import scipy as sp
 import numpy as np
 from .gendesc import *
-from ..spe import *
 from ..mainfuncs import *
+
+def generality(W):
+	ad = adjacency(W)
+	gen = np.sum(ad,axis=1)
+	return gen
+
+def vulnerability(W):
+	ad = adjacency(W)
+	gen = np.sum(ad,axis=0)
+	return gen
+
 
 def sortbydegree(W):
 	# Sort a matrix by degree

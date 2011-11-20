@@ -181,4 +181,3 @@ def uniquify(seq):
     set = {} 
     map(set.__setitem__, seq, []) 
     return sorted(set.keys())
-

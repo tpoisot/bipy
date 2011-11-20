@@ -63,40 +63,6 @@ def null2(W):
 	return fmw
 
 
-## Parallel wrapper for the null model 1
-def p_null1(W,nreps=100,ncpu=2):
-	# Generate a long replication of the web
-	ListOfArgs = []
-	for i in range(nreps):
-		ListOfArgs.append(W)
-	# Initiate parallel
-	job_server = pp.Server(ncpu, ppservers=())
-	print "Starting parallel generation of null models on", job_server.get_ncpus(), "CPU(s)"
-	jobs = [(input, job_server.submit(null1, (input,), (fixmat, websize, generality, vulnerability, nullC, ), ())) for input in ListOfArgs]
-	ListOfNulls = []
-	for input, job in jobs:
-		if (websize(job()) == W.size):
-			ListOfNulls.append(job())
-	return ListOfNulls
-
-
-## Parallel wrapper for the null model 2
-def p_null2(W,nreps=100,ncpu=2):
-	# Generate a long replication of the web
-	ListOfArgs = []
-	for i in range(nreps):
-		ListOfArgs.append(W)
-	# Initiate parallel
-	job_server = pp.Server(ncpu, ppservers=())
-	print "Starting parallel generation of null models on", job_server.get_ncpus(), "CPU(s)"
-	jobs = [(input, job_server.submit(null2, (input,), (fixmat, websize, generality, vulnerability, ), ())) for input in ListOfArgs]
-	ListOfNulls = []
-	for input, job in jobs:
-		if (websize(job()) == W.size):
-			ListOfNulls.append(job())
-	return ListOfNulls
-
-
 ## Global wrapper around the null models
 def nullModel(W,fun=null1,nreps=1,ncpus=1,maxiter=10000):
 	out = []

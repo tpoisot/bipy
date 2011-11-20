@@ -18,6 +18,7 @@ def websize(W):
 	wsize = nbot * ntop
 	return wsize
 
+
 def connectance(W):
 	# Connectance (as L/S^2)
 	nl = linknum(W)
