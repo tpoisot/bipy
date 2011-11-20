@@ -1,17 +1,37 @@
 import scipy as sp
 import numpy as np
-from .gendesc import *
 from ..mainfuncs import *
+
+def adjacency(W):
+	adj = np.copy(W)
+	adj[adj>0] = 1
+	return adj
+
+
+def websize(W):
+	# Size of a web
+	return np.prod(np.shape(W))
+
+
+def connectance(W):
+	# Connectance (as L/S^2)
+	ad = adjacency(W)
+	ws = websize(W)
+	connec = float(np.sum(ad))/ws
+	return connec	
+
 
 def generality(W):
 	ad = adjacency(W)
 	gen = np.sum(ad,axis=1)
 	return gen
 
+
 def vulnerability(W):
 	ad = adjacency(W)
 	gen = np.sum(ad,axis=0)
 	return gen
+
 
 
 def sortbydegree(W):
@@ -103,8 +123,3 @@ def readweb(fname):
 	data = np.loadtxt(fname)
 	return fixmat(data)
 
-	
-def adjacency(W):
-	adj = np.copy(W)
-	adj[adj>0] = 1
-	return adj

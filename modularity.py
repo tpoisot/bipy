@@ -5,7 +5,6 @@ print "Reading the network file..."
 print ""
 
 w = bipartite(readweb('modular.web'),t=False)
-prettyprint(w.web)
 
 # Parallel
 # Uncomment to test

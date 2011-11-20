@@ -3,4 +3,3 @@
 __version__ = "3"
 
 from mathandle import *
-from gendesc import *

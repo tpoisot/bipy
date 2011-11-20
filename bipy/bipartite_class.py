@@ -72,8 +72,8 @@ class bipartite:
 		self.size = self.upsp * self.losp
 		# Connectance
 		self.adjacency = adjacency(self.web)
-		self.nlink = linknum(self.web)
-		self.connectance = self.nlink / float(self.size)
+		self.nlink = np.sum(web)
+		self.connectance = connectance(web)
 		# Specificity and all
 		self.generality = generality(web)
 		self.vulnerability = vulnerability(web)
