@@ -1,25 +1,17 @@
 import scipy as sp
 import numpy as np
 from ..mainfuncs import *
-from ..gen import *
+from ..gen import
 
 def generality(W):
-	# Measure of generality
-	#	Schoener, T. (1989) Ecology 70(6) 1559-1589
-	gen = []
-	for links in W:
-		nl = 0
-		for l in links:
-			if l > 0:
-				nl += 1
-		gen.append(nl)
+	ad = adjacency(W)
+	gen = np.sum(ad,axis=1)
 	return gen
 
 def vulnerability(W):
-	# Measure of generality
-	#	Schoener, T. (1989) Ecology 70(6) 1559-1589
-	vul = generality(W.T)
-	return vul
+	ad = adjacency(W)
+	gen = np.sum(ad,axis=0)
+	return gen
 
 
 def sp_pdi(f):

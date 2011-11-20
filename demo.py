@@ -10,6 +10,10 @@ print ""
 
 data = readweb('demo.web').T
 
+print data
+
+print adjacency(data)
+
 print "Some general infos:"
 print "Connectance           : "+str(connectance(data))+" "
 print "Mean specificity      : "+str(mean(specificity(data)))+" "

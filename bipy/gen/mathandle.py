@@ -94,47 +94,7 @@ def readweb(fname):
 	return fixmat(data)
 
 	
-def adjacency(aW):
-	# Output the adjacency matrix
-	ntop = len(aW)
-	nbot = len(aW[0])
-	W = np.zeros(((ntop),(nbot)))
-	for to in range(ntop):
-		for bo in range(nbot):
-			if aW[to,bo] > 0:
-				W[to,bo] = 1
-	return W
-
-
-def prettyprint(W):
-	# Outputs a text version of the matrix
-	# that can be viewed within the console
-	W = adjacency(W)
-	for tl in range(0,len(W)):
-	    tLine = ''
-	    for bl in range(0,len(W[0])):
-	        if W[tl,bl] > 0:
-	            tLine = tLine+'# '
-	        else :
-	            tLine = tLine+'- '
-	    print tLine
-	return 0
-
-
-def toN3D(bip,filename='w3b.web'):
-	# This allows the user to export an interaction dataset
-	# in a way that Network3D can read
-	# 
-	# Works for bipartite objects ONLY
-	
-	if not hasattr(bip,'web'):
-		bip = bipartite(bip)
-	
-	f = open(filename, 'w')
-	for up in range(bip.upsp):
-		for lo in range(bip.losp):
-			if bip.web[up][lo] > 0:
-				f.write('{0} {1} {2}\n'.format('T'+str(up), 'B'+str(lo), str(bip.web[up][lo])))
-	f.close()
-	return 0
-
+def adjacency(W):
+	adj = np.copy(W)
+	adj[adj>0] = 1
+	return adj
