@@ -142,3 +142,5 @@ FonsecaGanade_species.txt
 FonsecaGanade_modules.txt
 
 FonsecaGanade_network.txt
+
+bipy/gen/gendesc.py
