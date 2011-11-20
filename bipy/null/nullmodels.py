@@ -1,12 +1,9 @@
 import scipy as sp
 import numpy as np
 
-from ..mini_bipartite_class import *
-
 from ..mainfuncs import *
-from ..gen import *
+from ..base import *
 from ..spe import *
-import pp
 
 ## Null model C (needs the size and connectance)
 def nullC(ntop=30,nbottom=30,conn=0.5):

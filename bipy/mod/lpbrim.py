@@ -1,7 +1,6 @@
 ## LP-BRIM modularity in bipartite webs
-from ..nul import *
+from ..null import *
 from ..mainfuncs import *
-from ..mini_bipartite_class import *
 
 ## Find the most frequent element of a list
 def mostFrequent(L):
@@ -283,7 +282,7 @@ def sortbymodule(W,g,h):
 
 
 ## Realized modularity
-## Which proportion of the interactions are mare within modules ?
+## Which proportion of the interactions are made within modules ?
 def Qr(w,mod):
 	if mod[0] == 0:
 		realized = 0
@@ -364,7 +363,6 @@ def subWebs(W):
 						nWeb[cRow][cCol] = W.web[i][j]
 		ExtractedModules.append(nWeb)
 	return ExtractedModules
-
 
 
 ## END OF FILE
