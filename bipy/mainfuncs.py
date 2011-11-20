@@ -36,22 +36,6 @@ def meanperf(W,novoid=False):
 	return perf
 
 
-def rank(V):
-	# Returns the rank of a vector
-	# with no ties
-	rn = np.zeros(len(V),dtype=np.int32)
-	crnk = 0
-	while crnk < len(V):
-		for j in range(0,len(V)):
-			cMax = max(V)
-			if V[j] == cMax:
-				rn[j] = crnk
-				crnk += 1
-				V[j] = min(V)-1
-				break
-	return rn
-
-
 def surp(V):
 	# Given a vector, returns the
 	# probability of each element being a

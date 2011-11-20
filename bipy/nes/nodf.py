@@ -4,7 +4,6 @@ from ..mainfuncs import *
 from ..spe import *
 from ..base import *
 
-
 def nestadj(aW):
 	W = sortbydegree(aW)
 	# Returns as sorted binary matrix

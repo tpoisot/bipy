@@ -32,6 +32,21 @@ def vulnerability(W):
 	return gen
 
 
+def rank(V):
+	# Returns the rank of a vector
+	# with no ties
+	rn = np.zeros(len(V),dtype=np.int32)
+	crnk = 0
+	while crnk < len(V):
+		for j in range(0,len(V)):
+			cMax = max(V)
+			if V[j] == cMax:
+				rn[j] = crnk
+				crnk += 1
+				V[j] = min(V)-1
+				break
+	return rn
+
 
 def sortbydegree(W):
 	# Sort a matrix by degree
