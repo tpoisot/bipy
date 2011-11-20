@@ -7,7 +7,7 @@ from ..bipartite_class import *
 
 from pyx import *
 
-from ..gen import *
+from ..base import *
 from ..mod import *
 
 # Generic function for plotting

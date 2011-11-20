@@ -2,7 +2,7 @@ import scipy as sp
 import numpy as np
 from ..mainfuncs import *
 from ..spe import *
-from ..gen import *
+from ..base import *
 
 
 def nestadj(aW):

@@ -1,10 +1,9 @@
-from .mini_bipartite_class import *
-from .gen import *
-from .nul import *
+from .base import *
+from .null import *
 from .nes import *
 from .spe import *
 from .mod import *
-from .tes import *
+from .tests import *
 
 from getref import *
 from mainfuncs import *
