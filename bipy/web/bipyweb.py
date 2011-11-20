@@ -1,6 +1,6 @@
 # Bipy functions for the web
 
-from ..gen import *
+from ..base import *
 from ..bipartite_class import *
 
 import urllib

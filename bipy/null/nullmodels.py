@@ -7,7 +7,6 @@ from ..spe import *
 
 ## Null model C (needs the size and connectance)
 def nullC(ntop=30,nbottom=30,conn=0.5):
-	import numpy as np
 	Nsize = ntop * nbottom
 	Wp = np.zeros((ntop,nbottom))
 	for i in range(ntop):

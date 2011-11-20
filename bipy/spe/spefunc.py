@@ -1,7 +1,8 @@
 import scipy as sp
 import numpy as np
+
 from ..mainfuncs import *
-from ..gen import *
+from ..base import *
 
 def sp_pdi(f):
 	fit = np.copy(f)

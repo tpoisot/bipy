@@ -1,12 +1,8 @@
 import scipy as sp
 import numpy as np
 
-from ..mini_bipartite_class import *
 from ..bipartite_class import *
-
-
 from pyx import *
-
 from ..base import *
 from ..mod import *
 
