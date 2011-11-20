@@ -1,6 +1,5 @@
 import scipy as sp
 import numpy as np
-from ..mainfuncs import *
 
 def adjacency(W):
 	adj = np.copy(W)
