@@ -2,6 +2,7 @@ import scipy as sp
 import numpy as np
 
 from ..mainfuncs import *
+from ..bipartite_class import *
 from ..base import *
 from ..spe import *
 
@@ -51,7 +52,7 @@ def null2(W):
 	fmw = fixmat(Wp)
 	if (len(fmw.shape) == 2):
 		if (fmw.shape[0] == W.upsp)&(fmw.shape[1] == W.losp):
-			fmw = mini_bipartite(fmw)
+			fmw = bipartite(fmw)
 		else:
 			fmw = np.zeros((0,0))
 	else:

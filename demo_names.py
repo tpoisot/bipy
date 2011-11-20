@@ -11,9 +11,3 @@ rw.upnames = ['Caba','Azal','Azis','Azaf','AlD','Alpr','Alaf','SoA','Alau','CrB'
 rw.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy','Hiph','Dusa','Cono','Coaf','Tobu','Magu','Mapo','Tapo','Tamy','Amaf']
 # We compute the modularity
 rw.modules = modules(rw,reps=50)
-# Species-level statistics
-rw.specieslevel()
-# Module-level statistics
-rw.modulelevel()
-# Network-level statistics
-rw.networklevel(nullreps=500,maxiter=500,fun=null2)
