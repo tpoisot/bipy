@@ -54,3 +54,36 @@ def getDevQbip(w,list):
 	for est_par in est:
 		OUT.append(est_par)
 	return OUT
+
+
+## excess modularity Prime
+def getDevQrALL(w,list):
+	m = [w.modules.Q,w.modules.N,w.modules.up_modules,w.modules.low_modules]
+	Qsim = []
+	wQr = Qr(w,m)
+	for i in list:
+		mod = modules(bipartite(i),reps=100)
+		Qsim.append(mod.Qr)
+	testRes = stats.ttest_1samp(Qsim, wQr)
+	OUT = [wQr,testRes[1]]
+	est = gMIC(Qsim)
+	for est_par in est:
+		OUT.append(est_par)
+	return OUT
+
+
+## excess bipartite modularity Prime
+def getDevQbipALL(w,list):
+	if w.modules.N == 1:
+		return [0,0,0,0,0]
+	Qsim = []
+	wQ = w.modules.Q
+	for i in list:
+		mod = modules(bipartite(i),reps=100)
+		Qsim.append(mod.Q)
+	testRes = stats.ttest_1samp(Qsim, wQ)
+	OUT = [wQ,testRes[1]]
+	est = gMIC(Qsim)
+	for est_par in est:
+		OUT.append(est_par)
+	return OUT
