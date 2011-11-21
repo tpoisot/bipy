@@ -7,7 +7,7 @@ from ..bipartite_class import *
 import scipy.stats as spp
 
 def gMIC(distrib):
-	estimates = spp.bayes_mvs(distrib)[0]
+	estimates = spp.bayes_mvs(distrib,alpha=0.95)[0]
 	return[estimates[0],estimates[1][0],estimates[1][1]]
 
 ## excess modularity
