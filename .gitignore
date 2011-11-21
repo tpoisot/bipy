@@ -146,3 +146,9 @@ FonsecaGanade_network.txt
 bipy/gen/gendesc.py
 
 bipy/null/nullmodels.pyc
+
+bipy/tests/tests.pyc
+
+bipy/null/nullmodels.pyc
+
+bipy/base/descriptions.pyc
