@@ -68,6 +68,8 @@ This guide should be viewed as a quick walkthrough to the features, and is inten
 
 Once this is done, 
 
+To optimize performance, \texttt{bipy} makes an intensive use of the \texttt{numpy} and \texttt{scipy} packages.
+
 \section{Do I need to know Python ?}
 
 This is a good question! If you just want to have basic informations about your data, the short answer is \textbf{no}. \texttt{bipy} was designed from the beginning to automate most of the calculations, and use the most robust statistics available, so you don't have to play too much with the code. Most of what you will have to do is start python, load your data, and use the summary functions.
@@ -79,7 +81,7 @@ If you want to use \texttt{bipy} for more complicated analyses, then \textbf{yes
 For the moment, just cite (by replacing the date with the day you downloaded it):
 
 \begin{quote}
-	Poisot, T. (2011) \texttt{bipy} -- bipartite networks analysis using python. http://github.com/tpoisot/bipy. Downloaded on \today.
+	Poisot, T. (2011) \texttt{bipy} -- bipartite networks analysis using python.\\http://github.com/tpoisot/bipy. Downloaded on \today.
 \end{quote}
 
 A paper formally describing \texttt{bipy} (along with alternatives in other languages) is currently being written.
@@ -201,19 +203,25 @@ When using the \texttt{bipartite} class, the values of nestedness can accessed w
 
 \section{Modularity}
 
+\section{Robustness to extinction}
+
+The extinction robustness analysis used notably by \cite{Memmott2004} are implemented in \texttt{bipy}. Three scenarios of extinction are available: best case (increasing degree, species with a low degree go first), random, and worst case (decreasing degree, highly-connected species go first).
+
 \chapter{Null models}
 
-\texttt{bipy} proposes (as of now) two different null models. This chapter presents the
+\texttt{bipy} proposes (as of now) three main classes of different null models. This chapter presents the way they work and the specificity of each. The purpose of a null model is to use some features of the original network to create a given number of random networks. All null models implemented in \texttt{bipy} share the property that the networks they return will have the exact same size than the original network. A consequence of this is that there are no species with no interactions -- for this reason, networks with a low connectance cannot be meaningfully randomized, and \texttt{bipy} will issue a warning. For networks which can be randomized, but still have a low connectance, the null model will likely require a large number of iterations to find a solution with all rows and columns with at least one interaction, so the analysis might take a long time.
 
-\section{Null models}
+\section{The wrapper for null models}
+
+\section{Null models\label{sec:nulls}}
 
 The common feature of the null models that are currently implemented is that they will, for each interaction, generate a probability that it is realized, and then draw at random wether it happen or not using a binomial process. For the sake of notational simplicity, we call the probability that $\mathbf{M}\sb{ij}=1$ (i.e. species $i$ and $j$ are interacting) $\mathrm{P}_{ij}$. It should be noted that both null models produce adjacency matrices, i.e. filled only with 0s and 1s.
 
-\subsection{Null model 1 (\texttt{null1})}
+\subsection{Null model 1 -- Bernoulli fill (\texttt{null\_1})}
 
 The first null model was proposed by \citet{Fortuna2006}. It accounts for the connectance $Co$ of the network, such that for each interaction, $\mathrm{P}_{ij} = Co$. As such, thus null model only accounts for the connectance of the original network.
 
-\subsection{Null model 2 (\texttt{null2})}
+\subsection{Null model 2 -- interaction average (\texttt{null\_2})}
 
 The second null model was proposed by \citet{Bascompte2003}. For each species $n$, we calculate its range as being the proportion of the organisms with whim it interacts. Let $\mathrm{R}\sb{n}$ be this range.
 
@@ -223,8 +231,15 @@ For each interaction, the probability of it hapenning at random is
 	\mathrm{P}\sb{ij} = \frac{1}{2}\left(\mathrm{R}\sb{i}+\mathrm{R}\sb{j}\right)
 \end{equation}
 
+\subsection{Null model 3 -- row averages (\texttt{null\_3row})}
+
+\subsection{Null model 3 -- column averages (\texttt{null\_3col})}
 
 \section{Tests of the deviation of common measures}
+
+The general approach for testing the deviation of the sructure from a null expectation follows the same procedure. First, we measure $N$ the metric of interest (e.g. modularity or nestedness), then we conduct a given number of replicates of one of the four proposed null models (see section \ref{sec:nulls}), and measure $N'$ (the same metric on the random network) for each. The deviation between the original structure and itsandom expectation is given by $N-N'$, whose mean should be 0 if the structure is random. To assess any deviation from the random expectation, we use a one-sample two-tailed t-test.
+
+The 
 
 \chapter{Graphics}
 

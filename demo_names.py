@@ -12,16 +12,12 @@ rw.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy','Hiph','Dusa','Cono','Co
 # We compute the modularity
 rw.modules = modules(rw,reps=200)
 
-print Qr(rw,[rw.modules.Q,rw.modules.N,rw.modules.up_modules,rw.modules.low_modules])
-
-plotWeb(rw,[rw.modules.Q,rw.modules.N,rw.modules.up_modules,rw.modules.low_modules])
-
 print 'Null 2'
-n2 = nullModel(rw,null_2,replicates=3)
+n2 = nullModel(rw,null_2,replicates=100)
 
 print 'Test for nestedness'
-print getDevNest(rw,n2)[1]
+print getDevNest(rw,n2)
 print 'Test for QR'
-print getDevQr(rw,n2)[1]
+print getDevQr(rw,n2)
 print 'Test for Q bip'
-print getDevQbip(rw,n2)[1]
+print getDevQbip(rw,n2)	
