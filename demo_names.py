@@ -13,7 +13,7 @@ rw.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy','Hiph','Dusa','Cono','Co
 rw.modules = modules(rw,reps=50)
 
 print 'Null 2'
-n2 = nullModel(rw,null_2,replicates=1e4)
+n2 = nullModel(rw,null_2,replicates=4)
 
 print 'Test for nestedness'
 print testDeviation(getDevNest(rw,n2))

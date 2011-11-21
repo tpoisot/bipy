@@ -152,3 +152,5 @@ bipy/tests/tests.pyc
 bipy/null/nullmodels.pyc
 
 bipy/base/descriptions.pyc
+
+bipy/tests/extinct.pyc

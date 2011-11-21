@@ -6,7 +6,7 @@ from ..bipartite_class import *
 
 def testDeviation(vec):
 	testRes = stats.ttest_1samp(vec, 0)
-	return [np.mean(vec),testRes[1],testRes[O]]
+	return [np.mean(vec),testRes[1],testRes[0]]
 
 
 ## excess modularity
@@ -52,8 +52,7 @@ def remSpecies(w,sp=0,fromTop=True,superMini=False):
 			ci = ci + 1
 	if not fromTop:
 		RMat = RMat.T
-	# Check the dimensionality
-#	mat = fixmat(RMat)
+	# Check the dimensions
 	mat = RMat
 	if (len(mat.shape) == 2)&(len(mat)>=1)&(len(mat[0])>=1):
 		if superMini:
