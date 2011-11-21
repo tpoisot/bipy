@@ -19,5 +19,15 @@ print "The modular network was hand-made"
 print "so that we expect 3 modules"
 print ""
 start_time = time.time()
-modules = findModules(w,reps=10)
+w.modules = modules(w,reps=10)
 print "Time elapsed: ", time.time() - start_time, "s"
+
+print 'Null 2'
+n2 = nullModel(w,null_2,replicates=300)
+
+print 'Test for nestedness'
+print getDevNest(w,n2)
+print 'Test for QR'
+print getDevQr(w,n2)
+print 'Test for Q bip'
+print getDevQbip(w,n2)

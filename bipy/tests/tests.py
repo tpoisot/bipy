@@ -25,6 +25,8 @@ def getDevNest(w,list):
 
 ## excess modularity
 def getDevQr(w,list):
+	if w.modules.N == 1:
+		return [0,0,0,0,0]
 	m = [w.modules.Q,w.modules.N,w.modules.up_modules,w.modules.low_modules]
 	Qsim = []
 	wQr = Qr(w,m)
@@ -40,6 +42,8 @@ def getDevQr(w,list):
 
 ## excess bipartite modularity
 def getDevQbip(w,list):
+	if w.modules.N == 1:
+		return [0,0,0,0,0]
 	Qsim = []
 	wQ = w.modules.Q
 	for i in list:
