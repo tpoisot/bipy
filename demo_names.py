@@ -20,4 +20,4 @@ print getDevNest(rw,n2)
 print 'Test for QR'
 print getDevQr(rw,n2)
 print 'Test for Q bip'
-print getDevQbip(rw,n2)	
+print getDevQbip(rw,n2)
