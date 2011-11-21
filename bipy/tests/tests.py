@@ -2,33 +2,37 @@
 
 from ..nes import *
 from ..mod import *
+from ..bipartite_class import *
+
+def testDeviation(vec):
+	testRes = stats.ttest_1samp(vec, 0)
+	return [np.mean(vec),testRes[1],testRes[O]]
+
 
 ## excess modularity
 def getDevNest(w,list):
 	deviation = []
 	for i in list:
-		deviation.append(w.nodf-i.nodf)
+		deviation.append(w.nodf-bipartite(i).nodf)
 	return deviation
 
 
 ## excess modularity
-def getDevMod(w,list):
+def getDevQr(w,list):
 	m = [w.modules.Q,w.modules.N,w.modules.up_modules,w.modules.low_modules]
 	Qsim = []
 	wQr = Qr(w,m)
 	for i in list:
-		ExcQ = wQr - Qr(i,m)
-		Qsim.append(ExcQ)
+		Qsim.append(wQr - Qr(bipartite(i),m))
 	return Qsim
 
 
 ## excess bipartite modularity
-def getDevQ(w,list):
+def getDevQbip(w,list):
 	Qsim = []
 	wQ = w.modules.Q
 	for i in list:
-		ExcQ = wQ - Qbip(i,w.modules.up_modules,w.modules.low_modules)
-		Qsim.append(ExcQ)
+		Qsim.append(wQ - Qbip(bipartite(i),w.modules.up_modules,w.modules.low_modules))
 	return Qsim
 
 

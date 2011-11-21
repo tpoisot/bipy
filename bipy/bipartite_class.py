@@ -3,7 +3,7 @@ from .null import *
 from .nes import *
 from .spe import *
 from .mod import *
-from .tests import *
+#from .tests import *
 
 from getref import *
 from mainfuncs import *
