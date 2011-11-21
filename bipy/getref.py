@@ -30,7 +30,8 @@ def get_citation(q,tool="bipy",email="mail_addr"):
 	url = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?' + urllib.urlencode(search)
 	data = urllib.urlopen(url).read()
 	return data
-	
+
+
 def text_citation(xml,shortAuth=True):
 	xmldoc = minidom.parseString(xml)
 	

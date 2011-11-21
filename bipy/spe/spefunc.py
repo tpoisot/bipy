@@ -41,7 +41,7 @@ def ssi(W):
 	for fit in W:
 		# For each species in the web
 		tspe = 0
-		Pbar = mean(fit)
+		Pbar = np.mean(fit)
 		tnfac = normfac * Pbar
 		for sp in fit:
 			tspe += (sp-Pbar) ** 2

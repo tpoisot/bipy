@@ -162,3 +162,7 @@ bipy/tests/extinct.pyc
 bipy/graphs/plotwebs.pyc
 
 bipy/graphs/__init__.pyc
+
+bipy/tests/tests.pyc
+
+bipy/getref.pyc

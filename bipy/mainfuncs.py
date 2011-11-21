@@ -12,14 +12,6 @@ import numpy as np
 import random
 ##########
 
-def mean(V):
-	# Mean value
-	mn = float(0)
-	for v in V:
-		mn += v
-	m = mn / len(V)
-	return m
-
 def meanperf(W,novoid=False):
 	# Mean performance of all TL species
 	perf = []
