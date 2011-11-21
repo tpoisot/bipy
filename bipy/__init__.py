@@ -1,6 +1,9 @@
 ## MAIN PACKAGE
 
 __name__ = "bipy"
+__version__ = "0"
+__subversion__ = "9"
+__stable__ = "FALSE"
 
 from bipartite_class import * # General class for bipartite webs
 from .null import * # Null models
