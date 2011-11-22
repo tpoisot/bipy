@@ -36,6 +36,7 @@ class bipartite:
 		self.specificity = specificity(web)
 		self.rr = RR(web)
 		self.ssi = ssi(web)
+		self.bperf = np.max(web)
 		# Nestedness
 		NODF = nodf(web)
 		self.nodf = NODF[0]
