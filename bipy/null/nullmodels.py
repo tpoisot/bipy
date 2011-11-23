@@ -16,14 +16,8 @@ def null_1(tem):
 		mat = np.concatenate((np.ones(np.sum(tem)),np.zeros(zeroes)),1)
 		np.random.shuffle(mat)
 		mat = mat.reshape((len(tem),len(tem[0])))
-		NI0 = 0
-		NI1 = 0
-		for ms0 in mat.sum(axis=0):
-			if ms0 == 0:
-				NI0 = NI0 + 1
-		for ms1 in mat.sum(axis=1):
-			if ms1 == 0:
-				NI1 = NI1 + 1
+		NI0 = np.sum(mat.sum(axis=0)==0)
+		NI1 = np.sum(mat.sum(axis=1)==0)
 		if (NI0 == 0)&(NI1 == 0):
 			hasNull = False
 	return mat
@@ -41,14 +35,8 @@ def null_2(tem):
 				Pi = (Ri[row]+Ci)/float(2)
 				Ro = np.random.binomial(1,Pi)
 				mat[row] = Ro
-		NI0 = 0
-		NI1 = 0
-		for ms0 in mat.sum(axis=0):
-			if ms0 == 0:
-				NI0 = NI0 + 1
-		for ms1 in mat.sum(axis=1):
-			if ms1 == 0:
-				NI1 = NI1 + 1
+		NI0 = np.sum(mat.sum(axis=0)==0)
+		NI1 = np.sum(mat.sum(axis=1)==0)
 		if (NI0 == 0)&(NI1 == 0):
 			hasNull = False
 	return mat
@@ -64,14 +52,8 @@ def null_3row(tem):
 		for row in range(len(tem)):
 				Ro = np.random.binomial(1,np.ones(len(tem[0]))*Ri[row])
 				mat[row] = Ro
-		NI0 = 0
-		NI1 = 0
-		for ms0 in mat.sum(axis=0):
-			if ms0 == 0:
-				NI0 = NI0 + 1
-		for ms1 in mat.sum(axis=1):
-			if ms1 == 0:
-				NI1 = NI1 + 1
+		NI0 = np.sum(mat.sum(axis=0)==0)
+		NI1 = np.sum(mat.sum(axis=1)==0)
 		if (NI0 == 0)&(NI1 == 0):
 			hasNull = False
 	return mat
@@ -88,14 +70,8 @@ def null_3col(tem):
 				Co = np.random.binomial(1,np.ones(len(tem))*Ci[col])
 				mat[col] = Co
 		mat = mat.T
-		NI0 = 0
-		NI1 = 0
-		for ms0 in mat.sum(axis=0):
-			if ms0 == 0:
-				NI0 = NI0 + 1
-		for ms1 in mat.sum(axis=1):
-			if ms1 == 0:
-				NI1 = NI1 + 1
+		NI0 = np.sum(mat.sum(axis=0)==0)
+		NI1 = np.sum(mat.sum(axis=1)==0)
 		if (NI0 == 0)&(NI1 == 0):
 			hasNull = False
 	return mat
