@@ -14,7 +14,7 @@ data = bp.readweb('demo.web').T
 
 print "Some general infos:"
 print "Connectance           : "+str(bp.connectance(data))+" "
-print "Mean specificity      : "+str(bp.mean(bp.specificity(data)))+" "
+print "Mean specificity      : "+str(np.mean(bp.specificity(data)))+" "
 print "Nestedness (NODF)     : "+str(bp.nodf(data)[0])+" "
 
 print ""
