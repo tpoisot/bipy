@@ -5,7 +5,7 @@
 *bipy* is released under the terms of the GNU GPL <http://en.wikipedia.org/wiki/GNU_General_Public_License>
 
 **Author** : Timothee Poisot <tpoisot@um2.fr>  
-**Language** : Python  >= 2.6  
+**Language** : Python  2.7  
 **Requires** : numpy, scipy, pyx, tempfile, urllib, pp 
 
 ### Some features are…
