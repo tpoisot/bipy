@@ -32,16 +32,46 @@ class test:
         self.devqb = d_mod[1]
     def __str__(self):
         out = "Stat\tN0\t\tN'\t\tp\t\tIC-\t\tIC+\n"
-        out +=  "-----------------------------------------\n"
+        out +=  "---------------------------------------------\n"
         if len(self.devnest) > 0:
             p_nest = '---'
             if self.devnest[1] < 0.05:
-                p_nest = '*  '
-            elif self.devnest[1] < 0.001:
-                p_nest = '** '
-            elif self.devnest[1] < 0.00001:
-                p_nest = '***'
-            out += "NODF\t"+str(round(self.devnest[0],2))+"\t"+str(round(self.devnest[2],2))+"\t"+p_nest+"\t"+str(round(self.devnest[3],2))+"\t"+str(round(self.devnest[4],2))
+                p_nest = '*    '
+            if self.devnest[1] < 0.01:
+                p_nest = '**   '
+            if self.devnest[1] < 0.001:
+                p_nest = '***  '
+            if self.devnest[1] < 0.0001:
+                p_nest = '**** '
+            if self.devnest[1] < 0.00001:
+                p_nest = '*****'
+            out += "NODF\t"+str(round(self.devnest[0],2)).zfill(4)+"\t"+str(round(self.devnest[2],2)).zfill(4)+"\t"+p_nest+"\t"+str(round(self.devnest[3],2)).zfill(4)+"\t"+str(round(self.devnest[4],2)).zfill(4)+"\n"
+        if len(self.devqr) > 0:
+            p_qr = '---'
+            if self.devqr[1] < 0.05:
+                p_qr = '*    '
+            if self.devqr[1] < 0.01:
+                p_qr = '**   '
+            if self.devqr[1] < 0.001:
+                p_qr = '***  '
+            if self.devqr[1] < 0.0001:
+                p_qr = '**** '
+            if self.devqr[1] < 0.00001:
+                p_qr = '*****'
+            out += "QR    \t"+str(round(self.devqr[0],2)).zfill(4)+"\t"+str(round(self.devqr[2],2)).zfill(4)+"\t"+p_qr+"\t"+str(round(self.devqr[3],2)).zfill(4)+"\t"+str(round(self.devqr[4],2)).zfill(4)+"\n"
+        if len(self.devqb) > 0:
+            p_qb = '---'
+            if self.devqb[1] < 0.05:
+                p_qb = '*    '
+            if self.devqb[1] < 0.01:
+                p_qb = '**   '
+            if self.devqb[1] < 0.001:
+                p_qb = '***  '
+            if self.devqb[1] < 0.0001:
+                p_qb = '**** '
+            if self.devqb[1] < 0.00001:
+                p_qb = '*****'
+            out += "QB    \t"+str(round(self.devqb[0],2)).zfill(4)+"\t"+str(round(self.devqb[2],2)).zfill(4)+"\t"+p_qb+"\t"+str(round(self.devqb[3],2)).zfill(4)+"\t"+str(round(self.devqb[4],2)).zfill(4)+"\n"
         return out
 
 def gMIC(distrib):

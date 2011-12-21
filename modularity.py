@@ -23,16 +23,8 @@ w.modules = modules(w,reps=10)
 print "Time elapsed: ", time.time() - start_time, "s"
 
 test_web = test(w,null_2,100,verbose=False)
-test_web.nestedness()
-print test_web.devnest
-print test_web
 
-#print 'Null 2'
-#n2 = nullModel(w,null_2,replicates=300)
-#import cProfile
-#print 'Test for nestedness'
-#print cProfile.run('getDevNest(w,n2)')
-#print 'Test for QR'
-#print getDevQr(w,n2)
-#print 'Test for Q bip'
-#print getDevQbip(w,n2)
+test_web.nestedness()
+test_web.modularity(10)
+
+print test_web
