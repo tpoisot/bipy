@@ -39,11 +39,11 @@ def rank(V):
 	crnk = 0
 	while crnk < len(V):
 		for j in range(0,len(V)):
-			cMax = max(V)
+			cMax = np.max(V)
 			if V[j] == cMax:
 				rn[j] = crnk
 				crnk += 1
-				V[j] = min(V)-1
+				V[j] = np.min(V)-1
 				break
 	return rn
 

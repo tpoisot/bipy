@@ -1,6 +1,9 @@
-#from bipy import *
+#!/usr/bin/python
+
 import bipy as bp
 import numpy as np
+
+import cProfile
 
 print "Reading the network file..."
 
@@ -32,3 +35,7 @@ print "Mean number of parasites      : "+str(np.mean(w.vulnerability))+" "
 print "Nestedness (NODF)             : "+str(w.nodf)+" "
 print "Network size                  : "+str(w.size)+" "
 bp.output_citinfo(w)
+
+## test execution time
+## original time about 0.578 seconds, 23464 functions calls
+print cProfile.run('bp.nodf(data)[0]',sort=1)

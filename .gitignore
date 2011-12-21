@@ -166,3 +166,13 @@ bipy/graphs/__init__.pyc
 bipy/tests/tests.pyc
 
 bipy/getref.pyc
+
+bipy/graphs/__init__.pyc
+
+bipy/base/__init__.pyc
+
+bipy/base/descriptions.pyc
+
+bipy/graphs/plotwebs.pyc
+
+bipy/nes/nodf.py
