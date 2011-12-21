@@ -6,12 +6,13 @@ from ..bipartite_class import *
 import scipy.stats as spp
 
 class test:
-    def __init__(self,web,model,replicates,verbose):
+    def __init__(self,web,model,replicates,verbose,q_c):
         """
         Initialize a test class and perform the tests
         """
         self.v = verbose
         self.web = web
+        self.q_c = q_c
         if self.v:
             print "Creation of the null networks"
         self.nulls = nullModel(self.web,model,replicates=replicates)
@@ -27,7 +28,7 @@ class test:
         if self.v:
             print "Nestedness test completed"
     def modularity(self,repl):
-        d_mod = getDevMod(self.web,self.nulls,repl)
+        d_mod = getDevMod(self.web,self.nulls,repl,self.q_c)
         self.devqr = d_mod[0]
         self.devqb = d_mod[1]
     def __str__(self):
@@ -47,7 +48,7 @@ class test:
                 p_nest = '*****'
             out += "NODF\t"+str(round(self.devnest[0],2)).zfill(4)+"\t"+str(round(self.devnest[2],2)).zfill(4)+"\t"+p_nest+"\t"+str(round(self.devnest[3],2)).zfill(4)+"\t"+str(round(self.devnest[4],2)).zfill(4)+"\n"
         if len(self.devqr) > 0:
-            p_qr = '---'
+            p_qr = '  -  '
             if self.devqr[1] < 0.05:
                 p_qr = '*    '
             if self.devqr[1] < 0.01:
@@ -94,7 +95,7 @@ def getDevNest(w,list):
     return OUT
 
 ## excess modularity
-def getDevMod(w,nulls,rep):
+def getDevMod(w,nulls,rep,q_c):
     """
     Get the deviation from random expectation of modularity. Optimized so that
     the null webs are gone through only one time. Retunrs two arrays, one for
@@ -106,13 +107,13 @@ def getDevMod(w,nulls,rep):
     wQr = Qr(w,m)
     wQb = w.modules.Q
     for c_null in nulls:
-        mod = modules(bipartite(c_null),reps=rep)
+        mod = modules(bipartite(c_null),rep,q_c)
         Qrsim.append(mod.Qr)
         Qbsim.append(mod.Q)
     testResB = stats.ttest_1samp(Qbsim, wQb)
     testResR = stats.ttest_1samp(Qrsim, wQr)
     OUT_r = [wQr,testResR[1]]
-    OUT_b = [wQr,testResB[1]]
+    OUT_b = [wQb,testResB[1]]
     est_r = gMIC(Qrsim)
     est_b = gMIC(Qbsim)
     for est_par in est_r:

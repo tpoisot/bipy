@@ -97,8 +97,8 @@ def loadwebNamed(file='',name=''):
 
 class modules:
     ## A class for the modules
-    def __init__(self,w,reps=100):
-        modinfos = findModules(w,reps=reps)
+    def __init__(self,w,reps=100,q_c=False):
+        modinfos = findModules(w,reps=reps,q_c=q_c)
         self.Q = modinfos[0]
         if self.Q > 0:
             self.N = modinfos[1]

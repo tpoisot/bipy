@@ -21,13 +21,24 @@ print "The modular network was hand-made"
 print "so that we expect 3 modules"
 print ""
 start_time = time.time()
-cProfile.run('w.modules = modules(w,reps=100)',sort=1)
+#cProfile.run('w.modules = modules(w,reps=100,q_c=True)',sort=1)
+
+print 'Modularity finding in Python (reference)'
+mod_py = modules(w,reps=100,q_c=False)
+print mod_py
+
+mod_c = modules(w,reps=100,q_c=True)
+
 print "Time elapsed: ", time.time() - start_time, "s"
 
-test_web = test(w,null_2,20,verbose=False)
+w.modules = mod_c
+
+test_web = test(w,null_2,100,verbose=False,q_c=True)
 
 test_web.nestedness()
-test_web.modularity(50)
+test_web.modularity(100)
 
 print test_web
 print w.modules
+
+print "Time elapsed total: ", time.time() - start_time, "s"

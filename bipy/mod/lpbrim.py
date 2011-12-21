@@ -2,6 +2,7 @@
 from ..null import *
 from ..mainfuncs import *
 import numpy as np
+from scipy.weave import inline
 
 def mostFrequent(L):
     """
@@ -16,14 +17,48 @@ def mostFrequent(L):
         cnt[str(l)] += 1
     return max(cnt, key=cnt.get)
 
+def Qbip_c(W,gg,gh):
+    """
+    A C implementation of the Qbip function
+    Not working at this time
+    """
+    ggc = map(int,np.copy(gg))
+    ghc = map(int,np.copy(gh))
+    nt = int(np.copy(W.upsp))
+    nb = int(np.copy(W.losp))
+    nl = int(np.copy(W.nlink))
+    adj = np.int_(np.copy(W.adjacency))
+    gen = np.int_(np.copy(W.generality))
+    vul = np.int_(np.copy(W.vulnerability))
+    code = """
+    int i, j, Pos;
+    float ModNul, DiffProb;
+    float tQ = 0.0;
+    for(i = 0; i < nt; i++)
+    {
+        for(j = 0; j < nb; j++)
+        {
+            Pos = (i * nb) + j;
+            if (ggc[i] == ghc[j])
+            {
+                ModNul = (float)(gen[i] * vul[j]) / (float)nl;
+                DiffProb = (float)adj[Pos] - (float)ModNul;
+                tQ += DiffProb;
+            }
+        }
+    }
+    return_val = tQ;
+    """
+    res = inline(code, ['nt','nb','ggc','ghc','nl','gen','vul','adj'], headers = ['<math.h>','<string.h>'], compiler = 'gcc')
+    tQ = res / W.nlink
+    return tQ
 
 def Qbip(W,gg,gh):
-    #todo: port to C but keep a python version / use scipy tools
     """
     Bipartite modularity sensu Barber
     Good candidate for a C version
     """
-    tQ = 0
+    tQ = 0.0
     for i in xrange(W.upsp):
         for j in xrange(W.losp):
             if gg[i] == gh[j]:
@@ -32,10 +67,14 @@ def Qbip(W,gg,gh):
 
 
 ## LP method
-def LP(W):
+def LP(W,q_c):
     """
     LABEL PROPAGATION method
     """
+    if q_c:
+        qfunc = Qbip_c
+    else:
+        qfunc = Qbip
     OptimStep = 0
     w = W.adjacency ## This version of modularity is BINARY
     # Community objects
@@ -55,7 +94,7 @@ def LP(W):
         # We then add the most common label
         g.append(mostFrequent(vNL))
     # We calculate basal modularity
-    refBip = Qbip(W,g,h)
+    refBip = qfunc(W,g,h)
     oriBip = -1
     # Then go on to optimize
     # The LP procedure stops whenever the modularity stops increasing
@@ -92,7 +131,7 @@ def LP(W):
             # We then add the most common label
             g[i] = mostFrequent(vNL)
         # We then recalculate the modularity
-        refBip = Qbip(W,g,h)
+        refBip = qfunc(W,g,h)
         OptimStep += 1
     # Once we are OUTSIDE the loop (the modularity is stabilized)
     # we return the current Qbip and the community partition
@@ -130,7 +169,11 @@ def getCVfromCM(cm):
 
 
 ## BRIM procedure
-def BRIM(W,part):
+def BRIM(W,part,q_c):
+    if q_c:
+        qfunc = Qbip_c
+    else:
+        qfunc = Qbip
     import numpy as np
     # part is an object returned by LP
     ig = part[1]
@@ -167,16 +210,16 @@ def BRIM(W,part):
                     T[i][k] = 0
         ng = getCVfromCM(R)
         nh = getCVfromCM(T)
-        iQbip = Qbip(W,ng,nh)
+        iQbip = qfunc(W,ng,nh)
     return [iQbip,ng,nh]
 
 
 ## Single LPBRIM Run
-def LPBRIM(W):
+def LPBRIM(W,q_c):
     import scipy as sp
     import numpy as np
-    LPpart = LP(W)
-    BRIMpart = BRIM(W,LPpart)
+    LPpart = LP(W,q_c)
+    BRIMpart = BRIM(W,LPpart,q_c)
     Q = BRIMpart[0]
     Nmod = len(uniquify(BRIMpart[1]))
     TopPart = BRIMpart[1]
@@ -186,7 +229,7 @@ def LPBRIM(W):
 
 
 ## Find modules
-def findModules(W,reps=10,outstep=5,step_print=False):
+def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
     topmod = 0
     out = [0,0,0,0]
     if (reps >= 100)&(step_print):
@@ -194,7 +237,7 @@ def findModules(W,reps=10,outstep=5,step_print=False):
         print "----------------------"
     nstep = outstep
     for repl in range(reps):
-        run = LPBRIM(W)
+        run = LPBRIM(W,q_c)
         if run[0] > topmod:
             topmod = run[0]
             out = run
