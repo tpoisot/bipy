@@ -14,20 +14,25 @@ class test:
         self.web = web
         self.q_c = q_c
         if self.v:
-            print "Creation of the null networks"
+            print "[INF] Creation of the null networks"
         self.nulls = nullModel(self.web,model,replicates=replicates)
-        if self.v:
-            print "Tests"
         self.devnest = []
         self.devqb = []
         self.devqr = []
     def nestedness(self):
         if self.v:
-            print "Begin testing nestedness"
+            print "[INF] Begin testing nestedness"
         self.devnest = getDevNest(self.web,self.nulls)
         if self.v:
-            print "Nestedness test completed"
+            print "[INF] Nestedness test completed"
     def modularity(self,repl):
+        print len(self.web.modules)
+        ## test if the bipartite object has modules
+        if len(self.web.modules) == 0:
+            if self.v:
+                print '[WRN] Conducting the modularity analysis'
+            self.web.modules = modules(self.web,reps=repl,q_c=self.q_c)
+        ##
         d_mod = getDevMod(self.web,self.nulls,repl,self.q_c)
         self.devqr = d_mod[0]
         self.devqb = d_mod[1]

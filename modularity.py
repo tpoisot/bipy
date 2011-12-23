@@ -31,12 +31,10 @@ mod_c = modules(w,reps=100,q_c=True)
 
 print "Time elapsed: ", time.time() - start_time, "s"
 
-w.modules = mod_c
-
-test_web = test(w,null_2,100,verbose=False,q_c=True)
+test_web = test(w,null_2,10,verbose=True,q_c=True)
 
 test_web.nestedness()
-test_web.modularity(100)
+test_web.modularity(10)
 
 print test_web
 print w.modules
