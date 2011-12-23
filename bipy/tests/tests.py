@@ -26,16 +26,19 @@ class test:
         if self.v:
             print "[INF] Nestedness test completed"
     def modularity(self,repl):
-        print len(self.web.modules)
         ## test if the bipartite object has modules
         if len(self.web.modules) == 0:
             if self.v:
                 print '[WRN] Conducting the modularity analysis'
             self.web.modules = modules(self.web,reps=repl,q_c=self.q_c)
         ##
+        if self.v:
+            print '[INF] Beginning the test for modularity'
         d_mod = getDevMod(self.web,self.nulls,repl,self.q_c)
         self.devqr = d_mod[0]
         self.devqb = d_mod[1]
+        if self.v:
+            print '[INF] Test for modularity completed'
     def __str__(self):
         out = "Stat\tN0\t\tN'\t\tp\t\tIC-\t\tIC+\n"
         out +=  "---------------------------------------------\n"
