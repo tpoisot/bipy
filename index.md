@@ -1,6 +1,8 @@
 ---
-title: BIPY -- analysis of bipartite interactions in python
+title: BIPY -- analyses of bipartite interactions in Python
 ---
+
+<title>{{ page.title}}</title>
 
 # BIPY
 
@@ -15,6 +17,6 @@ title: BIPY -- analysis of bipartite interactions in python
 
 ## How to load *bipy* ?
 
-{% highlight python %}
+{% highlight python linenos %}
 import bipy as bp
 {% endhighlight %}
