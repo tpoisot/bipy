@@ -1,4 +1,4 @@
 url: http://tpoisot.github.com/bipy
-permalink: pretty
+permalink: {{ url }}/:year/:month/:day/:title/
 paginate: 5
 auto: true
