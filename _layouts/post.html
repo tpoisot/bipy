@@ -5,9 +5,22 @@
 </head>
 
 <body>
+	
+<div class='head'>
+</div>
+
+<div class'nav'>
+	{% include menu.html %}
+</div>
+	
 <div class='main'>
 <div class='content'>
 {{ content }}
 </div>
 </div>
+
+<div id='footer'>
+	Page last generated on {{ site.time }}. Website powered by <a href='https://github.com/mojombo/jekyll'>Jekyll</a>.
+</div>
+
 </body>
