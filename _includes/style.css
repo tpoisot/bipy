@@ -1,8 +1,17 @@
 body{
 	font-family: Constantia, Palatino;
+	width: 900 px;
+	margin: 0px auto;
 }
 
 .premain{
-	background-color: #eee;
 	width: 100%;
+}
+
+.head{
+	border-bottom: 1px solid black;
+}
+
+.premain h1{
+	color: #000F81;
 }
