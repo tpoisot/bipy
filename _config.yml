@@ -1,3 +1,5 @@
 ---
 url: http://tpoisot.github.com/bipy
+permalink: bipy/blog/:year/:month/:day/:title.html
+paginate: 5
 ---
