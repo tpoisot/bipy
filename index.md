@@ -1,9 +1,7 @@
 ---
-layout: default
+layout: page
 title: BIPY - analyses of bipartite interactions in Python
 ---
-
-<title>{{ page.title}}</title>
 
 # BIPY
 

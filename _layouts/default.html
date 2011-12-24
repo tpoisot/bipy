@@ -1,0 +1,29 @@
+<head>
+	<meta>
+		<title>{{ page.title }}</title>
+	</meta>
+</head>
+
+<body>
+
+<div class='premain'>	
+<div class='head'>
+	{% include head.html %}
+</div>
+
+<div class'nav'>
+	{% include menu.html %}
+</div>
+</div>
+	
+<div class='main'>
+<div class='inner'>
+{{ content }}
+</div>
+</div>
+
+<div id='footer'>
+	Page last generated on {{ site.time }}. Website powered by <a href='https://github.com/mojombo/jekyll'>Jekyll</a>.
+</div>
+
+</body>
