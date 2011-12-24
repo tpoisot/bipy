@@ -1,5 +1,6 @@
 ---
-title: BIPY — analyses of bipartite interactions in Python
+layout: default
+title: BIPY - analyses of bipartite interactions in Python
 ---
 
 <title>{{ page.title}}</title>
@@ -10,7 +11,7 @@ title: BIPY — analyses of bipartite interactions in Python
 
 ## Requirements
 
-* [Python 2.7.x](http://www.python.org/getit/releases/2.7/)
+* [Python 2.7.x](http://www.python.org/getit/releases/2.7/) (*bipy* was developped and tested under 2.7.2)
 * [numpy](http://numpy.scipy.org/) **and** [scipy](http://www.scipy.org/)
 * any reasonably recent version of GCC (optional, but increases the speed of some analyses)
 * [PyX](http://pyx.sourceforge.net/) (and LaTeX) if you want to do any visual output (optional)
