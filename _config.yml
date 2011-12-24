@@ -1,6 +1,6 @@
 ---
 url: http://tpoisot.github.com/bipy
-permalink: bipy/blog/:year/:month/:day/:title.html
+permalink: pretty
 paginate: 5
 auto: true
 ---
