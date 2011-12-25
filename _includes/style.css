@@ -4,6 +4,16 @@ body{
 	margin: 0px auto;
 }
 
+a{
+	color: black;
+	text-decoration: underline;
+}
+
+a:hover{
+	background-color: #eee;
+}
+
+
 .premain{
 	margin-top: 40px;
 	width: 100%;
@@ -18,8 +28,6 @@ body{
 }
 
 .sidebar{
-	float:  left;
-	clear: right;
 	width: 250 px;
 }
 
@@ -30,4 +38,5 @@ body{
 .nav ul, .nav li{
 	list-style: none;
 	margin-left: 0px;
+	padding-left: 0px;
 }
