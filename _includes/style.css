@@ -41,3 +41,11 @@ a:hover{
 	margin-left: 0px;
 	padding-left: 0px;
 }
+
+#footer{
+	clear: both;
+	border-bottom:  1px solid black;
+	text-align: center;
+	text-size: 80%;
+	color: #ddd;
+}
