@@ -10,9 +10,18 @@ body{
 }
 
 .head{
-	border-bottom: 1px solid black;
+	border-bottom: 1px double black;
 }
 
 .premain h1{
 	color: #000F81;
+}
+
+.sidebar{
+	float:  left;
+	width: 250 px;
+}
+
+.main{
+	width: 650 px;
 }
