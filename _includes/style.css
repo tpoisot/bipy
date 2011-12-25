@@ -17,6 +17,7 @@ a:hover{
 .premain{
 	margin-top: 40px;
 	width: 100%;
+	margin-bottom: 70px;
 }
 
 .head{
@@ -28,12 +29,12 @@ a:hover{
 }
 
 .sidebar{
-	width: 250 px;
+	width: 200 px;
 	float: left;
 }
 
 .content{
-	width: 630 px;
+	width: 670 px;
 	float: right;
 }
 
@@ -50,5 +51,5 @@ a:hover{
 	text-align: center;
 	text-size: 80%;
 	color: #666;
-	font-family: Helvetica, Myriad Pro, Arial, Calibri;
+	padding-top: 10px;
 }
