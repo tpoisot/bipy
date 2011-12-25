@@ -29,6 +29,7 @@ a:hover{
 
 .sidebar{
 	width: 250 px;
+	float: left;
 }
 
 .content{
@@ -44,8 +45,10 @@ a:hover{
 
 #footer{
 	clear: both;
-	border-bottom:  1px solid black;
+	margin-top:  40px;
+	border-top:  1px solid black;
 	text-align: center;
 	text-size: 80%;
-	color: #ddd;
+	color: #666;
+	font-family: Helvetica, Myriad Pro, Arial, Calibri;
 }
