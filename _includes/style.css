@@ -5,8 +5,8 @@ body{
 }
 
 a{
-	color: black;
-	text-decoration: underline;
+	color: #000F81;
+	text-decoration: none;
 }
 
 a:hover{
@@ -32,7 +32,7 @@ a:hover{
 }
 
 .content{
-	width: 650 px;
+	width: 630 px;
 }
 
 .nav ul, .nav li{
