@@ -19,9 +19,14 @@ body{
 
 .sidebar{
 	float:  left;
+	clear: right;
 	width: 250 px;
 }
 
 .main{
 	width: 650 px;
+}
+
+.nav ul, .nav li{
+	list-style: none;
 }
