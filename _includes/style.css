@@ -56,12 +56,12 @@ a:hover{
 	line-height: 1.5em;
 	font-weight: bold;
 	margin-right: 1.5em;
-	padding-bottom: 15px;
-	padding-top: 15px;
 }
 
 .nav{
 	border-bottom: 2px solid black;
+	padding-bottom: 7px;
+	padding-top: 7px;
 }
 
 .main{
@@ -85,4 +85,10 @@ a:hover{
 	background-color: #eee;
 	font-family: 'PT Sans';
 	padding:  5px 5px;
+}
+
+.funcdoc h2{
+	font-family: 'PT Sans';
+	border-bottom: 1px solid black;
+	margin-bottom: 10px;
 }
