@@ -23,10 +23,11 @@ body{
 	width: 250 px;
 }
 
-.main{
+.content{
 	width: 650 px;
 }
 
 .nav ul, .nav li{
 	list-style: none;
+	margin-left: 0px;
 }
