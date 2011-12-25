@@ -45,18 +45,37 @@ a:hover{
 	float: right;
 }
 
+
+.content h2, h3{
+	font-family: 'PT Sans';
+}
+
 .nav ul, .nav li{
 	list-style: none;
 	margin-left: 0px;
 	padding-left: 0px;
+	font-family: 'PT Sans';
+	line-height: 3em;
+}
+
+.main{
+	margin-bottom: 30px;
 }
 
 #footer{
 	clear: both;
 	margin-top:  80px;
+	margin-bottom:  30px;
 	border-top:  1px solid black;
 	text-align: center;
 	text-size: 80%;
 	color: #666;
 	padding-top: 10px;
+}
+
+.ref{
+	margin-left: 2px solid #000F81;
+	background-color: #eee;
+	font-family: 'PT Sans';
+	padding:  5px 5px;
 }
