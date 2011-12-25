@@ -55,7 +55,9 @@ a:hover{
 	font-family: 'PT Sans';
 	line-height: 1.5em;
 	font-weight: bold;
-	margin-right: 3em;
+	margin-right: 1.5em;
+	padding-bottom: 5px;
+	padding-top: 5px;
 }
 
 .nav{
