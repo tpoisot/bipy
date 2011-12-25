@@ -89,6 +89,11 @@ a:hover{
 
 .funcdoc h2{
 	font-family: 'PT Sans';
+	font-size: 80%;
 	border-bottom: 1px solid black;
 	margin-bottom: 10px;
+}
+
+.funcdoc a{
+	font-size: 75 %;
 }
