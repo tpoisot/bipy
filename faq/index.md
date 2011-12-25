@@ -11,7 +11,7 @@ title: BIPY - FAQ
 
 ## Who can use *bipy* ?
 
-Anybody (with an interest in working on bipartite networks, that is). *bipy* is under GNU
+Anybody (with an interest in working on bipartite networks, that is). *bipy* is released under the terms of the [GNU GPL](http://www.gnu.org/copyleft/gpl.html).
 
 ## How do I cite *bipy* ?
 

@@ -5,4 +5,4 @@ title: BIPY - Reference
 
 # Documentation
 
-Coming soon
+These pages host the complete documentation for *bipy*. For each metric, the page provides a minimal example of code to measure it, and the relevant references.
