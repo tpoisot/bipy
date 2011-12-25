@@ -101,7 +101,7 @@ a:hover{
 .highlight{
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
-	background-color: #eee;
+	background-color: #e4e4e4;
 }
 
 .highlight .c{
@@ -110,5 +110,5 @@ a:hover{
 
 .highlight .kn{
 	font-weight: bold;
-	color: pink;
+	color: purple;
 }
