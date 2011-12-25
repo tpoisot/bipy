@@ -107,3 +107,8 @@ a:hover{
 .highlight .c{
 	color: green;
 }
+
+.highlight .kn{
+	font-weight: bold;
+	color: pink;
+}
