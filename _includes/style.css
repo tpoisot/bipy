@@ -1,5 +1,8 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700italic,700,400italic);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400italic,400,700,700italic);
+
 body{
-	font-family: Constantia, Palatino;
+	font-family: 'PT Serif', Palatino;
 	width: 900 px;
 	margin: 0px auto;
 }
@@ -17,11 +20,15 @@ a:hover{
 .premain{
 	margin-top: 40px;
 	width: 100%;
-	margin-bottom: 70px;
+	margin-bottom: 40px;
 }
 
 .head{
 	border-bottom: 1px double black;
+}
+
+.head h1{
+	font-family: 'PT Sans';
 }
 
 .premain h1{
@@ -46,7 +53,7 @@ a:hover{
 
 #footer{
 	clear: both;
-	margin-top:  40px;
+	margin-top:  80px;
 	border-top:  1px solid black;
 	text-align: center;
 	text-size: 80%;
