@@ -43,6 +43,7 @@ a:hover{
 .content{
 	width: 670 px;
 	float: right;
+	padding-bottom: 30px;
 }
 
 
@@ -60,6 +61,7 @@ a:hover{
 
 .main{
 	margin-bottom: 30px;
+	padding-bottom: 30px;
 }
 
 #footer{
@@ -74,7 +76,7 @@ a:hover{
 }
 
 .ref{
-	margin-left: 2px solid #000F81;
+	border-left: 2px solid #000F81;
 	background-color: #eee;
 	font-family: 'PT Sans';
 	padding:  5px 5px;
