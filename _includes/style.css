@@ -33,6 +33,7 @@ a:hover{
 
 .content{
 	width: 630 px;
+	float: right;
 }
 
 .nav ul, .nav li{
