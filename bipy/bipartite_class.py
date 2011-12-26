@@ -17,7 +17,7 @@ import tkFileDialog
 
 class bipartite:
     ## This class defines a bipartite object with all structural infos
-    def __init__ (self,web,t=False):
+    def __init__ (self,web,t=False,nodf_strict=True):
         # Read the matrix
         if t:
             web = web.T
@@ -38,7 +38,7 @@ class bipartite:
         self.ssi = ssi(web)
         self.bperf = web.max(1)
         # Nestedness
-        NODF = nodf(web)
+        NODF = nodf(web,strict=nodf_strict)
         self.nodf = NODF[0]
         self.nodf_up = NODF[2]
         self.nodf_low = NODF[1]
