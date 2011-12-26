@@ -17,7 +17,7 @@ rr = W.rr
 # Not recommended, this is slower
 spe = bipy.specificity(W)
 ssi = bipy.ssi(W)
-rr = bip.rr(W)
+rr = bipy.rr(W)
 {% endhighlight %}
 
 The `spe` object, in both cases, will be an array with the specificity of each species in the network measured by PDI. The `ssi` array will have the Species specialization index, and the `rr` array will have the resource range.

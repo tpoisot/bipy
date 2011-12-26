@@ -89,13 +89,13 @@ a:hover{
 
 .funcdoc h2{
 	font-family: 'PT Sans';
-	font-size: 85%;
+	font-size: 90%;
 	border-bottom: 1px solid black;
 	margin-bottom: 10px;
 }
 
 .funcdoc a{
-	font-size: 70 %;
+	font-size: 65%;
 }
 
 .highlight{
