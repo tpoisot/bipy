@@ -56,7 +56,8 @@ a:hover{
 .content{
 	width: 670 px;
 	float: right;
-	padding-bottom: 30px;
+	margin-bottom: 60px;
+	padding-bottom: 60px;
 }
 
 
@@ -78,14 +79,14 @@ a:hover{
 }
 
 .main{
-	margin-bottom: 30px;
-	padding-bottom: 30px;
+	margin-bottom: 60px;
+	padding-bottom: 60px;
 }
 
 #footer{
 	clear: both;
 	margin-top:  80px;
-	margin-bottom:  60px;
+	margin-bottom:  30px;
 	border-top:  1px solid black;
 	border-bottom:  3px solid black;
 	text-align: center;
