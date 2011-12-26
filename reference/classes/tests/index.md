@@ -61,7 +61,7 @@ print test_web
 
 This will output a formatted table wich will looke similar to the following (assuming all tests were done):
 
-<pre>Stat	N0		N'		p		IC-		IC+
+<pre>Stat	N0	N'	p	IC-	 IC+
 ---------------------------------------------
  NODF	19.13	34.67	*****	32.66	36.69
 bNODF	21.96	34.95	*****	32.94	36.97
