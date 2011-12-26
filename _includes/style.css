@@ -37,7 +37,7 @@ a:hover{
 }
 
 .head{
-	border-bottom: 1px double black;
+	border-bottom: 3px solid black;
 }
 
 .head h1{
@@ -72,7 +72,7 @@ a:hover{
 }
 
 .nav{
-	border-bottom: 2px solid black;
+	border-bottom: 1px solid black;
 	padding-bottom: 7px;
 	padding-top: 7px;
 }
@@ -85,8 +85,9 @@ a:hover{
 #footer{
 	clear: both;
 	margin-top:  80px;
-	margin-bottom:  30px;
+	margin-bottom:  60px;
 	border-top:  1px solid black;
+	border-bottom:  3px solid black;
 	text-align: center;
 	text-size: 80%;
 	color: #666;
