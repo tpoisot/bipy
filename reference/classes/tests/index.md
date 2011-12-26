@@ -49,7 +49,7 @@ The test for nestedness is done by the `nestedness` method of the `test` class, 
 test_web.nestedness()
 {% endhighlight %}
 
-The `nestedness` method requires no supplementary argument.
+The `nestedness` method requires no supplementary argument. The significancy of the pattern will be assessed for the whole network, and each of the trophic levels.
 
 ## Results output
 
@@ -59,10 +59,26 @@ At any time after one or both of `modularity` or `nestedness` were called, it is
 print test_web
 {% endhighlight %}
 
-This will output a formatted table wich will looke similar to the following:
+This will output a formatted table wich will looke similar to the following (assuming all tests were done):
 
 {% highlight linenos %}
-
+Stat	N0		N'		p		IC-		IC+
+---------------------------------------------
+ NODF	19.13	34.67	*****	32.66	36.69
+bNODF	21.96	34.95	*****	32.94	36.97
+tNODF	14.36	34.2	*****	31.26	37.15
+ QR    	0.93	0.69	*****	0.64	0.73
+ QB    	00.6	0.25	*****	0.22	0.27
 {% endhighlight %}
+
+The `Stat` column is the metric for which the test was performed. The `N0` column is value of the metric on the original network, `N'` is the average of the random replicates. `p'` indicates the p-value (5 stars indicates p < 10^-5, 4 stars indicates p < 10^-4; three dashes indicates a non significant value). The `IC-` and `IC+` columns are the lower and upper limits of the confidence interval.
+
+The codes for `Stat` are the following:
+
+* NODF : nestedness for the whole network
+* bNODF : nestedness for the lower trophic level
+* tNODF : nestedness for the upper trophic level
+* QR : [Realized modularity]({{ site.url }}/reference/networklevel/modularity/)
+* QB : [Barber's bipartite modularity]({{ site.url }}/reference/networklevel/modularity/)
 
 <div class='ref'>Ref. coming soon.</div>
