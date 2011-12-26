@@ -26,7 +26,7 @@ a{
 }
 
 a:hover{
-	background-color: #eee;
+	text-decoration: underline;
 }
 
 
@@ -44,6 +44,7 @@ a:hover{
 
 .premain h1{
 	color: #8B0000;
+	margin-bottom: 0em;
 }
 
 .premain h2{
@@ -72,14 +73,13 @@ a:hover{
 .nav a{
 	font-family: 'Open Sans';
 	line-height: 1.5em;
-	font-weight: bold;
 	margin-right: 1.5em;
 }
 
 .nav{
 	border-bottom: 1px solid black;
-	padding-bottom: 10px;
-	padding-top: 10px;
+	padding-bottom: 1em;
+	padding-top: 1em;
 }
 
 #footer{
@@ -89,7 +89,7 @@ a:hover{
 	border-top:  1px solid black;
 	border-bottom:  3px solid black;
 	text-align: left;
-	text-size: 70%;
+	font-size: 80%;
 	color: #666;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -101,6 +101,7 @@ a:hover{
 	background-color: #f6f6f6;
 	font-family: 'Open Sans';
 	padding:  5px 5px;
+	font-size: 90%;
 }
 
 .funcdoc h2{
@@ -138,5 +139,5 @@ a:hover{
 }
 
 .content h1{
-	margin-bottom: 1.5em;
+	margin-bottom: 2em;
 }
