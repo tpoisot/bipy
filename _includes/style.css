@@ -1,5 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700italic,700,400italic);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400italic,400,700,700italic);
+@import url(http://fonts.googleapis.com/css?family=Inconsolata);
+
+pre, code{
+	font-family: 'Inconsolata';
+	font-size: 110%;
+}
 
 body{
 	font-family: 'PT Serif', Palatino;
@@ -95,13 +101,17 @@ a:hover{
 }
 
 .funcdoc a{
-	font-size: 75%;
+	font-size: 95%;
 }
 
 .highlight{
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
-	background-color: #f4f4f4;
+	background-color: #f6f6f6;
+}
+
+.highlight .lineno{
+	font-weight: bold;
 }
 
 .highlight .c{
