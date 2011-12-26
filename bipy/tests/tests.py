@@ -17,12 +17,17 @@ class test:
             print "[INF] Creation of the null networks"
         self.nulls = nullModel(self.web,model,replicates=replicates)
         self.devnest = []
+        self.devnest_lo = []
+        self.devnest_up = []
         self.devqb = []
         self.devqr = []
     def nestedness(self):
         if self.v:
             print "[INF] Begin testing nestedness"
-        self.devnest = getDevNest(self.web,self.nulls)
+        d_nest = getDevNest(self.web,self.nulls)
+        self.devnest = d_nest[0]
+        self.devnest_lo = d_nest[1]
+        self.devnest_up = d_nest[2]
         if self.v:
             print "[INF] Nestedness test completed"
     def modularity(self,repl):
@@ -54,7 +59,33 @@ class test:
                 p_nest = '**** '
             if self.devnest[1] < 0.00001:
                 p_nest = '*****'
-            out += "NODF\t"+str(round(self.devnest[0],2)).zfill(4)+"\t"+str(round(self.devnest[2],2)).zfill(4)+"\t"+p_nest+"\t"+str(round(self.devnest[3],2)).zfill(4)+"\t"+str(round(self.devnest[4],2)).zfill(4)+"\n"
+            out += " NODF\t"+str(round(self.devnest[0],2)).zfill(4)+"\t"+str(round(self.devnest[2],2)).zfill(4)+"\t"+p_nest+"\t"+str(round(self.devnest[3],2)).zfill(4)+"\t"+str(round(self.devnest[4],2)).zfill(4)+"\n"
+        if len(self.devnest_lo) > 0:
+            p_nest = '---'
+            if self.devnest_lo[1] < 0.05:
+                p_nest = '*    '
+            if self.devnest_lo[1] < 0.01:
+                p_nest = '**   '
+            if self.devnest_lo[1] < 0.001:
+                p_nest = '***  '
+            if self.devnest_lo[1] < 0.0001:
+                p_nest = '**** '
+            if self.devnest_lo[1] < 0.00001:
+                p_nest = '*****'
+            out += "bNODF\t"+str(round(self.devnest_lo[0],2)).zfill(4)+"\t"+str(round(self.devnest_lo[2],2)).zfill(4)+"\t"+p_nest+"\t"+str(round(self.devnest_lo[3],2)).zfill(4)+"\t"+str(round(self.devnest_lo[4],2)).zfill(4)+"\n"
+        if len(self.devnest_up) > 0:
+            p_nest = '---'
+            if self.devnest_up[1] < 0.05:
+                p_nest = '*    '
+            if self.devnest_up[1] < 0.01:
+                p_nest = '**   '
+            if self.devnest_up[1] < 0.001:
+                p_nest = '***  '
+            if self.devnest_up[1] < 0.0001:
+                p_nest = '**** '
+            if self.devnest_up[1] < 0.00001:
+                p_nest = '*****'
+            out += "tNODF\t"+str(round(self.devnest_up[0],2)).zfill(4)+"\t"+str(round(self.devnest_up[2],2)).zfill(4)+"\t"+p_nest+"\t"+str(round(self.devnest_up[3],2)).zfill(4)+"\t"+str(round(self.devnest_up[4],2)).zfill(4)+"\n"
         if len(self.devqr) > 0:
             p_qr = '  -  '
             if self.devqr[1] < 0.05:
@@ -67,7 +98,7 @@ class test:
                 p_qr = '**** '
             if self.devqr[1] < 0.00001:
                 p_qr = '*****'
-            out += "QR    \t"+str(round(self.devqr[0],2)).zfill(4)+"\t"+str(round(self.devqr[2],2)).zfill(4)+"\t"+p_qr+"\t"+str(round(self.devqr[3],2)).zfill(4)+"\t"+str(round(self.devqr[4],2)).zfill(4)+"\n"
+            out += " QR    \t"+str(round(self.devqr[0],2)).zfill(4)+"\t"+str(round(self.devqr[2],2)).zfill(4)+"\t"+p_qr+"\t"+str(round(self.devqr[3],2)).zfill(4)+"\t"+str(round(self.devqr[4],2)).zfill(4)+"\n"
         if len(self.devqb) > 0:
             p_qb = '---'
             if self.devqb[1] < 0.05:
@@ -80,7 +111,7 @@ class test:
                 p_qb = '**** '
             if self.devqb[1] < 0.00001:
                 p_qb = '*****'
-            out += "QB    \t"+str(round(self.devqb[0],2)).zfill(4)+"\t"+str(round(self.devqb[2],2)).zfill(4)+"\t"+p_qb+"\t"+str(round(self.devqb[3],2)).zfill(4)+"\t"+str(round(self.devqb[4],2)).zfill(4)+"\n"
+            out += " QB    \t"+str(round(self.devqb[0],2)).zfill(4)+"\t"+str(round(self.devqb[2],2)).zfill(4)+"\t"+p_qb+"\t"+str(round(self.devqb[3],2)).zfill(4)+"\t"+str(round(self.devqb[4],2)).zfill(4)+"\n"
         return out
 
 def gMIC(distrib):
@@ -93,14 +124,28 @@ def gMIC(distrib):
 ## excess nestedness
 def getDevNest(w,list):
     expect = []
+    expect_up = []
+    expect_lo = []
     for i in list:
         expect.append(bipartite(i).nodf)
+        expect_up.append(bipartite(i).nodf_up)
+        expect_lo.append(bipartite(i).nodf_low)
     testRes = stats.ttest_1samp(expect, w.nodf)
+    testRes_up = stats.ttest_1samp(expect_up, w.nodf_up)
+    testRes_lo = stats.ttest_1samp(expect_lo, w.nodf_low)
     OUT = [w.nodf,testRes[1]]
+    OUT_up = [w.nodf_up,testRes_up[1]]
+    OUT_lo = [w.nodf_low,testRes_lo[1]]
     est = gMIC(expect)
+    est_lo = gMIC(expect_lo)
+    est_up = gMIC(expect_up)
     for est_par in est:
         OUT.append(est_par)
-    return OUT
+    for est_par in est_lo:
+        OUT_lo.append(est_par)
+    for est_par in est_up:
+        OUT_up.append(est_par)
+    return [OUT, OUT_lo, OUT_up]
 
 ## excess modularity
 def getDevMod(w,nulls,rep,q_c):

@@ -21,13 +21,6 @@ print "The modular network was hand-made"
 print "so that we expect 3 modules"
 print ""
 start_time = time.time()
-#cProfile.run('w.modules = modules(w,reps=100,q_c=True)',sort=1)
-
-print 'Modularity finding in Python (reference)'
-mod_py = modules(w,reps=100,q_c=False)
-print mod_py
-
-mod_c = modules(w,reps=100,q_c=True)
 
 print "Time elapsed: ", time.time() - start_time, "s"
 
