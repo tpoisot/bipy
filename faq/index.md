@@ -9,19 +9,23 @@ title: BIPY - FAQ
 
 *bipy* can be [accessed through GitHub](https://github.com/tpoisot/bipy), or you can download the [zip file of the latest version here](https://github.com/tpoisot/bipy/zipball/master).
 
-## Who can use *bipy* ?
+##How can I install and load *bipy* ?
 
-Anybody (with an interest in working on bipartite networks, that is). *bipy* is released under the terms of the [GNU GPL](http://www.gnu.org/copyleft/gpl.html).
+*bipy* uses [setuptools](http://pypi.python.org/pypi/setuptools), so you can just navigate to the directory where the 'bipy/' folder is, and type
 
-## How do I cite *bipy* ?
+{% highlight bash linenos %}
+sudo python setup.py install
+{% endhighlight %}
 
-There is currently no published paper formally describing *bipy*. You can cite the [URL to the GitHub repository](https://github.com/tpoisot/bipy), or mention *bipy* in the acknowledgements.
-
-## How to load *bipy* ?
+You can now use *bipy* in a python session by doing
 
 {% highlight python linenos %}
 import bipy as bp
 {% endhighlight %}
+
+## How do I cite *bipy* ?
+
+There is currently no published paper formally describing *bipy*. You can cite the [URL to the GitHub repository](https://github.com/tpoisot/bipy), or mention *bipy* in the acknowledgements.
 
 ## Who is behind *bipy* ?
 
