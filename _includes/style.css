@@ -56,6 +56,8 @@ a:hover{
 .content{
 	width: 670 px;
 	float: right;
+	margin-bottom: 60px;
+	padding-bottom: 60px;
 }
 
 
@@ -74,11 +76,6 @@ a:hover{
 	border-bottom: 1px solid black;
 	padding-bottom: 7px;
 	padding-top: 7px;
-}
-
-.main{
-	margin-bottom: 60px;
-	padding-bottom: 60px;
 }
 
 #footer{
