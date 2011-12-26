@@ -14,7 +14,7 @@ setup(
     license = "GNU GPL",
     keywords = "ecology bipartite networks bioinformatics",
     url = "http://tpoisot.github.com/bipy/",
-    packages=['bipy'],
+    packages=['bipy','bipy.base','bipy.null','bipy.nes','bipy.mod','bipy.graphs','bipy.web','bipy.tests','bipy.spe'],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 4 - Beta",
