@@ -7,7 +7,7 @@ title: BIPY - FAQ
 
 ## Where can I find *bipy* ?
 
-*bipy* can be accessed through GitHub, or you can download the [zip file of the latest version here](https://github.com/tpoisot/bipy/zipball/master).
+*bipy* can be [accessed through GitHub](https://github.com/tpoisot/bipy), or you can download the [zip file of the latest version here](https://github.com/tpoisot/bipy/zipball/master).
 
 ## Who can use *bipy* ?
 
