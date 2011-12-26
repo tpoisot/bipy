@@ -21,7 +21,7 @@ body{
 }
 
 a{
-	color: #000F81;
+	color: #8B0000;
 	text-decoration: none;
 }
 
@@ -44,6 +44,12 @@ a:hover{
 
 .premain h1{
 	color: #8B0000;
+}
+
+.premain h2{
+	font-weight: 300;
+	font-size: 1.4em;
+	font-style: 'italic';
 }
 
 .sidebar{
@@ -83,7 +89,7 @@ a:hover{
 	border-top:  1px solid black;
 	border-bottom:  3px solid black;
 	text-align: left;
-	text-size: 80%;
+	text-size: 70%;
 	color: #666;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -92,7 +98,7 @@ a:hover{
 
 .ref{
 	border-left: 2px solid #8B0000;
-	background-color: #f6f6f;
+	background-color: #f6f6f6;
 	font-family: 'Open Sans';
 	padding:  5px 5px;
 }
@@ -129,4 +135,8 @@ a:hover{
 
 .highlight .bp{
 	color: green;
+}
+
+.content h1{
+	margin-bottom: 1.5em;
 }
