@@ -56,8 +56,8 @@ a:hover{
 .content{
 	width: 670 px;
 	float: right;
-	margin-bottom: 60px;
-	padding-bottom: 60px;
+	margin-bottom: 30px;
+	padding-bottom: 30px;
 }
 
 
@@ -84,10 +84,11 @@ a:hover{
 	margin-bottom:  30px;
 	border-top:  1px solid black;
 	border-bottom:  3px solid black;
-	text-align: center;
+	text-align: right;
 	text-size: 80%;
 	color: #666;
 	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .ref{
