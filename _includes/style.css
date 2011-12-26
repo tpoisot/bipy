@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700italic,700,400italic);
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400italic,400,700,700italic);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,600italic,400,600,700);
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
 
 pre, code{
@@ -38,14 +38,12 @@ a:hover{
 
 .head{
 	border-bottom: 3px solid black;
-}
-
-.head h1{
-	font-family: 'PT Sans';
+	font-family: 'Open Sans';
+	text-align: right;
 }
 
 .premain h1{
-	color: #000F81;
+	color: #8B0000;
 }
 
 .sidebar{
@@ -62,11 +60,11 @@ a:hover{
 
 
 .content h2, h3{
-	font-family: 'PT Sans';
+	font-family: 'Open Sans';
 }
 
 .nav a{
-	font-family: 'PT Sans';
+	font-family: 'Open Sans';
 	line-height: 1.5em;
 	font-weight: bold;
 	margin-right: 1.5em;
@@ -74,8 +72,8 @@ a:hover{
 
 .nav{
 	border-bottom: 1px solid black;
-	padding-bottom: 7px;
-	padding-top: 7px;
+	padding-bottom: 10px;
+	padding-top: 10px;
 }
 
 #footer{
@@ -84,22 +82,23 @@ a:hover{
 	margin-bottom:  30px;
 	border-top:  1px solid black;
 	border-bottom:  3px solid black;
-	text-align: right;
+	text-align: left;
 	text-size: 80%;
 	color: #666;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	font-family: 'Open Sans';
 }
 
 .ref{
-	border-left: 2px solid #000F81;
-	background-color: #eee;
-	font-family: 'PT Sans';
+	border-left: 2px solid #8B0000;
+	background-color: #f6f6f;
+	font-family: 'Open Sans';
 	padding:  5px 5px;
 }
 
 .funcdoc h2{
-	font-family: 'PT Sans';
+	font-family: 'Open Sans';
 	font-size: 90%;
 	border-bottom: 1px solid black;
 	margin-bottom: 10px;
