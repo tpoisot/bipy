@@ -7,6 +7,8 @@ title: BIPY - Reference - Classes - tests
 
 This class is used to assess the significancy of the nested or modular pattern of a bipartite network, against a sample of random networks obtained through one of the four currently implemented [null models]({{ site.url }}/reference/nulls/wrapper/). The references to the methods used are described in the relevant pages.
 
+The general principle behing the analyses is as follows. Given a network for which we know the value of one metric (e.g. nestedness), $N$, we want to know if this value is significantly different than what whould be expected at random. We generate a series of pseudo-random networks under certain rules, and for each of them, calculate the same metric, so that we have a pseudo-random distribution $N'$. If the value of this metric in the original network is obtained by chance, the mean of the distribution of $N-N'$ will not be different from 0. This is assessed by doing a two-tailed one sample t-test, and checking that 0 falls within the [95 % confidence interval predicted through a Bayesian method](http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bayes_mvs.html).
+
 ## Starting a test
 
 The `__init__` method of the `test` class requires the following arguments:
@@ -35,7 +37,7 @@ The test for modularity will likely be the longest thing that *bipy* will do, as
 test_web.modularity(500)
 {% endhighlight %}
 
-Doing this will add two objects (`devqr` and `devqb`), corresponding to the output of the [`getDevMod`]({{ site.url }}/reference/tests/mod/) function.
+Doing this will add two objects (`devqr` and `devqb`), corresponding to the output of the [`getDevMod`]({{ site.url }}/reference/tests/modularity/) function.
 
 If the `bipartite` object on which the analysis is done has no information in its module object, i.e. no detection of modularity was previously conducted, the `modularity` method will perform it, and issue a warning if `verbose = True`.
 
