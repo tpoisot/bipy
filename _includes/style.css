@@ -4,7 +4,14 @@
 
 pre, code{
 	font-family: 'Inconsolata';
-	font-size: 100%;
+}
+
+code{
+	font-size: 95%;
+}
+
+pre{
+	font-size: 75%;
 }
 
 body{
