@@ -55,10 +55,17 @@ class bipartite:
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
-    def specieslevel(self):
+    def specieslevel(self,toFile=True):
         """
         Write the species level informations
         """
+        for tls in xrange(self.upsp):
+            SpInfo = str(self.upnames[tls])+'\t'
+            SpInfo+= str(self.generality[tls])+'\t'
+            SpInfo+= str(self.specificity[tls])+'\t'
+            SpInfo+= str(self.ssi[tls])+'\t'
+            SpInfo+= str(self.rr[tls])+'\t'
+            print SpInfo
         return 0
 
 

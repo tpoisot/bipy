@@ -6,13 +6,13 @@ from ..bipartite_class import *
 import scipy.stats as spp
 
 def PValToText(pv):
-    ptxt = '---'
+    ptxt = ' --- '
     if pv < 0.05:
-        ptxt = '*    '
+        ptxt = '  *  '
     if pv < 0.01:
-        ptxt = '**   '
+        ptxt = '  ** '
     if pv < 0.001:
-        ptxt= '***  '
+        ptxt= ' *** '
     if pv < 0.0001:
         ptxt = '**** '
     if pv < 0.00001:
@@ -59,7 +59,7 @@ class test:
         if self.v:
             print '[INF] Test for modularity completed'
     def __str__(self):
-        out = "Stat\tN0\tN'\tp\tIC-\tIC+\n"
+        out = "Stat\tN0\t\tN'\t\tp\t\tIC-\t\tIC+\n"
         out +=  "---------------------------------------------\n"
         if len(self.devnest) > 0:
             out += " NODF\t"+str(round(self.devnest[0],2)).zfill(4)+"\t"+str(round(self.devnest[2],2)).zfill(4)+"\t"+PValToText(self.devnest[1])+"\t"+str(round(self.devnest[3],2)).zfill(4)+"\t"+str(round(self.devnest[4],2)).zfill(4)+"\n"

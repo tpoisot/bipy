@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name = "bipy",
-    version = "0.9.2",
+    version = "0.9.3",
     author = "Timothee Poisot",
     author_email = "timothee.poisot@uqar.ca",
     description = ("A Python module to work on bipartite networks"
