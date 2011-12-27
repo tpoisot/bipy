@@ -52,8 +52,14 @@ class bipartite:
         # For the name
         self.name = ''
 
+def openWeb(file='',t=False,name='',species_names=False):
+    if species_names:
+        web = oNW(file,t,name)
+    else:
+        web = oUW(file,t,name)
+    return web
 
-def loadweb(file='',t=False,name=''):
+def oUW(file='',t=False,name=''):
     if file == '':
         filename = tkFileDialog.askopenfilename()
     else:
@@ -64,7 +70,7 @@ def loadweb(file='',t=False,name=''):
     return w
 
 
-def loadwebNamed(file='',name=''):
+def oNW(file='',t=False,name=''):
     if file == '':
         filename = tkFileDialog.askopenfilename()
     else:
@@ -87,9 +93,8 @@ def loadwebNamed(file='',name=''):
             f.write('\n')
         cline += 1
     f.close()
-    web = bipartite(readweb(f.name))
+    web = loadweb(f.name,t,name)
     os.unlink(f.name)
-    web.name = name
     web.upnames=upnames
     web.lonames=lonames
     return web
@@ -118,9 +123,6 @@ class modules:
         s+= 'Modularity (Qqip): '+str(round(self.Q,3)).zfill(5)+"\n"
         s+= 'Modularity (Qr)  : '+str(round(self.Qr,3)).zfill(5)+"\n"
         return s
-
-
-
 
 class ref:
     ## This class defines references for a dataset
