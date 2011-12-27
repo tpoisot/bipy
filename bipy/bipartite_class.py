@@ -44,6 +44,10 @@ class bipartite:
         self.nodf_low = NODF[1]
         # Placeholder for modularity
         self.modules = ''
+        # Placeholder for contributions
+        self.contrib = ''
+        # Placeholder for tests
+        self.tests = ''
         # Placeholder for references
         self.ref = []
         # Placeholder for species names
