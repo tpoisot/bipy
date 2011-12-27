@@ -51,6 +51,16 @@ class bipartite:
         self.lonames = range(self.losp)
         # For the name
         self.name = ''
+    def __str__(self):
+        s = 'Network '+self.name
+        s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
+        return s
+    def specieslevel(self):
+        """
+        Write the species level informations
+        """
+        return 0
+
 
 def openWeb(file='',t=False,name='',species_names=False):
     if species_names:
