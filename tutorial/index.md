@@ -17,7 +17,7 @@ To load the data and give name to the species, the following commands are used:
 # Loading bipy
 from bipy import *
 # Reading the network, and giving it a name
-rw = loadweb('fonseca-ganade.web',name='FonsecaGanade')
+rw = openWeb('fonseca-ganade.web',t=False,name='FonsecaGanade',species_names=False)
 # Naming the upper trophic level species
 rw.upnames = ['Caba','Azal','Azis','Azaf','AlD','Alpr','Alaf','SoA','Alau','CrB','AzHC',
 'AzG','CrD','AzCO','Phmi','CrA','AzTO','CrC','Azsc','Psni','Psco','AzD','Azpo',
