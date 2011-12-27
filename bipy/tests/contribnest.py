@@ -11,7 +11,7 @@ class contrib:
         self.low_whole = []
         self.low_up = []
         self.low_low = []
-    def calculate(self,replicates=100,nodf_strict=True,model=1):
+    def calculate(self,replicates=100,nodf_strict=True,model=2):
         out = spContribNest(self.w,replicates,nodf_strict,model)
         self.up_whole = out[0][0]
         self.up_up = out[0][1]

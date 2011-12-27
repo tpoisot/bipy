@@ -59,17 +59,55 @@ class bipartite:
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
-    def specieslevel(self,toFile=True):
+    def specieslevel(self,toScreen=True,toFile=True):
         """
         Write the species level informations
         """
+        if toFile:
+            f = open(self.name+'-sp.txt','w')
+        Header = 'sp\tlev\tdeg\tspe\tssi\trr'
+        if not getattr(self,'contrib') == '':
+            Header+= '\t'
+            Header+= 'CN_w\tCN_u\tCN_l'
+        if toScreen:
+            print Header
+        if toFile:
+            f.write(Header+'\n')
         for tls in xrange(self.upsp):
             SpInfo = str(self.upnames[tls])+'\t'
+            SpInfo+= 'top'+'\t'
             SpInfo+= str(self.generality[tls])+'\t'
             SpInfo+= str(self.specificity[tls])+'\t'
             SpInfo+= str(self.ssi[tls])+'\t'
-            SpInfo+= str(self.rr[tls])+'\t'
-            print SpInfo
+            SpInfo+= str(self.rr[tls])
+            if not getattr(self,'contrib') == '':
+                SpInfo+= '\t'
+                SpInfo+= str(self.contrib.up_whole[tls])+'\t'
+                SpInfo+= str(self.contrib.up_up[tls])+'\t'
+                SpInfo+= str(self.contrib.up_low[tls])
+            if toScreen:
+                print SpInfo
+            if toFile:
+                f.write(SpInfo+'\n')
+        for lls in xrange(self.losp):
+            SpInfo = str(self.lonames[lls])+'\t'
+            SpInfo+= 'bottom'+'\t'
+            SpInfo+= str(self.vulnerability[lls])+'\t'
+            SpInfo+= '-----'+'\t'
+            SpInfo+= '-----'+'\t'
+            SpInfo+= '-----'
+            if not getattr(self,'contrib') == '':
+                SpInfo+= '\t'
+                SpInfo+= str(self.contrib.low_whole[lls])+'\t'
+                SpInfo+= str(self.contrib.low_up[lls])+'\t'
+                SpInfo+= str(self.contrib.low_low[lls])
+            if toScreen:
+                print SpInfo
+            if toFile:
+                f.write(SpInfo+'\n')
+        if toFile:
+            f.close()
+            print 'Species-level infos for the dataset '+self.name+' were written to '+self.name+'-sp.txt\n'
         return 0
 
 
