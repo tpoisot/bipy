@@ -89,9 +89,9 @@ def getDevNest(w,list):
         expect.append(bipartite(i).nodf)
         expect_up.append(bipartite(i).nodf_up)
         expect_lo.append(bipartite(i).nodf_low)
-    testRes = stats.ttest_1samp(expect, w.nodf)
-    testRes_up = stats.ttest_1samp(expect_up, w.nodf_up)
-    testRes_lo = stats.ttest_1samp(expect_lo, w.nodf_low)
+    testRes = spp.ttest_1samp(expect, w.nodf)
+    testRes_up = spp.ttest_1samp(expect_up, w.nodf_up)
+    testRes_lo = spp.ttest_1samp(expect_lo, w.nodf_low)
     OUT = [w.nodf,testRes[1]]
     OUT_up = [w.nodf_up,testRes_up[1]]
     OUT_lo = [w.nodf_low,testRes_lo[1]]
@@ -123,8 +123,8 @@ def getDevMod(w,nulls,rep,q_c):
         tw.modules.detect(rep,q_c)
         Qrsim.append(tw.modules.Qr)
         Qbsim.append(tw.modules.Q)
-    testResB = stats.ttest_1samp(Qbsim, wQb)
-    testResR = stats.ttest_1samp(Qrsim, wQr)
+    testResB = spp.ttest_1samp(Qbsim, wQb)
+    testResR = spp.ttest_1samp(Qrsim, wQr)
     OUT_r = [wQr,testResR[1]]
     OUT_b = [wQb,testResB[1]]
     est_r = gMIC(Qrsim)

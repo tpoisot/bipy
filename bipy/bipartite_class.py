@@ -1,15 +1,10 @@
-from .base import *
-from .null import *
 from .nes import *
-from .spe import *
 from .mod import *
+from .contrib import *
 
 from getref import *
-from mainfuncs import *
 
-import scipy as sp
 import numpy as np
-from scipy import stats
 
 import tempfile
 import os
@@ -45,7 +40,7 @@ class bipartite:
         # Placeholder for modularity
         self.modules = modules(self)
         # Placeholder for contributions
-        self.contrib = ''
+        self.contrib = contrib(self)
         # Placeholder for tests
         self.tests = ''
         # Placeholder for references
@@ -109,7 +104,6 @@ class bipartite:
             f.close()
             print 'Species-level infos for the dataset '+self.name+' were written to '+self.name+'-sp.txt\n'
         return 0
-
 
 def openWeb(file='',t=False,name='',species_names=False):
     if species_names:

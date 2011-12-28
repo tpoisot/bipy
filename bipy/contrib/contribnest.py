@@ -1,4 +1,4 @@
-from ..bipartite_class import *
+## Contributions
 from ..nes import *
 import numpy as np
 
