@@ -2,6 +2,7 @@ from .nes import *
 from .mod import *
 from .contrib import *
 from .null import *
+from .tests import *
 import scipy.stats as spp
 
 
@@ -47,6 +48,8 @@ class bipartite:
         self.contrib = contrib(self)
         # Placeholder for tests
         self.tests = test(self)
+        # Placeholder for extinctions
+        self.robustness = robustness(self)
         # Placeholder for references
         self.ref = []
         # Placeholder for species names
@@ -116,6 +119,12 @@ class bipartite:
         if toFile:
             f.close()
             print 'Species-level infos for the dataset '+self.name+' were written to '+self.name+'-sp.txt\n'
+        return 0
+    def networklevel(self,toScreen=True,toFile=True):
+        """
+        Outputs the network level informations
+        """
+        Header = 'Name'
         return 0
 
 def openWeb(file='',t=False,name='',species_names=False):
