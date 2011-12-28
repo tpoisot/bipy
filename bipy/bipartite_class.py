@@ -16,7 +16,7 @@ import tkFileDialog
 
 class bipartite:
     ## This class defines a bipartite object with all structural infos
-    def __init__ (self,web,t=False,nodf_strict=True,q_c=True):
+    def __init__ (self,web,t=False,nodf_strict=True,q_c=False):
         self.q_c = q_c
         # Read the matrix
         if t:
@@ -178,7 +178,7 @@ def oNW(file='',t=False,name=''):
 class modules:
     ## A class for the modules
     def __init__(self,w):
-        self.w = w
+        self.w = w.web
         self.done = False
         self.Q = 0
         self.N = 1
@@ -203,8 +203,8 @@ class modules:
         """
         if self.done:
             s = 'Number of modules: '+str(self.N)+"\n"
-            s+= 'Modularity (Qqip): '+str(round(self.Q,3)).zfill(5)+"\n"
-            s+= 'Modularity (Qr)  : '+str(round(self.Qr,3)).zfill(5)+"\n"
+            s+= 'Modularity (Qqip): '+str(round(self.Q,4)).zfill(6)+"\n"
+            s+= 'Modularity (Qr)  : '+str(round(self.Qr,4)).zfill(6)+"\n"
         else:
             s = 'The detection of modularity has not been performed yet\n'
         return s
@@ -338,13 +338,12 @@ def getDevMod(w,nulls,rep,q_c):
     m = [w.modules.Q,w.modules.N,w.modules.up_modules,w.modules.low_modules]
     Qbsim = []
     Qrsim = []
-    wQr = Qr(w,m)
+    wQr = Qr(w.web,m)
     wQb = w.modules.Q
     for c_null in nulls:
-        tw = bipartite(c_null)
-        tw.modules.detect(rep,q_c)
-        Qrsim.append(tw.modules.Qr)
-        Qbsim.append(tw.modules.Q)
+        c_mod = findModules(c_null, q_c = q_c)
+        Qrsim.append(Qr(c_null, c_mod))
+        Qbsim.append(c_mod[0])
     testResB = spp.ttest_1samp(Qbsim, wQb)
     testResR = spp.ttest_1samp(Qrsim, wQr)
     OUT_r = [wQr,testResR[1]]
