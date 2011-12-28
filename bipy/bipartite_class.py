@@ -65,9 +65,12 @@ class bipartite:
         if toFile:
             f = open(self.name+'-sp.txt','w')
         Header = 'sp\tlev\tdeg\tspe\tssi\trr'
-        if not getattr(self,'contrib') == '':
+        if self.contrib.done:
             Header+= '\t'
             Header+= 'CN_w\tCN_u\tCN_l'
+        if self.modules.done:
+            Header+= '\t'
+            Header+= 'MOD'
         if toScreen:
             print Header
         if toFile:
@@ -79,11 +82,14 @@ class bipartite:
             SpInfo+= str(self.specificity[tls])+'\t'
             SpInfo+= str(self.ssi[tls])+'\t'
             SpInfo+= str(self.rr[tls])
-            if not getattr(self,'contrib') == '':
+            if self.contrib.done:
                 SpInfo+= '\t'
                 SpInfo+= str(self.contrib.up_whole[tls])+'\t'
                 SpInfo+= str(self.contrib.up_up[tls])+'\t'
                 SpInfo+= str(self.contrib.up_low[tls])
+            if self.modules.done:
+                SpInfo+= '\t'
+                SpInfo+= str(self.modules.up_modules[tls])
             if toScreen:
                 print SpInfo
             if toFile:
@@ -95,11 +101,14 @@ class bipartite:
             SpInfo+= '-----'+'\t'
             SpInfo+= '-----'+'\t'
             SpInfo+= '-----'
-            if not getattr(self,'contrib') == '':
+            if self.contrib.done:
                 SpInfo+= '\t'
                 SpInfo+= str(self.contrib.low_whole[lls])+'\t'
                 SpInfo+= str(self.contrib.low_up[lls])+'\t'
                 SpInfo+= str(self.contrib.low_low[lls])
+            if self.modules.done:
+                SpInfo+= '\t'
+                SpInfo+= str(self.modules.low_modules[lls])
             if toScreen:
                 print SpInfo
             if toFile:

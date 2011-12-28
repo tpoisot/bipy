@@ -5,6 +5,7 @@ import numpy as np
 class contrib:
     def __init__(self,web):
         self.w = web
+        self.done = False
         self.up_whole = []
         self.up_up = []
         self.up_low = []
@@ -12,6 +13,7 @@ class contrib:
         self.low_up = []
         self.low_low = []
     def calculate(self,replicates=100,nodf_strict=True,model=2):
+        self.done = True
         out = spContribNest(self.w,replicates,nodf_strict,model)
         self.up_whole = out[0][0]
         self.up_up = out[0][1]
