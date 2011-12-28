@@ -308,9 +308,10 @@ def getDevNest(w,list):
     expect_up = []
     expect_lo = []
     for i in list:
-        expect.append(bipartite(i).nodf)
-        expect_up.append(bipartite(i).nodf_up)
-        expect_lo.append(bipartite(i).nodf_low)
+        Nodf = nodf(i)
+        expect.append(Nodf[0])
+        expect_up.append(Nodf[2])
+        expect_lo.append(Nodf[1])
     testRes = spp.ttest_1samp(expect, w.nodf)
     testRes_up = spp.ttest_1samp(expect_up, w.nodf_up)
     testRes_lo = spp.ttest_1samp(expect_lo, w.nodf_low)

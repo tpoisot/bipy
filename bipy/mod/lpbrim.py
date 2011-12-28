@@ -1,4 +1,5 @@
 ## LP-BRIM modularity in bipartite webs
+#TODO: this is taking forever because it require a bipartite object
 from ..null import *
 from ..mainfuncs import *
 import numpy as np
@@ -9,12 +10,12 @@ def mostFrequent(L):
     Finds the most frequent item of an array
     """
     uVal = uniquify(L)
-    random.shuffle(uVal)
+    np.random.shuffle(uVal)
     cnt = {}
     for u in uVal:
-        cnt[str(u)] = 0
+        cnt[u] = 0
     for l in L:
-        cnt[str(l)] += 1
+        cnt[l] += 1
     return max(cnt, key=cnt.get)
 
 def Qbip_c(W,gg,gh):
@@ -229,6 +230,7 @@ def LPBRIM(W,q_c):
 
 
 ## Find modules
+#TODO: findModules should calculate the necessary data and pass it to other functions
 def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
     topmod = 0
     out = [0,0,0,0]

@@ -9,7 +9,8 @@ def nestadj(aW):
 
 
 def compareones(w1,w2,tn):
-    return (100*np.sum((w1 == np.ones(len(w1))) * (w2 == np.ones(len(w2)))))/tn
+    #TODO: This is a posssible bottleneck, maybe port to C
+    return (100 * np.sum( (w1 == np.ones(len(w1))) * (w2 == np.ones(len(w2)))) )/tn
 
 
 def getNpaired(W,strict):
