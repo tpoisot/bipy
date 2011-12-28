@@ -1,6 +1,7 @@
 from ..null import *
 from ..nes import *
 from ..mod import *
+import scipy.stats as spp
 
 
 def PValToText(pv):

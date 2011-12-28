@@ -3,7 +3,6 @@ from .mod import *
 from .contrib import *
 from .null import *
 from .tests import *
-import scipy.stats as spp
 
 from getref import *
 

@@ -13,9 +13,9 @@ def mostFrequent(L):
     np.random.shuffle(uVal)
     cnt = {}
     for u in uVal:
-        cnt[u] = 0
+        cnt[str(u)] = 0
     for l in L:
-        cnt[l] += 1
+        cnt[str(l)] += 1
     return max(cnt, key=cnt.get)
 
 def Qbip_c(W,gg,gh):
