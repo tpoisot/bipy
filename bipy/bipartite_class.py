@@ -43,7 +43,7 @@ class bipartite:
         self.nodf_up = NODF[2]
         self.nodf_low = NODF[1]
         # Placeholder for modularity
-        self.modules = ''
+        self.modules = modules(self)
         # Placeholder for contributions
         self.contrib = ''
         # Placeholder for tests
@@ -161,26 +161,36 @@ def oNW(file='',t=False,name=''):
 
 class modules:
     ## A class for the modules
-    def __init__(self,w,reps=100,q_c=False):
-        modinfos = findModules(w,reps=reps,q_c=q_c)
+    def __init__(self,w):
+        self.w = w
+        self.done = False
+        self.Q = 0
+        self.N = 1
+        self.Qr = 1
+        self.up_modules = []
+        self.low_modules = []
+    def detect(self,reps=100,q_c=False):
+        self.done = True
+        modinfos = findModules(self.w,reps=reps,q_c=q_c)
         self.Q = modinfos[0]
         if self.Q > 0:
             self.N = modinfos[1]
-        else:
-            self.N = 1
         self.up_modules = modinfos[2]
         self.low_modules = modinfos[3]
         if self.Q > 0:
-            self.Qr = Qr(w,modinfos)
+            self.Qr = Qr(self.w,modinfos)
         else:
             self.Qr = 1
     def __str__(self):
         """
         Return the description of the modularity state
         """
-        s = 'Number of modules: '+str(self.N)+"\n"
-        s+= 'Modularity (Qqip): '+str(round(self.Q,3)).zfill(5)+"\n"
-        s+= 'Modularity (Qr)  : '+str(round(self.Qr,3)).zfill(5)+"\n"
+        if self.done:
+            s = 'Number of modules: '+str(self.N)+"\n"
+            s+= 'Modularity (Qqip): '+str(round(self.Q,3)).zfill(5)+"\n"
+            s+= 'Modularity (Qr)  : '+str(round(self.Qr,3)).zfill(5)+"\n"
+        else:
+            s = 'The detection of modularity has not been performed yet\n'
         return s
 
 class ref:

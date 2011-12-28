@@ -46,10 +46,10 @@ class test:
             print "[INF] Nestedness test completed"
     def modularity(self,repl):
         ## test if the bipartite object has modules
-        if len(self.web.modules) == 0:
+        if not self.web.modules.done:
             if self.v:
                 print '[WRN] Conducting the modularity analysis'
-            self.web.modules = modules(self.web,reps=repl,q_c=self.q_c)
+            self.web.modules.detect(reps=repl,q_c=self.q_c)
         ##
         if self.v:
             print '[INF] Beginning the test for modularity'
@@ -119,9 +119,10 @@ def getDevMod(w,nulls,rep,q_c):
     wQr = Qr(w,m)
     wQb = w.modules.Q
     for c_null in nulls:
-        mod = modules(bipartite(c_null),rep,q_c)
-        Qrsim.append(mod.Qr)
-        Qbsim.append(mod.Q)
+        tw = bipartite(c_null)
+        tw.modules.detect(rep,q_c)
+        Qrsim.append(tw.modules.Qr)
+        Qbsim.append(tw.modules.Q)
     testResB = stats.ttest_1samp(Qbsim, wQb)
     testResR = stats.ttest_1samp(Qrsim, wQr)
     OUT_r = [wQr,testResR[1]]
