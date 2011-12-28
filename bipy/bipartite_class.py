@@ -38,6 +38,7 @@ class bipartite:
         self.ssi = ssi(web)
         self.bperf = web.max(1)
         # Nestedness
+        self.nodf_strict = nodf_strict
         NODF = nodf(web,strict=nodf_strict)
         self.nodf = NODF[0]
         self.nodf_up = NODF[2]
@@ -308,7 +309,7 @@ def getDevNest(w,list):
     expect_up = []
     expect_lo = []
     for i in list:
-        Nodf = nodf(i)
+        Nodf = nodf(i,strict=w.nodf_strict)
         expect.append(Nodf[0])
         expect_up.append(Nodf[2])
         expect_lo.append(Nodf[1])
