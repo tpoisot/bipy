@@ -93,7 +93,7 @@ def int_rect(x,y):
 	LastUpperBound = 0
 	for i in range(len(x)):
 		# Find span and bounds
-		if(LastUpperBound == LastLowerBound):
+		if LastUpperBound == LastLowerBound:
 			Span = x[(i+1)]-x[i]
 			LastUpperBound = x[i]+Span/float(2)
 			LastLowerBound = x[i]-Span/float(2)
