@@ -25,12 +25,12 @@ def Qbip_c(W,gg,gh):
     """
     ggc = map(int,np.copy(gg))
     ghc = map(int,np.copy(gh))
-    nt = int(np.copy(W.upsp))
-    nb = int(np.copy(W.losp))
-    nl = int(np.copy(W.nlink))
-    adj = np.int_(np.copy(W.adjacency))
-    gen = np.int_(np.copy(W.generality))
-    vul = np.int_(np.copy(W.vulnerability))
+    adj = adjacency(W)
+    nt = len(W)
+    nb = len(W[0])
+    nl = int(np.sum(adj))
+    gen = generality(W)
+    vul = vulnerability(W)
     code = """
     int i, j, Pos;
     float ModNul, DiffProb;
@@ -51,8 +51,7 @@ def Qbip_c(W,gg,gh):
     return_val = tQ;
     """
     res = inline(code, ['nt','nb','ggc','ghc','nl','gen','vul','adj'], headers = ['<math.h>','<string.h>'], compiler = 'gcc')
-    tQ = res / W.nlink
-    return tQ
+    return res / nl
 
 def Qbip(W,gg,gh):
     """

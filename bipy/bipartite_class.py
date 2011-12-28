@@ -16,7 +16,7 @@ import tkFileDialog
 
 class bipartite:
     ## This class defines a bipartite object with all structural infos
-    def __init__ (self,web,t=False,nodf_strict=True,q_c=False):
+    def __init__ (self,web,t=False,nodf_strict=True,q_c=True):
         self.q_c = q_c
         # Read the matrix
         if t:
