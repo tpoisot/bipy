@@ -18,19 +18,18 @@ def mostFrequent(L):
         cnt[str(l)] += 1
     return max(cnt, key=cnt.get)
 
-def Qbip_c(W,gg,gh):
+def Qbip_c(w,gg,gh):
     """
     A C implementation of the Qbip function
     Not working at this time
     """
     ggc = map(int,np.copy(gg))
     ghc = map(int,np.copy(gh))
-    adj = adjacency(W)
-    nt = len(W)
-    nb = len(W[0])
-    nl = int(np.sum(adj))
-    gen = generality(W)
-    vul = vulnerability(W)
+    nt = len(w)
+    nb = len(w[0])
+    nl = int(np.sum(w))
+    gen = np.sum(w,axis=1)
+    vul = np.sum(w,axis=0)
     code = """
     int i, j, Pos;
     float ModNul, DiffProb;
@@ -43,34 +42,33 @@ def Qbip_c(W,gg,gh):
             if (ggc[i] == ghc[j])
             {
                 ModNul = (float)(gen[i] * vul[j]) / (float)nl;
-                DiffProb = (float)adj[Pos] - (float)ModNul;
+                DiffProb = (float)w[Pos] - (float)ModNul;
                 tQ += DiffProb;
             }
         }
     }
     return_val = tQ;
     """
-    res = inline(code, ['nt','nb','ggc','ghc','nl','gen','vul','adj'], headers = ['<math.h>','<string.h>'], compiler = 'gcc')
+    res = inline(code, ['nt','nb','ggc','ghc','nl','gen','vul','w'], headers = ['<math.h>','<string.h>'], compiler = 'gcc')
     return res / nl
 
-def Qbip(W,gg,gh):
+def Qbip(w,gg,gh):
     """
     Bipartite modularity sensu Barber
     Good candidate for a C version
     """
-    adj = adjacency(W)
-    gen = generality(W)
-    vul = vulnerability(W)
+    gen = np.sum(w,axis=1)
+    vul = np.sum(w,axis=0)
     tQ = 0.0
-    for i in xrange(len(W)):
-        for j in xrange(len(W[0])):
+    for i in xrange(len(w)):
+        for j in xrange(len(w[0])):
             if gg[i] == gh[j]:
-                tQ += (adj[i][j] - (gen[i]*vul[j])/float(np.sum(adj)))
-    return tQ / float(np.sum(adj))
+                tQ += (w[i][j] - (gen[i]*vul[j])/float(np.sum(w)))
+    return tQ / float(np.sum(w))
 
 
 ## LP method
-def LP(W,q_c):
+def LP(w,q_c):
     """
     LABEL PROPAGATION method
     """
@@ -79,12 +77,11 @@ def LP(W,q_c):
     else:
         qfunc = Qbip
     OptimStep = 0
-    w = adjacency(W) ## This version of modularity is BINARY
     # Community objects
     g = []
     # Each LTL species is assigned a random label
-    losp = len(W[0])
-    upsp = len(W)
+    losp = len(w[0])
+    upsp = len(w)
     h = np.arange(losp)
     np.random.shuffle(h)
     # First round of UTL species label propagation
@@ -99,7 +96,7 @@ def LP(W,q_c):
         # We then add the most common label
         g.append(mostFrequent(vNL))
     # We calculate basal modularity
-    refBip = qfunc(W,g,h)
+    refBip = qfunc(w,g,h)
     oriBip = -1
     # Then go on to optimize
     # The LP procedure stops whenever the modularity stops increasing
@@ -136,7 +133,7 @@ def LP(W,q_c):
             # We then add the most common label
             g[i] = mostFrequent(vNL)
         # We then recalculate the modularity
-        refBip = qfunc(W,g,h)
+        refBip = qfunc(w,g,h)
         OptimStep += 1
     # Once we are OUTSIDE the loop (the modularity is stabilized)
     # we return the current Qbip and the community partition
@@ -186,14 +183,14 @@ def BRIM(W,part,q_c):
     T = initPart[1]
     nc = len(R[0])
     # do the B matrix
-    B = np.copy(adjacency(W))
-    upsp = len(B)
-    losp = len(B[0])
-    gen = generality(B)
-    vul = vulnerability(B)
+    B = np.copy(W)
+    upsp = len(W)
+    losp = len(W[0])
+    gen = generality(W)
+    vul = vulnerability(W)
     for i in xrange(upsp):
         for j in xrange(losp):
-                B[i][j] -= (gen[i]*vul[j])/float(np.sum(B))
+                B[i][j] -= (gen[i]*vul[j])/float(np.sum(W))
     # begin BRIM optimization
     refQbip = -1
     while refQbip < iQbip:
@@ -233,8 +230,8 @@ def LPBRIM(W,q_c):
     out = [Q,Nmod,TopPart,BotPart]
     return out
 
-#TODO: findModules should calculate the necessary data and pass it to other functions
 def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
+    W = np.copy(adjacency(W))
     topmod = 0
     out = [0,0,0,0]
     if (reps >= 100) & step_print:
@@ -269,12 +266,10 @@ def Qr(w,mod):
         Nint = 0
         for i in xrange(len(w)):
             for j in xrange(len(w[0])):
-
                 if adj[i][j] == 1:
                     if mod[2][i] == mod[3][j]:
                         Nint += 1
-        realized = Nint/float(np.sum(adj))
-        return realized
+        return Nint/float(np.sum(adj))
 
 
 ## Separate modules
