@@ -152,7 +152,7 @@ def oNW(file='',t=False,name=''):
             f.write('\n')
         cline += 1
     f.close()
-    web = loadweb(f.name,t,name)
+    web = oUW(f.name,t,name)
     os.unlink(f.name)
     web.upnames=upnames
     web.lonames=lonames
