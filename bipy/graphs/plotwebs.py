@@ -6,6 +6,8 @@ from pyx import *
 from ..base import *
 from ..mod import *
 
+#TODO: better integration with the bipartite class
+
 ## Sort by modules
 def sortbymodule(W,g,h):
 	sg = sorted(np.copy(g),reverse=True)

@@ -1,5 +1,4 @@
 ## LP-BRIM modularity in bipartite webs
-#TODO: this is taking forever because it require a bipartite object
 from ..null import *
 from ..mainfuncs import *
 import numpy as np
