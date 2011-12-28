@@ -1,5 +1,6 @@
 import numpy as np
 import copy
+from ..mainfuncs import *
 from numpy.random import shuffle
 
 class ext_seq:
@@ -16,21 +17,21 @@ class robustness:
         self.random = ext_seq('random')
         self.stog = ext_seq('stog')
         self.gtos = ext_seq('gtos')
-    def random(self,lower=True,reps=100):
+    def do_random(self,lower=True,reps=100):
         temp = extinctRobustness(self.web,self.random.name,lower,reps)
         self.random.result = temp
         sc_temp = extinctionScore(self.random.result)
         self.random.score = sc_temp[0]
         self.random.removed = sc_temp[1]
         self.random.survived = sc_temp[2]
-    def stog(self,lower=True,reps=100):
+    def do_stog(self,lower=True,reps=5):
         temp = extinctRobustness(self.web,self.stog.name,lower,reps)
         self.stog.result = temp
         sc_temp = extinctionScore(self.stog.result)
         self.stog.score = sc_temp[0]
         self.stog.removed = sc_temp[1]
         self.stog.survived = sc_temp[2]
-    def gtos(self,lower=True,reps=100):
+    def do_gtos(self,lower=True,reps=5):
         temp = extinctRobustness(self.web,self.gtos.name,lower,reps)
         self.gtos.result = temp
         sc_temp = extinctionScore(self.gtos.result)
