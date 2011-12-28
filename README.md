@@ -14,6 +14,7 @@
 * Improvements in the speed of the null models
 * Strong improvements in the speed of tests for nestedness (nodf is calculated on raw matrices rather than coverted bipartite objects)
 * Improvements in the speed of modularity analysis (labels are propagated as int rather than str)
+* Modification of the mod sub-module (now takes a raw rather bipartite network)
 
 ## For a list of the features...
 
