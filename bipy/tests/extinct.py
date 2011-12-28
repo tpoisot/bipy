@@ -38,6 +38,11 @@ class robustness:
         self.gtos.score = sc_temp[0]
         self.gtos.removed = sc_temp[1]
         self.gtos.survived = sc_temp[2]
+    def __str__(self):
+        s = 'RND: '+str(self.random.score)+'\n'
+        s+= 'S>G: '+str(self.stog.score)+'\n'
+        s+= 'G>S: '+str(self.gtos.score)
+        return s
 
 
 def extinctRobustness(w,method='random',removelower=True,nreps=100):
