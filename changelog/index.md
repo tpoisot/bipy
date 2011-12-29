@@ -3,13 +3,8 @@ layout: page
 title: BIPY - Changelog
 ---
 
-## 0.9
+This page lists the most notable changes between the stable releases. The current development snapshot can be found on the [dev](https://github.com/tpoisot/bipy/tree/dev) branch (which is often unstable).
 
-### 0.9.3 (Dec. 27th, 2011)
+## 1.0.0 ([zip](https://github.com/tpoisot/bipy/zipball/sr_v1.0.0))
 
-* Added the 'contribution to nestedness' measure for individual species
-* Method `specieslevel` in the bipartite class
-
-### 0.9.2 (Dec. 22nd, 2011)
-
-* First relatively stable release
+* First stable release
