@@ -39,7 +39,7 @@ At the end of this step, we have a `rw` object, which is an instance of the [`bi
 
 Robustness to extinctions is done by removing species from either trophic level, and counting the number of species from the other trophic levels with no links remaining. When creating a `bipartite` object, a `robustness` class is created. This class has several methods, corresponding to different extinction scenarios. To perform the complete analysis, type:
 
-{% highlight pyhon linenos %}
+{% highlight python linenos %}
 w.robustness.do_random(200)
 w.robustness.do_stog(1)
 w.robustness.do_gtos(1)
