@@ -37,6 +37,22 @@ At the end of this step, we have a `rw` object, which is an instance of the [`bi
 
 ## Step 5 : checking robustness to extinction
 
+Robustness to extinctions is done by removing species from either trophic level, and counting the number of species from the other trophic levels with no links remaining. When creating a `bipartite` object, a `robustness` class is created. This class has several methods, corresponding to different extinction scenarios. To perform the complete analysis, type:
+
+{% highlight pyhon linenos %}
+w.robustness.do_random(200)
+w.robustness.do_stog(1)
+w.robustness.do_gtos(1)
+{% endhighlight %}
+
+The `do_` commands correspond to the different extinction scenarios (resp. at random, from specialists to generalists, and from generalists to specialists). By convention, each of these function accept one argument, corresponding to the number of replicates to do. The `robustness` class has a `__str__` methodm so that you can view the results of the analysis with
+
+{% highlight python linenos %}
+print w.robustness
+{% endhighlight %}
+
+In addition, there is a plot method associated to this class, so that you can have a visual output of the analysis using *PyX*.
+
 ## Step 6 : assessing the significancy of the patterns
 
 ## Step 7 : conclusion
