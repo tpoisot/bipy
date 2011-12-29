@@ -15,7 +15,7 @@
 * Strong improvements in the speed of tests for nestedness (nodf is calculated on raw matrices rather than coverted bipartite objects)
 * Improvements in the speed of modularity analysis (labels are propagated as int rather than str)
 * Modification of the mod sub-module (now takes a raw rather bipartite network)
-* Slight improvements in the computation time of PDI
+* Slight improvements in the computation time of PDI and SSI
 * plot method in the robustness class of bipartite
 
 ## For a list of the features...
