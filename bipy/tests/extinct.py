@@ -43,6 +43,25 @@ class robustness:
         s+= 'S>G: '+str(self.stog.score)+'\n'
         s+= 'G>S: '+str(self.gtos.score)
         return s
+    def plot(self):
+        try:
+            import pyx
+        except ImportError:
+            print 'PyX is not installed on your system'
+            print 'You can get it at http://pyx.sourceforge.net/'
+            print 'Install PyX before using this function -- STOP'
+            return 0
+        g = pyx.graph.graphxy(width=8,
+                          x = pyx.graph.axis.linear(title='Proportion removed'),
+                          y = pyx.graph.axis.linear(title='Generality'),
+                          key = pyx.graph.key.key(pos="bl", dist=0.1))
+        g.plot([
+            pyx.graph.data.values(x=self.stog.removed, y=self.stog.survived, title='Increasing'),
+            pyx.graph.data.values(x=self.random.removed, y=self.random.survived, title='Random'),
+            pyx.graph.data.values(x=self.gtos.removed, y=self.gtos.survived, title='Decreasing'),
+            ],[pyx.graph.style.line()])
+        g.writePDFfile(self.web.name+"_ext_degree")
+        return 1
 
 
 def extinctRobustness(w,method='random',removelower=True,nreps=100):

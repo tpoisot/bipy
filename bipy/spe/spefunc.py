@@ -9,10 +9,8 @@ def sp_pdi(f):
     tspe = 0
     fit = sorted(fit,reverse=True)
     ma = max(fit)
-    fit = fit/float(ma)
-    i = 1
     for i in xrange(1,len(fit)):
-        tspe += ((fit[0]-fit[i])/(len(fit)-1))
+        tspe += (((fit[0]/float(ma))-(fit[i]/float(ma)))/(len(fit)-1))
     return tspe
 
 
