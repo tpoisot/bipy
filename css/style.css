@@ -29,13 +29,8 @@ a:hover{
 	text-decoration: underline;
 }
 
-.head{
-	background-image:url(header.png);
-	background-repeat: no-repeat;
-}
-
 .premain{
-	margin-top: 40px;
+	margin-top: 0px;
 	width: 100%;
 	margin-bottom: 40px;
 }
@@ -44,11 +39,14 @@ a:hover{
 	border-bottom: 3px solid black;
 	font-family: 'Open Sans';
 	text-align: right;
+	background-image:url(header.png);
+	background-repeat: no-repeat;
 }
 
 .premain h1{
 	color: #8B0000;
 	margin-bottom: 0em;
+	padding-top: 40px;
 }
 
 .premain h2{
