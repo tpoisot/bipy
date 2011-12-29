@@ -3,11 +3,11 @@ layout: default
 ---
 
 <div class='sidebar'>
-	<div class="postdate">Posted on {{ post.date | date_to_string }}{% if post.last_updated %}, last updated on {{ post.last_updated | date_to_string }}{% endif %}</div>
+	<div class="postdate">Posted on {{ page.date | date_to_string }}{% if page.last_updated %}, last updated on {{ page.last_updated | date_to_string }}{% endif %}</div>
 </div>
 
 
 <div class='content'>
-<h1>{{ post.title }}</h1>
+<h1>{{ page.title }}</h1>
 	{{ content }}
 </div>
