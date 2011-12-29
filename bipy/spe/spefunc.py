@@ -17,11 +17,11 @@ def sp_pdi(f):
 
 
 def specificity(W):
-    # Measures the specialization using the Paired Differences Index
-    #	Poisot, T, et al. (2011) Biol Lett 7(2) 201-204 10.1098/rsbl.2010.0774
-    #	Poisot, T, et al. (in press) Proc R Soc Lon B 10.1098/rspb.2011.0826
+    """
+    Returns the Paired Differences Index measure of specificity
+    Normalized between 0 and 1
+    """
     spe = []
-    fit = 0
     for fit in W:
         spe.append(round(sp_pdi(fit),3))
     return spe
@@ -66,7 +66,7 @@ def IR(W):
 
     VarW = np.std(W.web)*float(np.std(W.web))
 
-    if (VarW == 0):
+    if VarW == 0:
         R = 0
         I = 0
     else:

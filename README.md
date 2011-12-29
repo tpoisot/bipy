@@ -8,13 +8,14 @@
 **Language** : Python  2.7.2
 **Requires** : numpy, scipy, pyx, tempfile, urllib
 
-## Changes in this version (v1.0.1)
+## Changes in this release (v1.0.1)
 
 * Robustness analyses are now in a class of their own
 * Improvements in the speed of the null models
 * Strong improvements in the speed of tests for nestedness (nodf is calculated on raw matrices rather than coverted bipartite objects)
 * Improvements in the speed of modularity analysis (labels are propagated as int rather than str)
 * Modification of the mod sub-module (now takes a raw rather bipartite network)
+* Slight improvements in the computation time of PDI
 
 ## For a list of the features...
 
