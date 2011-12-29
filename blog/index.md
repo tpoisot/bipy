@@ -11,14 +11,3 @@ title: BIPY - Blog
     {% endfor %}
   </ul>
 </div>
-
-<div id="pages">
-  <h2>Pages</h2>
-  <ul>
-    {% for page in site.html_pages %}
-      {% if page.title %}
-        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-</div>
