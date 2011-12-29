@@ -53,6 +53,12 @@ print w.robustness
 
 In addition, there is a plot method associated to this class, so that you can have a visual output of the analysis using *PyX*.
 
+{% highlight python linenos %}
+print w.robustness.plot()
+{% endhighlight %}
+
+This command will create a `pdf` file, with the name of the current network, in the current working directory.
+
 ## Step 6 : assessing the significancy of the patterns
 
 ## Step 7 : conclusion
