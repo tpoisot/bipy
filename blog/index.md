@@ -10,9 +10,6 @@ title: BIPY - Blog
 		<div class='meta'>
 		{{ post.date | date_to_string }}
 		</div>
-		<div class='abstract'>
-      {{ post.content | truncatewords  }}
-      </div>
       <p />
     {% endfor %}
 </div>
