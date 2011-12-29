@@ -29,13 +29,15 @@ a:hover{
 	text-decoration: underline;
 }
 
+.head{
+	background-image:url(header.png);
+	background-repeat: no-repeat;
+}
 
 .premain{
 	margin-top: 40px;
 	width: 100%;
 	margin-bottom: 40px;
-	background-image:url(header.png);
-	background-repeat: none;
 }
 
 .head{
