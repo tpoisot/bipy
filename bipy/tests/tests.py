@@ -50,7 +50,7 @@ class test:
         self.devqr = d_mod[0]
         self.devqb = d_mod[1]
     def __str__(self):
-        out = "Stat\tN0\t\tN'\t\tp\t\tIC-\t\tIC+\n"
+        out = "Stat\tN0\tN'\tp\tIC-\tIC+\n"
         out +=  "---------------------------------------------\n"
         if len(self.devnest) > 0:
             out += " NODF\t"+str(round(self.devnest[0],2)).zfill(4)+"\t"+str(round(self.devnest[2],2)).zfill(4)+"\t"+PValToText(self.devnest[1])+"\t"+str(round(self.devnest[3],2)).zfill(4)+"\t"+str(round(self.devnest[4],2)).zfill(4)+"\n"

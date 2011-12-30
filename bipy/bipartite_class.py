@@ -1,5 +1,6 @@
 from .nes import *
 from .mod import *
+from .graphs import *
 from .contrib import *
 from .null import *
 from .tests import *
@@ -74,6 +75,36 @@ class bipartite:
                     s += '-'
             print s
         return 0
+    def plot(self,asnest=True,asbeads=False,colors=True):
+        filename = self.name
+        if asnest:
+            filename += '_nested'
+            tW = sortbydegree(self)
+            W = bipartite(tW[0])
+            W.upnames=tW[1]
+            W.lonames=tW[2]
+            if asbeads:
+                plotBMatrix(W,filename=filename,withcolors=colors)
+            else:
+                filename += '_matrix'
+                plotMatrix(W,filename=filename,withcolors=colors)
+        else:
+            if not self.modules.done:
+                self.modules.detect(self.q_c)
+            filename += '_modular'
+            g = np.copy(self.modules.up_modules)
+            h = np.copy(self.modules.low_modules)
+            W = sortbymodule(self,g,h)
+            W.modules.N = self.modules.N
+            W.modules.up_modules = self.modules.up_modules
+            W.modules.low_modules = self.modules.low_modules
+            W.modules.Q = self.modules.Q
+            W.modules.Qr = self.modules.Qr
+            if asbeads:
+                plotBModules(W,filename=filename,withcolors=colors)
+            else:
+                filename += '_matrix'
+                plotModules(W,filename=filename,withcolors=colors)
     def specieslevel(self,toScreen=True,toFile=True):
         """
         Write the species level informations
