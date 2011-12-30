@@ -4,6 +4,40 @@ from ..mainfuncs import *
 import numpy as np
 from scipy.weave import inline
 
+class modules:
+    ## A class for the modules
+    def __init__(self,w):
+        self.w = w.web
+        self.done = False
+        self.Q = 0
+        self.N = 1
+        self.Qr = 1
+        self.up_modules = []
+        self.low_modules = []
+    def detect(self,reps=100,q_c=False):
+        self.done = True
+        modinfos = findModules(self.w,reps=reps,q_c=q_c)
+        self.Q = modinfos[0]
+        if self.Q > 0:
+            self.N = modinfos[1]
+        self.up_modules = modinfos[2]
+        self.low_modules = modinfos[3]
+        if self.Q > 0:
+            self.Qr = Qr(self.w,modinfos)
+        else:
+            self.Qr = 1
+    def __str__(self):
+        """
+        Return the description of the modularity state
+        """
+        if self.done:
+            s = 'Number of modules: '+str(self.N)+"\n"
+            s+= 'Modularity (Qqip): '+str(round(self.Q,4)).zfill(6)+"\n"
+            s+= 'Modularity (Qr)  : '+str(round(self.Qr,4)).zfill(6)+"\n"
+        else:
+            s = 'The detection of modularity has not been performed yet\n'
+        return s
+
 def mostFrequent(L):
     """
     Finds the most frequent item of an array

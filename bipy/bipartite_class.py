@@ -69,9 +69,9 @@ class bipartite:
             s = ''
             for char in line:
                 if char > 0:
-                    s += ' X'
+                    s += u'\u2588'
                 else:
-                    s += ' x'
+                    s += '-'
             print s
         return 0
     def specieslevel(self,toScreen=True,toFile=True):
@@ -187,40 +187,74 @@ def oNW(file='',t=False,name=''):
     web.lonames=lonames
     return web
 
-
-class modules:
-    ## A class for the modules
-    def __init__(self,w):
-        self.w = w.web
-        self.done = False
-        self.Q = 0
-        self.N = 1
-        self.Qr = 1
-        self.up_modules = []
-        self.low_modules = []
-    def detect(self,reps=100,q_c=False):
-        self.done = True
-        modinfos = findModules(self.w,reps=reps,q_c=q_c)
-        self.Q = modinfos[0]
-        if self.Q > 0:
-            self.N = modinfos[1]
-        self.up_modules = modinfos[2]
-        self.low_modules = modinfos[3]
-        if self.Q > 0:
-            self.Qr = Qr(self.w,modinfos)
-        else:
-            self.Qr = 1
-    def __str__(self):
-        """
-        Return the description of the modularity state
-        """
-        if self.done:
-            s = 'Number of modules: '+str(self.N)+"\n"
-            s+= 'Modularity (Qqip): '+str(round(self.Q,4)).zfill(6)+"\n"
-            s+= 'Modularity (Qr)  : '+str(round(self.Qr,4)).zfill(6)+"\n"
-        else:
-            s = 'The detection of modularity has not been performed yet\n'
-        return s
+## Sort by modules
+def sortbymodule(W,g,h):
+    sg = sorted(np.copy(g),reverse=True)
+    sh = sorted(np.copy(h),reverse=True)
+    # Step 1 : Sort a matrix by module
+    ## VOID VECTORS FOR THE SORTED SPECIES NAMES
+    oTnames = W.upnames
+    oBnames = W.lonames
+    vTnames = np.copy(oTnames)
+    vBnames = np.copy(oBnames)
+    ## Step 1a : sort TLO
+    rG = rank(g)
+    nW = np.zeros((W.upsp,W.losp))
+    for ro in range(0,W.upsp):
+        nW[rG[ro]] = W.web[ro]
+        vTnames[rG[ro]] = oTnames[ro]
+    ## Step 1b : sort BLO
+    nW = nW.T
+    dW = np.zeros((W.upsp,W.losp)).T
+    rG = rank(h)
+    for ro in range(0,W.losp):
+        dW[rG[ro]] = nW[ro]
+        vBnames[rG[ro]] = oBnames[ro]
+    web = np.copy(dW.T)
+    # New temp files for the names
+    oBnames = np.copy(vBnames)
+    oTnames = np.copy(vTnames)
+    # Step 2 : Sort each module by degree
+    uniqueMod = sorted(uniquify(sg),reverse=True)
+    ## Step 2a : sort TLO
+    totalMadeInt = 0
+    tempIntCnt = 0
+    tdeg = generality(web)
+    nweb = np.zeros(np.shape(web))
+    for module in uniqueMod:
+        totalMadeInt += tempIntCnt
+        tempIntCnt = 0
+        cdeg = []
+        for sp in range(len(tdeg)):
+            if sg[sp] == module:
+                cdeg.append(tdeg[sp])
+        rnk = rank(cdeg)
+        for ro in range(len(rnk)):
+            nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
+            vTnames[totalMadeInt+rnk[ro]] = oTnames[totalMadeInt+ro]
+            tempIntCnt += 1
+    web = np.copy(nweb.T)
+    ## Step 2b : sort BLO
+    totalMadeInt = 0
+    tempIntCnt = 0
+    tdeg = generality(web)
+    nweb = np.zeros(np.shape(web))
+    for module in uniqueMod:
+        totalMadeInt += tempIntCnt
+        tempIntCnt = 0
+        cdeg = []
+        for sp in range(len(tdeg)):
+            if sh[sp] == module:
+                cdeg.append(tdeg[sp])
+        rnk = rank(cdeg)
+        for ro in range(len(rnk)):
+            nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
+            vBnames[totalMadeInt+rnk[ro]] = oBnames[totalMadeInt+ro]
+            tempIntCnt += 1
+    Fweb = bipartite(np.copy(nweb.T))
+    Fweb.upnames = vTnames
+    Fweb.lonames = vBnames
+    return Fweb
 
 class ref:
     ## This class defines references for a dataset
