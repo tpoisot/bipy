@@ -1,5 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700italic,700,400italic);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,600italic,400,600,700);
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
 
 pre, code{
@@ -15,7 +13,7 @@ pre{
 }
 
 body{
-	font-family: 'PT Serif', Palatino;
+	font-family: Constantia, Palatino, Georgia, Times, serif, Palatino;
 	width: 900 px;
 	margin: 0px auto;
 }
@@ -37,7 +35,7 @@ a:hover{
 
 .head{
 	border-bottom: 3px solid black;
-	font-family: 'Open Sans';
+	font-family: Helvetica, Arial, sans-serif;
 	text-align: right;
 	background-image:url(header.png);
 	background-repeat: no-repeat;
@@ -69,11 +67,11 @@ a:hover{
 
 
 .content h2, h3{
-	font-family: 'Open Sans';
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 .nav a{
-	font-family: 'Open Sans';
+	font-family: Helvetica, Arial, sans-serif;
 	line-height: 1.5em;
 	margin-right: 1.5em;
 }
@@ -95,19 +93,19 @@ a:hover{
 	color: #666;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	font-family: 'Open Sans';
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 .ref{
 	border-left: 2px solid #8B0000;
 	background-color: #f6f6f6;
-	font-family: 'Open Sans';
+	font-family: Helvetica, Arial, sans-serif;
 	padding:  5px 5px;
 	font-size: 90%;
 }
 
 .sidebar h2{
-	font-family: 'Open Sans';
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 90%;
 	margin-bottom: 5px;
 }
@@ -159,5 +157,5 @@ a:hover{
 #posts .meta{
 	font-size: 80%;
 	color: #666;
-	font-family: 'Open Sans';
+	font-family: Helvetica, Arial, sans-serif;
 }
