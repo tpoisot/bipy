@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
 @import url(http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic);
-@import url(http://fonts.googleapis.com/css?family=Oswald);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 pre, code{
 	font-family: 'Inconsolata';
@@ -37,7 +37,7 @@ a:hover{
 
 .head{
 	border-bottom: 3px solid black;
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	text-align: right;
 	background-image:url(header.png);
 	background-repeat: no-repeat;
@@ -69,11 +69,11 @@ a:hover{
 
 
 .content h2, h3{
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .nav a{
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	line-height: 1.5em;
 	margin-right: 1.5em;
 }
@@ -95,19 +95,19 @@ a:hover{
 	color: #666;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .ref{
 	border-left: 2px solid #8B0000;
 	background-color: #f6f6f6;
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	padding:  5px 5px;
 	font-size: 90%;
 }
 
 .sidebar h2{
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 90%;
 	margin-bottom: 5px;
 }
@@ -159,7 +159,7 @@ a:hover{
 #posts .meta{
 	font-size: 80%;
 	color: #666;
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 
 #posts .post-title{
