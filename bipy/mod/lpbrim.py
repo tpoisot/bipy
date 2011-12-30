@@ -55,7 +55,6 @@ def mostFrequent(L):
 def Qbip_c(w,gg,gh):
     """
     A C implementation of the Qbip function
-    Not working at this time
     """
     ggc = map(int,np.copy(gg))
     ghc = map(int,np.copy(gh))
