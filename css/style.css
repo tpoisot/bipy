@@ -155,3 +155,9 @@ a:hover{
 	margin-top: 3em;
 	padding-top: 3em;
 }
+
+#posts .meta{
+	font-size: 80%;
+	color: #666;
+	font-family: 'Open Sans';
+}
