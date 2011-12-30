@@ -8,15 +8,16 @@ class modules:
     ## A class for the modules
     def __init__(self,w):
         self.w = w.web
+        self.q_c = w.q_c
         self.done = False
         self.Q = 0
         self.N = 1
         self.Qr = 1
         self.up_modules = []
         self.low_modules = []
-    def detect(self,reps=100,q_c=False):
+    def detect(self,reps=100):
         self.done = True
-        modinfos = findModules(self.w,reps=reps,q_c=q_c)
+        modinfos = findModules(self.w,reps=reps,q_c=self.q_c)
         self.Q = modinfos[0]
         if self.Q > 0:
             self.N = modinfos[1]
@@ -177,16 +178,18 @@ def LP(w,q_c):
 def getRTfp(tg,th):
     ug = uniquify(tg)
     uh = uniquify(th)
+    nh = len(th)
+    ng = len(tg)
     c = len(ug)
     # Build matrices
-    R = np.zeros((len(tg),c))
-    T = np.zeros((len(th),c))
+    R = np.zeros((ng,c))
+    T = np.zeros((nh,c))
     # Fill matrices
     for comm in xrange(c):
-        for row in xrange(len(tg)):
+        for row in xrange(ng):
             if ug[comm] == tg[row]:
                 R[row][comm] = 1
-        for row in xrange(len(th)):
+        for row in xrange(nh):
             if uh[comm] == th[row]:
                 T[row][comm] = 1
     return [R,T]
@@ -221,9 +224,10 @@ def BRIM(W,part,q_c):
     losp = len(W[0])
     gen = generality(W)
     vul = vulnerability(W)
+    NL = np.sum(W)
     for i in xrange(upsp):
         for j in xrange(losp):
-                B[i][j] -= (gen[i]*vul[j])/float(np.sum(W))
+                B[i][j] -= (gen[i]*vul[j])/float(NL)
     # begin BRIM optimization
     refQbip = -1
     while refQbip < iQbip:

@@ -10,7 +10,9 @@
 
 ## Changes in this release (v1.0.2)
 
-In progress
+* TODO: write object to txt with species names
+* TODO: continue speed improvements in testing
+* TODO: import from NetworkX 
 
 ## For a list of the features...
 
