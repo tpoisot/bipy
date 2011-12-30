@@ -159,3 +159,12 @@ a:hover{
 	color: #666;
 	font-family: Helvetica, Arial, sans-serif;
 }
+
+#posts .post-title{
+	font-size: 110%;
+}
+
+#posts .post-title a:hover{
+	text-decoration: none;
+	background-color: #EEE;
+}
