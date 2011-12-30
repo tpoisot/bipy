@@ -3,8 +3,11 @@ layout: default
 ---
 
 <div class='sidebar'>
+
+	<em>{{ page.abstract }}</em><br />
+
 	<h2>About this post</h2>
-	<div class="metadata">Posted on {{ page.date | date_to_string }}{% if page.last_updated %}, last updated on {{ page.last_updated | date_to_string }}{% endif %}</div>
+	<div class="metadata">Written by {{ page.author }}, posted on {{ page.date | date_to_string }}{% if page.last_updated %}, last updated on {{ page.last_updated | date_to_string }}{% endif %}</div>
 	
 	<h2>Tags</h2>
 	<div class='tags'>
