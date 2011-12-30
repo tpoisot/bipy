@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
-@import url(http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic);
+@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,600,600italic);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 pre, code{
@@ -15,7 +15,7 @@ pre{
 }
 
 body{
-	font-family: 'Crimson Text';
+	font-family: 'PT Serif';
 	width: 900 px;
 	margin: 0px auto;
 }
