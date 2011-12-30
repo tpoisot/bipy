@@ -10,7 +10,7 @@ layout: default
 	<div class='tags'>
 	{% if page.tags && page.tags != empty %}
 		{% for tag in page.tags %}
-			{{ tag | array_to_sentence_string }}
+			<span class='tag'>{{ tag | array_to_sentence_string }}</span>
 		{% endfor %}
 	{% endif %}
 	</div>
