@@ -35,6 +35,44 @@ At the end of this step, we have a `rw` object, which is an instance of the [`bi
 
 ## Step 4 : plotting the network
 
+The simplest way to output a network is to print it to the console in text form. The `txt` method of `bipartite` is doing this, so that you can type
+
+{% highlight python linenos %}
+w.txt()
+{% endhighlight %}
+
+You should see something like this:
+
+{% highlight bash %}
+█---------------
+█---------------
+████------------
+█--█------------
+----█-----------
+------█---------
+-----███--------
+------██--------
+-------█-█------
+-------███------
+---------█------
+---------███----
+---------██-----
+---------█------
+----------███---
+------█---███---
+----------█-----
+----------█-█---
+-------------██-
+-------------██-
+-------------██-
+--------------█-
+--------------█-
+---------█----█-
+---------------█
+{% endhighlight %}
+
+Full blocks correspond to interactions, and dashes correspond to no interactions.
+
 ## Step 5 : checking robustness to extinction
 
 Robustness to extinctions is done by removing species from either trophic level, and counting the number of species from the other trophic levels with no links remaining. When creating a `bipartite` object, a `robustness` class is created. This class has several methods, corresponding to different extinction scenarios. To perform the complete analysis, type:
