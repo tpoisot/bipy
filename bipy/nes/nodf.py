@@ -8,10 +8,31 @@ from scipy.weave import inline
 def nestadj(aW):
     return adjacency(sortbydegree(aW))
 
-def compareones(w1,w2,tn):
+def cmpones(w1,w2,tn):
     #TODO: Port to C
     #return (100 * np.sum( (w1 == np.ones(len(w1))) * (w2 == np.ones(len(w2)))) )/tn
     return (100 * np.sum( (w1+w2) == 2 ))/tn
+
+def compareones(w1,w2,tn):
+    """
+    A C implementation of the compareones
+    """
+    #TODO: Fix! the values are wrong
+    code = """
+    int s;
+    s = 0;
+    for(int i = 0; i < n; i++)
+    {
+        if ((w1[i]+w2[i]) == 2)
+         {
+            s += 100;
+         }
+    }
+    return_val = s;
+    """
+    n = len(w2)
+    res = inline(code, ['w1','w2','n'], headers = ['<math.h>'], compiler = 'gcc')
+    return (res) / float(tn)
 
 def getNpaired(W,strict):
     # Required for NODF calculation
