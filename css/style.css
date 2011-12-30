@@ -162,10 +162,6 @@ a:hover{
 	font-family: 'Open Sans', sans-serif;
 }
 
-#posts .post-title{
-	font-size: 110%;
-}
-
 #posts .post-title a:hover{
 	text-decoration: none;
 	background-color: #EEE;
