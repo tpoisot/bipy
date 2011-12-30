@@ -18,6 +18,7 @@
 * Slight improvements in the computation time of PDI and SSI
 * plot() method in the robustness class of bipartite
 * txt() method in the bipartite class
+* plot() method in bipartite
 
 ## For a list of the features...
 
