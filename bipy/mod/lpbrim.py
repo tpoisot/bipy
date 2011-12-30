@@ -209,7 +209,6 @@ def BRIM(W,part,q_c):
         qfunc = Qbip_c
     else:
         qfunc = Qbip
-    import numpy as np
     # part is an object returned by LP
     ig = part[1]
     ih = part[2]
