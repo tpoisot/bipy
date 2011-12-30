@@ -4,32 +4,65 @@ from ..mainfuncs import *
 import numpy as np
 from scipy.weave import inline
 
+class modules:
+    ## A class for the modules
+    def __init__(self,w):
+        self.w = w.web
+        self.done = False
+        self.Q = 0
+        self.N = 1
+        self.Qr = 1
+        self.up_modules = []
+        self.low_modules = []
+    def detect(self,reps=100,q_c=False):
+        self.done = True
+        modinfos = findModules(self.w,reps=reps,q_c=q_c)
+        self.Q = modinfos[0]
+        if self.Q > 0:
+            self.N = modinfos[1]
+        self.up_modules = modinfos[2]
+        self.low_modules = modinfos[3]
+        if self.Q > 0:
+            self.Qr = Qr(self.w,modinfos)
+        else:
+            self.Qr = 1
+    def __str__(self):
+        """
+        Return the description of the modularity state
+        """
+        if self.done:
+            s = 'Number of modules: '+str(self.N)+"\n"
+            s+= 'Modularity (Qqip): '+str(round(self.Q,4)).zfill(6)+"\n"
+            s+= 'Modularity (Qr)  : '+str(round(self.Qr,4)).zfill(6)+"\n"
+        else:
+            s = 'The detection of modularity has not been performed yet\n'
+        return s
+
 def mostFrequent(L):
     """
     Finds the most frequent item of an array
     """
     uVal = uniquify(L)
-    random.shuffle(uVal)
+    np.random.shuffle(uVal)
     cnt = {}
     for u in uVal:
-        cnt[str(u)] = 0
+        cnt[u] = 0
     for l in L:
-        cnt[str(l)] += 1
+        cnt[l] += 1
     return max(cnt, key=cnt.get)
 
-def Qbip_c(W,gg,gh):
+def Qbip_c(w,gg,gh):
     """
     A C implementation of the Qbip function
     Not working at this time
     """
     ggc = map(int,np.copy(gg))
     ghc = map(int,np.copy(gh))
-    nt = int(np.copy(W.upsp))
-    nb = int(np.copy(W.losp))
-    nl = int(np.copy(W.nlink))
-    adj = np.int_(np.copy(W.adjacency))
-    gen = np.int_(np.copy(W.generality))
-    vul = np.int_(np.copy(W.vulnerability))
+    nt = len(w)
+    nb = len(w[0])
+    nl = int(np.sum(w))
+    gen = np.sum(w,axis=1)
+    vul = np.sum(w,axis=0)
     code = """
     int i, j, Pos;
     float ModNul, DiffProb;
@@ -42,32 +75,33 @@ def Qbip_c(W,gg,gh):
             if (ggc[i] == ghc[j])
             {
                 ModNul = (float)(gen[i] * vul[j]) / (float)nl;
-                DiffProb = (float)adj[Pos] - (float)ModNul;
+                DiffProb = (float)w[Pos] - (float)ModNul;
                 tQ += DiffProb;
             }
         }
     }
     return_val = tQ;
     """
-    res = inline(code, ['nt','nb','ggc','ghc','nl','gen','vul','adj'], headers = ['<math.h>','<string.h>'], compiler = 'gcc')
-    tQ = res / W.nlink
-    return tQ
+    res = inline(code, ['nt','nb','ggc','ghc','nl','gen','vul','w'], headers = ['<math.h>','<string.h>'], compiler = 'gcc')
+    return res / nl
 
-def Qbip(W,gg,gh):
+def Qbip(w,gg,gh):
     """
     Bipartite modularity sensu Barber
     Good candidate for a C version
     """
+    gen = np.sum(w,axis=1)
+    vul = np.sum(w,axis=0)
     tQ = 0.0
-    for i in xrange(W.upsp):
-        for j in xrange(W.losp):
+    for i in xrange(len(w)):
+        for j in xrange(len(w[0])):
             if gg[i] == gh[j]:
-                tQ += (W.adjacency[i][j] - (W.generality[i]*W.vulnerability[j])/float(W.nlink))
-    return tQ / float(W.nlink)
+                tQ += (w[i][j] - (gen[i]*vul[j])/float(np.sum(w)))
+    return tQ / float(np.sum(w))
 
 
 ## LP method
-def LP(W,q_c):
+def LP(w,q_c):
     """
     LABEL PROPAGATION method
     """
@@ -76,17 +110,18 @@ def LP(W,q_c):
     else:
         qfunc = Qbip
     OptimStep = 0
-    w = W.adjacency ## This version of modularity is BINARY
     # Community objects
     g = []
     # Each LTL species is assigned a random label
-    h = np.arange(W.losp)
+    losp = len(w[0])
+    upsp = len(w)
+    h = np.arange(losp)
     np.random.shuffle(h)
     # First round of UTL species label propagation
-    for i in xrange(W.upsp):
+    for i in xrange(upsp):
         # We get a void object to get neighboring labels
         vNL = []
-        for j in xrange(W.losp):
+        for j in xrange(losp):
             if w[i][j] == 1:
                 # In case of interaction, the label of the interacting
                 # LTL species is considered to be neighboring
@@ -94,7 +129,7 @@ def LP(W,q_c):
         # We then add the most common label
         g.append(mostFrequent(vNL))
     # We calculate basal modularity
-    refBip = qfunc(W,g,h)
+    refBip = qfunc(w,g,h)
     oriBip = -1
     # Then go on to optimize
     # The LP procedure stops whenever the modularity stops increasing
@@ -103,12 +138,12 @@ def LP(W,q_c):
         # We propagate the UTL species labels
         # The order of the nodes being updated
         # is choosen at random
-        jOrder = range(W.losp)
+        jOrder = range(losp)
         random.shuffle(jOrder)
         for j in jOrder:
             # We get a void object to get neighboring labels
             vNL = []
-            for i in xrange(W.upsp):
+            for i in xrange(upsp):
                 if w[i][j] == 1:
                     # In case of interaction, the label of the interacting
                     # LTL species is considered to be neighboring
@@ -118,12 +153,12 @@ def LP(W,q_c):
         # We propagate the LTL species labels
         # The order of the nodes being updated
         # is choosen at random
-        iOrder = range(W.upsp)
+        iOrder = range(upsp)
         random.shuffle(iOrder)
         for i in iOrder:
             # We get a void object to get neighboring labels
             vNL = []
-            for j in xrange(W.losp):
+            for j in xrange(losp):
                 if w[i][j] == 1:
                     # In case of interaction, the label of the interacting
                     # LTL species is considered to be neighboring
@@ -131,7 +166,7 @@ def LP(W,q_c):
             # We then add the most common label
             g[i] = mostFrequent(vNL)
         # We then recalculate the modularity
-        refBip = qfunc(W,g,h)
+        refBip = qfunc(w,g,h)
         OptimStep += 1
     # Once we are OUTSIDE the loop (the modularity is stabilized)
     # we return the current Qbip and the community partition
@@ -140,7 +175,6 @@ def LP(W,q_c):
 
 ## Create the R and T matrix from a partition
 def getRTfp(tg,th):
-    import numpy as np
     ug = uniquify(tg)
     uh = uniquify(th)
     c = len(ug)
@@ -148,11 +182,11 @@ def getRTfp(tg,th):
     R = np.zeros((len(tg),c))
     T = np.zeros((len(th),c))
     # Fill matrices
-    for comm in range(c):
-        for row in range(len(tg)):
+    for comm in xrange(c):
+        for row in xrange(len(tg)):
             if ug[comm] == tg[row]:
                 R[row][comm] = 1
-        for row in range(len(th)):
+        for row in xrange(len(th)):
             if uh[comm] == th[row]:
                 T[row][comm] = 1
     return [R,T]
@@ -161,14 +195,12 @@ def getRTfp(tg,th):
 ## Gets a module vector from a module matrix
 def getCVfromCM(cm):
     cv = []
-    for i in range(len(cm)):
-        for j in range(len(cm[0])):
+    for i in xrange(len(cm)):
+        for j in xrange(len(cm[0])):
             if cm[i][j] == 1:
                 cv.append((j+1))
     return cv
 
-
-## BRIM procedure
 def BRIM(W,part,q_c):
     if q_c:
         qfunc = Qbip_c
@@ -184,26 +216,30 @@ def BRIM(W,part,q_c):
     T = initPart[1]
     nc = len(R[0])
     # do the B matrix
-    B = np.copy(W.adjacency)
-    for i in range(W.upsp):
-        for j in range(W.losp):
-                B[i][j] -= (W.generality[i]*W.vulnerability[j])/float(W.nlink)
+    B = np.copy(W)
+    upsp = len(W)
+    losp = len(W[0])
+    gen = generality(W)
+    vul = vulnerability(W)
+    for i in xrange(upsp):
+        for j in xrange(losp):
+                B[i][j] -= (gen[i]*vul[j])/float(np.sum(W))
     # begin BRIM optimization
     refQbip = -1
     while refQbip < iQbip:
         refQbip = iQbip
         # Step 1 : BT
         BT = np.dot(B,T)
-        for i in range(len(BT)):
-            for k in range(nc):
+        for i in xrange(len(BT)):
+            for k in xrange(nc):
                 if BT[i][k] == max(BT[i]):
                     R[i][k] = 1
                 else:
                     R[i][k] = 0
         # Step 2 : BR
         BR = np.dot(B.T,R)
-        for i in range(len(BR)):
-            for k in range(nc):
+        for i in xrange(len(BR)):
+            for k in xrange(nc):
                 if BR[i][k] == max(BR[i]):
                     T[i][k] = 1
                 else:
@@ -227,12 +263,11 @@ def LPBRIM(W,q_c):
     out = [Q,Nmod,TopPart,BotPart]
     return out
 
-
-## Find modules
 def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
+    W = np.copy(adjacency(W))
     topmod = 0
     out = [0,0,0,0]
-    if (reps >= 100)&(step_print):
+    if (reps >= 100) & step_print:
         print "Done	Best Q	Best M"
         print "----------------------"
     nstep = outstep
@@ -242,19 +277,16 @@ def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
             topmod = run[0]
             out = run
         if reps >= 100:
-            if ((repl/float(reps))*100 >= nstep)&(step_print):
+            if ((repl/float(reps))*100 >= nstep) & step_print:
                 print"{0}%	{1} 	{2}".format(str(nstep), str(out[0]), str(out[1]))
                 nstep += outstep
 #	print 'Found '+str(out[1])+' modules with Qbip of '+str(topmod)
-    if (reps >= 100)&(step_print):
+    if (reps >= 100)& step_print:
         print "----------------------"
         print"{0}%	{1}	{2}".format(str(100),str(out[0]), str(out[1]))
         print "----------------------"
     return out
 
-
-## Realized modularity
-## Which proportion of the interactions are made within modules ?
 def Qr(w,mod):
     """
     Returns the realized modularity, to be described in a future
@@ -263,14 +295,14 @@ def Qr(w,mod):
     if mod[0] == 0:
         return 0
     else :
+        adj = adjacency(w)
         Nint = 0
-        for i in xrange(w.upsp):
-            for j in xrange(w.losp):
-                if w.adjacency[i][j] == 1:
+        for i in xrange(len(w)):
+            for j in xrange(len(w[0])):
+                if adj[i][j] == 1:
                     if mod[2][i] == mod[3][j]:
                         Nint += 1
-        realized = Nint/float(w.nlink)
-        return realized
+        return Nint/float(np.sum(adj))
 
 
 ## Separate modules

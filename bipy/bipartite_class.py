@@ -1,9 +1,9 @@
 from .nes import *
 from .mod import *
+from .graphs import *
 from .contrib import *
 from .null import *
-import scipy.stats as spp
-
+from .tests import *
 
 from getref import *
 
@@ -37,6 +37,7 @@ class bipartite:
         self.ssi = ssi(web)
         self.bperf = web.max(1)
         # Nestedness
+        self.nodf_strict = nodf_strict
         NODF = nodf(web,strict=nodf_strict)
         self.nodf = NODF[0]
         self.nodf_up = NODF[2]
@@ -47,6 +48,8 @@ class bipartite:
         self.contrib = contrib(self)
         # Placeholder for tests
         self.tests = test(self)
+        # Placeholder for extinctions
+        self.robustness = robustness(self)
         # Placeholder for references
         self.ref = []
         # Placeholder for species names
@@ -58,6 +61,50 @@ class bipartite:
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
+    def txt(self):
+        """
+        Prints a text version of the network to the console
+        Can be used to view quickly the shape of a network
+        """
+        for line in self.adjacency:
+            s = ''
+            for char in line:
+                if char > 0:
+                    s += u'\u2588'
+                else:
+                    s += '-'
+            print s
+        return 0
+    def plot(self,asnest=True,asbeads=False,colors=True):
+        filename = self.name
+        if asnest:
+            filename += '_nested'
+            tW = sortbydegree(self)
+            W = bipartite(tW[0])
+            W.upnames=tW[1]
+            W.lonames=tW[2]
+            if asbeads:
+                plotBMatrix(W,filename=filename,withcolors=colors)
+            else:
+                filename += '_matrix'
+                plotMatrix(W,filename=filename,withcolors=colors)
+        else:
+            if not self.modules.done:
+                self.modules.detect(self.q_c)
+            filename += '_modular'
+            g = np.copy(self.modules.up_modules)
+            h = np.copy(self.modules.low_modules)
+            W = sortbymodule(self,g,h)
+            W.modules.N = self.modules.N
+            W.modules.up_modules = self.modules.up_modules
+            W.modules.low_modules = self.modules.low_modules
+            W.modules.Q = self.modules.Q
+            W.modules.Qr = self.modules.Qr
+            if asbeads:
+                plotBModules(W,filename=filename,withcolors=colors)
+            else:
+                filename += '_matrix'
+                plotModules(W,filename=filename,withcolors=colors)
     def specieslevel(self,toScreen=True,toFile=True):
         """
         Write the species level informations
@@ -117,6 +164,12 @@ class bipartite:
             f.close()
             print 'Species-level infos for the dataset '+self.name+' were written to '+self.name+'-sp.txt\n'
         return 0
+    def networklevel(self,toScreen=True,toFile=True):
+        """
+        Outputs the network level informations
+        """
+        Header = 'Name'
+        return 0
 
 def openWeb(file='',t=False,name='',species_names=False):
     if species_names:
@@ -165,40 +218,74 @@ def oNW(file='',t=False,name=''):
     web.lonames=lonames
     return web
 
-
-class modules:
-    ## A class for the modules
-    def __init__(self,w):
-        self.w = w
-        self.done = False
-        self.Q = 0
-        self.N = 1
-        self.Qr = 1
-        self.up_modules = []
-        self.low_modules = []
-    def detect(self,reps=100,q_c=False):
-        self.done = True
-        modinfos = findModules(self.w,reps=reps,q_c=q_c)
-        self.Q = modinfos[0]
-        if self.Q > 0:
-            self.N = modinfos[1]
-        self.up_modules = modinfos[2]
-        self.low_modules = modinfos[3]
-        if self.Q > 0:
-            self.Qr = Qr(self.w,modinfos)
-        else:
-            self.Qr = 1
-    def __str__(self):
-        """
-        Return the description of the modularity state
-        """
-        if self.done:
-            s = 'Number of modules: '+str(self.N)+"\n"
-            s+= 'Modularity (Qqip): '+str(round(self.Q,3)).zfill(5)+"\n"
-            s+= 'Modularity (Qr)  : '+str(round(self.Qr,3)).zfill(5)+"\n"
-        else:
-            s = 'The detection of modularity has not been performed yet\n'
-        return s
+## Sort by modules
+def sortbymodule(W,g,h):
+    sg = sorted(np.copy(g),reverse=True)
+    sh = sorted(np.copy(h),reverse=True)
+    # Step 1 : Sort a matrix by module
+    ## VOID VECTORS FOR THE SORTED SPECIES NAMES
+    oTnames = W.upnames
+    oBnames = W.lonames
+    vTnames = np.copy(oTnames)
+    vBnames = np.copy(oBnames)
+    ## Step 1a : sort TLO
+    rG = rank(g)
+    nW = np.zeros((W.upsp,W.losp))
+    for ro in range(0,W.upsp):
+        nW[rG[ro]] = W.web[ro]
+        vTnames[rG[ro]] = oTnames[ro]
+    ## Step 1b : sort BLO
+    nW = nW.T
+    dW = np.zeros((W.upsp,W.losp)).T
+    rG = rank(h)
+    for ro in range(0,W.losp):
+        dW[rG[ro]] = nW[ro]
+        vBnames[rG[ro]] = oBnames[ro]
+    web = np.copy(dW.T)
+    # New temp files for the names
+    oBnames = np.copy(vBnames)
+    oTnames = np.copy(vTnames)
+    # Step 2 : Sort each module by degree
+    uniqueMod = sorted(uniquify(sg),reverse=True)
+    ## Step 2a : sort TLO
+    totalMadeInt = 0
+    tempIntCnt = 0
+    tdeg = generality(web)
+    nweb = np.zeros(np.shape(web))
+    for module in uniqueMod:
+        totalMadeInt += tempIntCnt
+        tempIntCnt = 0
+        cdeg = []
+        for sp in range(len(tdeg)):
+            if sg[sp] == module:
+                cdeg.append(tdeg[sp])
+        rnk = rank(cdeg)
+        for ro in range(len(rnk)):
+            nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
+            vTnames[totalMadeInt+rnk[ro]] = oTnames[totalMadeInt+ro]
+            tempIntCnt += 1
+    web = np.copy(nweb.T)
+    ## Step 2b : sort BLO
+    totalMadeInt = 0
+    tempIntCnt = 0
+    tdeg = generality(web)
+    nweb = np.zeros(np.shape(web))
+    for module in uniqueMod:
+        totalMadeInt += tempIntCnt
+        tempIntCnt = 0
+        cdeg = []
+        for sp in range(len(tdeg)):
+            if sh[sp] == module:
+                cdeg.append(tdeg[sp])
+        rnk = rank(cdeg)
+        for ro in range(len(rnk)):
+            nweb[totalMadeInt+rnk[ro]] = web[totalMadeInt+ro]
+            vBnames[totalMadeInt+rnk[ro]] = oBnames[totalMadeInt+ro]
+            tempIntCnt += 1
+    Fweb = bipartite(np.copy(nweb.T))
+    Fweb.upnames = vTnames
+    Fweb.lonames = vBnames
+    return Fweb
 
 class ref:
     ## This class defines references for a dataset
@@ -225,124 +312,3 @@ class ref:
             self.link = self.link_jstor
         if self.link == '':
             self.link = ' (no link available)'
-
-
-def PValToText(pv):
-    ptxt = ' --- '
-    if pv < 0.05:
-        ptxt = '  *  '
-    if pv < 0.01:
-        ptxt = '  ** '
-    if pv < 0.001:
-        ptxt= ' *** '
-    if pv < 0.0001:
-        ptxt = '**** '
-    if pv < 0.00001:
-        ptxt = '*****'
-    return ptxt
-
-class test:
-    def __init__(self,web):
-        """
-        Initialize a test class and perform the tests
-        """
-        self.web = web
-        self.nulls = []
-        self.devnest = []
-        self.devnest_lo = []
-        self.devnest_up = []
-        self.devqb = []
-        self.devqr = []
-    def donulls(self,model=null_1,replicates=100):
-        self.nulls = nullModel(self.web,model,replicates)
-    def nestedness(self):
-        if len(self.nulls) == 0:
-            self.donulls()
-        d_nest = getDevNest(self.web,self.nulls)
-        self.devnest = d_nest[0]
-        self.devnest_lo = d_nest[1]
-        self.devnest_up = d_nest[2]
-    def modularity(self,repl):
-        if len(self.nulls) == 0:
-            self.donulls()
-        ## test if the bipartite object has modules
-        if not self.web.modules.done:
-            self.web.modules.detect(reps=repl,q_c=self.web.q_c)
-            ##
-        d_mod = getDevMod(self.web,self.nulls,repl,self.web.q_c)
-        self.devqr = d_mod[0]
-        self.devqb = d_mod[1]
-    def __str__(self):
-        out = "Stat\tN0\t\tN'\t\tp\t\tIC-\t\tIC+\n"
-        out +=  "---------------------------------------------\n"
-        if len(self.devnest) > 0:
-            out += " NODF\t"+str(round(self.devnest[0],2)).zfill(4)+"\t"+str(round(self.devnest[2],2)).zfill(4)+"\t"+PValToText(self.devnest[1])+"\t"+str(round(self.devnest[3],2)).zfill(4)+"\t"+str(round(self.devnest[4],2)).zfill(4)+"\n"
-        if len(self.devnest_lo) > 0:
-            out += "bNODF\t"+str(round(self.devnest_lo[0],2)).zfill(4)+"\t"+str(round(self.devnest_lo[2],2)).zfill(4)+"\t"+PValToText(self.devnest_lo[1])+"\t"+str(round(self.devnest_lo[3],2)).zfill(4)+"\t"+str(round(self.devnest_lo[4],2)).zfill(4)+"\n"
-        if len(self.devnest_up) > 0:
-            out += "tNODF\t"+str(round(self.devnest_up[0],2)).zfill(4)+"\t"+str(round(self.devnest_up[2],2)).zfill(4)+"\t"+PValToText(self.devnest_up[1])+"\t"+str(round(self.devnest_up[3],2)).zfill(4)+"\t"+str(round(self.devnest_up[4],2)).zfill(4)+"\n"
-        if len(self.devqr) > 0:
-            out += " QR    \t"+str(round(self.devqr[0],2)).zfill(4)+"\t"+str(round(self.devqr[2],2)).zfill(4)+"\t"+PValToText(self.devqr[1])+"\t"+str(round(self.devqr[3],2)).zfill(4)+"\t"+str(round(self.devqr[4],2)).zfill(4)+"\n"
-        if len(self.devqb) > 0:
-            out += " QB    \t"+str(round(self.devqb[0],2)).zfill(4)+"\t"+str(round(self.devqb[2],2)).zfill(4)+"\t"+PValToText(self.devqb[1])+"\t"+str(round(self.devqb[3],2)).zfill(4)+"\t"+str(round(self.devqb[4],2)).zfill(4)+"\n"
-        return out
-
-def gMIC(distrib):
-    """
-    Bayesian estimates of mean, and standard deviation
-    """
-    estimates = spp.bayes_mvs(distrib,alpha=0.95)[0]
-    return[estimates[0],estimates[1][0],estimates[1][1]]
-
-def getDevNest(w,list):
-    expect = []
-    expect_up = []
-    expect_lo = []
-    for i in list:
-        expect.append(bipartite(i).nodf)
-        expect_up.append(bipartite(i).nodf_up)
-        expect_lo.append(bipartite(i).nodf_low)
-    testRes = spp.ttest_1samp(expect, w.nodf)
-    testRes_up = spp.ttest_1samp(expect_up, w.nodf_up)
-    testRes_lo = spp.ttest_1samp(expect_lo, w.nodf_low)
-    OUT = [w.nodf,testRes[1]]
-    OUT_up = [w.nodf_up,testRes_up[1]]
-    OUT_lo = [w.nodf_low,testRes_lo[1]]
-    est = gMIC(expect)
-    est_lo = gMIC(expect_lo)
-    est_up = gMIC(expect_up)
-    for est_par in est:
-        OUT.append(est_par)
-    for est_par in est_lo:
-        OUT_lo.append(est_par)
-    for est_par in est_up:
-        OUT_up.append(est_par)
-    return [OUT, OUT_lo, OUT_up]
-
-def getDevMod(w,nulls,rep,q_c):
-    """
-    Get the deviation from random expectation of modularity. Optimized so that
-    the null webs are gone through only one time. Retunrs two arrays, one for
-    Qr, the other for Qb.
-    """
-    m = [w.modules.Q,w.modules.N,w.modules.up_modules,w.modules.low_modules]
-    Qbsim = []
-    Qrsim = []
-    wQr = Qr(w,m)
-    wQb = w.modules.Q
-    for c_null in nulls:
-        tw = bipartite(c_null)
-        tw.modules.detect(rep,q_c)
-        Qrsim.append(tw.modules.Qr)
-        Qbsim.append(tw.modules.Q)
-    testResB = spp.ttest_1samp(Qbsim, wQb)
-    testResR = spp.ttest_1samp(Qrsim, wQr)
-    OUT_r = [wQr,testResR[1]]
-    OUT_b = [wQb,testResB[1]]
-    est_r = gMIC(Qrsim)
-    est_b = gMIC(Qbsim)
-    for est_par in est_r:
-        OUT_r.append(est_par)
-    for est_par in est_b:
-        OUT_b.append(est_par)
-    return [OUT_r,OUT_b]
