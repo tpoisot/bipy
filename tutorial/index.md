@@ -73,6 +73,21 @@ You should see something like this:
 
 Full blocks correspond to interactions, and dashes correspond to no interactions.
 
+Of course, *bipy* offers more pleasing ways to plot networks, using *PyX*. There are two broad categories of plots: as a matrix (like the text version above), and as beads connected by strings. Both of them are handled by the `plot` method of `bipartite`, which provides several options.
+
+{% highlight python linenos %}
+# Plot as a matrix, to reflect nestedness
+# with colors
+w.plot(asNest=True,asBeads=False,color=True)
+# Plot as a matrix, to reflect modularity
+# with no colors
+w.plot(asNest=False,asBeads=False,color=False)
+# Plot as beads, to reflect modularity
+w.plot(asNest=False,asBeads=True)
+# Plot as beads, to reflect nestedness
+w.plot(asNest=True,asBeads=True)
+{% endhighlight %}
+
 ## Step 5 : checking robustness to extinction
 
 Robustness to extinctions is done by removing species from either trophic level, and counting the number of species from the other trophic levels with no links remaining. When creating a `bipartite` object, a `robustness` class is created. This class has several methods, corresponding to different extinction scenarios. To perform the complete analysis, type:
