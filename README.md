@@ -10,9 +10,12 @@
 
 ## Changes in this release (v1.0.2)
 
+* Faster measures of nestedness and modularity
+
 * TODO: write object to txt with species names
 * TODO: continue speed improvements in testing
-* TODO: import from NetworkX 
+* TODO: import from NetworkX
+* TODO: improve speed contribution to nest
 
 ## For a list of the features...
 

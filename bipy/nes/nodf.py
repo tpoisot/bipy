@@ -9,6 +9,7 @@ def nestadj(aW):
     return adjacency(sortbydegree(aW))
 
 def compareones(w1,w2,tn):
+    #TODO: Port to C
     #return (100 * np.sum( (w1 == np.ones(len(w1))) * (w2 == np.ones(len(w2)))) )/tn
     return (100 * np.sum( (w1+w2) == 2 ))/tn
 
