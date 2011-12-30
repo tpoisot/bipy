@@ -89,7 +89,7 @@ def plotWeb(w,minfo='',filename='',asnest=True,asbeads=False,colors=True):
 	if minfo=='':
 		# If the modules infos are void...
 		if asnest:
-			filename = filename+'_nested'
+			filename += '_nested'
 			# If we want the web to be nested
 			tW = sortbydegree(w)
 			W = bipartite(tW[0])
@@ -104,7 +104,7 @@ def plotWeb(w,minfo='',filename='',asnest=True,asbeads=False,colors=True):
 		else:
 			plotMatrix(W,filename=filename,withcolors=colors)
 	else:
-		filename = filename+'_modular'
+		filename += '_modular'
 		# If we give modules as an argument...
 		g = np.copy(minfo[2])
 		h = np.copy(minfo[3])

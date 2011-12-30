@@ -60,6 +60,20 @@ class bipartite:
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
+    def txt(self):
+        """
+        Prints a text version of the network to the console
+        Can be used to view quickly the shape of a network
+        """
+        for line in self.adjacency:
+            s = ''
+            for char in line:
+                if char > 0:
+                    s += ' X'
+                else:
+                    s += ' x'
+            print s
+        return 0
     def specieslevel(self,toScreen=True,toFile=True):
         """
         Write the species level informations

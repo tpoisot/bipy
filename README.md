@@ -16,7 +16,8 @@
 * Improvements in the speed of modularity analysis (labels are propagated as int rather than str)
 * Modification of the mod sub-module (now takes a raw rather bipartite network)
 * Slight improvements in the computation time of PDI and SSI
-* plot method in the robustness class of bipartite
+* plot() method in the robustness class of bipartite
+* txt() method in the bipartite class
 
 ## For a list of the features...
 
