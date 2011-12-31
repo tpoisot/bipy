@@ -77,6 +77,7 @@ a{
 .sidebar{
 	margin: 0 0 0 0;
 	padding-top: 5em;
+	padding-bottom: 5em;
 	width: 170 px;
 	float: left;
 }
@@ -98,7 +99,7 @@ a{
 }
 
 .nav{
-	margin-bottom: 4em;
+	margin-bottom: 3em;
 }
 
 .meta{
