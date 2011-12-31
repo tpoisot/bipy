@@ -14,6 +14,7 @@ html, body{
 
 pre, code{
 	font-family: 'Inconsolata';
+	font-size: 105%;
 }
 
 .site-title{
@@ -102,4 +103,10 @@ a{
 .meta{
 	color: #aaa;
 	font-size: 90%;
+}
+
+.ref{
+	border: 1px solid black;
+	background-color: #eee;
+	margin-bottom: 1em;
 }
