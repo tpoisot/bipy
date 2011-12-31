@@ -35,7 +35,25 @@ At the end of this step, we have a `rw` object, which is an instance of the [`bi
 
 ## Step 2 : printing informations about the species
 
+Most of the informations about the species in the network can be accessed through the `specieslevel` method of `bipartite`. The following command:
+
+{% highlight python %}
+rw.specieslevel(True,True)
+{% endhighlight %}
+
+will output both to the screen and to a file a table will all informations about the species in your network. Note that not all informations are available for all species (i.e. there is no value of specificity for the lower trophic level species). When new analyses like the one described below are done, their results are added to your `bipartite` object, and you may want to run `specieslevel` (and similarly for `networklevel`) as the last command in your script.
+
+At this point, `bipy` has already calculated most of the metrics, expect the one that are computationally intensive (you may not need them, so they are only calculated on demand). More species-level metrics (e.g. different measures of centrality) will be added in future versions.
+
 ## Step 3 : printing informations about the network
+
+Similarly to the `specieslevel` command, the `bipartite` class defines a `networklevel` method.
+
+{% highlight python %}
+w.networklevel()
+{% endhighlight %}
+
+It works slightly differently from the `specieslevel` command, in that successive calls of this command will be outputed to a single text file, to allow comparison between different networks, and/or test of the same network against different null models. For this reason, it is important the this command is called, for each network, at the same point of the analysis, as the header of the text file is only printed once.
 
 ## Step 4 : plotting the network
 
@@ -116,8 +134,10 @@ print w.robustness.plot()
 
 This command will create a `pdf` file, with the name of the current network, in the current working directory.
 
-## Step 6 : assessing the significancy of the patterns
+## Step 6 : finding modularity
 
-## Step 7 : conclusion
+## Step 7 : testing the significancy of the patterns
+
+## Step 8 : conclusion
 
 <div class='ref'>Fonseca, C.R., and G. Ganade. 1996. Asymmetries, compartments and null interactions in an Amazonian ant-plant community. Journal of Animal Ecology 66: 339-347.</div>
