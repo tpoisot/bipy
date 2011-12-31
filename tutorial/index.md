@@ -13,18 +13,22 @@ This tutorial require that you have installed *bipy* in your local Python distri
 
 To load the data and give name to the species, the following commands are used:
 
-{% highlight python linenos %}
+{% highlight python %}
 # Loading bipy
 from bipy import *
 # Reading the network, and giving it a name
-rw = openWeb('fonseca-ganade.web',t=False,name='FonsecaGanade',species_names=False)
+rw = openWeb('fonseca-ganade.web',
+	t=False,name='FonsecaGanade',
+	species_names=False)
 # Naming the upper trophic level species
-rw.upnames = ['Caba','Azal','Azis','Azaf','AlD','Alpr','Alaf','SoA','Alau','CrB','AzHC',
-'AzG','CrD','AzCO','Phmi','CrA','AzTO','CrC','Azsc','Psni','Psco','AzD','Azpo',
-'CrE','AzQ']
+rw.upnames = ['Caba','Azal','Azis','Azaf','AlD','Alpr',
+		'Alaf','SoA','Alau','CrB','AzHC','AzG','CrD',
+		'AzCO','Phmi','CrA','AzTO','CrC','Azsc','Psni',
+		'Psco','AzD','Azpo','CrE','AzQ']
 # Naming the lower trophic level species
-rw.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy','Hiph','Dusa','Cono','Coaf','Tobu',
-'Magu','Mapo','Tapo','Tamy','Amaf']
+rw.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy',
+	'Hiph','Dusa','Cono','Coaf','Tobu','Magu','Mapo',
+	'Tapo','Tamy','Amaf']
 {% endhighlight %}
 
 At the end of this step, we have a `rw` object, which is an instance of the [`bipartite` class]({{ site.url }}/reference/classes/bipartite/). This class is one of the core features of *bipy*, and when called, will calculate most of the informations you need to have about a network.
@@ -37,7 +41,7 @@ At the end of this step, we have a `rw` object, which is an instance of the [`bi
 
 The simplest way to output a network is to print it to the console in text form. The `txt` method of `bipartite` is doing this, so that you can type
 
-{% highlight python linenos %}
+{% highlight python %}
 w.txt()
 {% endhighlight %}
 
@@ -75,7 +79,7 @@ Full blocks correspond to interactions, and dashes correspond to no interactions
 
 Of course, *bipy* offers more pleasing ways to plot networks, using *PyX*. There are two broad categories of plots: as a matrix (like the text version above), and as beads connected by strings. Both of them are handled by the `plot` method of `bipartite`, which provides several options.
 
-{% highlight python linenos %}
+{% highlight python %}
 # Plot as a matrix, to reflect nestedness
 # with colors
 w.plot(asNest=True,asBeads=False,color=True)
@@ -92,7 +96,7 @@ w.plot(asNest=True,asBeads=True)
 
 Robustness to extinctions is done by removing species from either trophic level, and counting the number of species from the other trophic levels with no links remaining. When creating a `bipartite` object, a `robustness` class is created. This class has several methods, corresponding to different extinction scenarios. To perform the complete analysis, type:
 
-{% highlight python linenos %}
+{% highlight python %}
 w.robustness.do_random(200)
 w.robustness.do_stog(1)
 w.robustness.do_gtos(1)
@@ -100,13 +104,13 @@ w.robustness.do_gtos(1)
 
 The `do_` commands correspond to the different extinction scenarios (resp. at random, from specialists to generalists, and from generalists to specialists). By convention, each of these function accept one argument, corresponding to the number of replicates to do. The `robustness` class has a `__str__` methodm so that you can view the results of the analysis with
 
-{% highlight python linenos %}
+{% highlight python %}
 print w.robustness
 {% endhighlight %}
 
 In addition, there is a plot method associated to this class, so that you can have a visual output of the analysis using *PyX*.
 
-{% highlight python linenos %}
+{% highlight python %}
 print w.robustness.plot()
 {% endhighlight %}
 

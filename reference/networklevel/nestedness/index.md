@@ -7,7 +7,7 @@ title: BIPY - Network level measures - Nestedness
 
 Nestedness is measured using the Nestedness based on Overlap and Decreasing Fill (NODF, Almeida-Neto et al., 2008) algorithm. This measure is not sensitive to the matrix shape and size, and increases almost linearly with increased connectance.
 
-{% highlight python linenos %}
+{% highlight python %}
 import bipy
 W = bipy.bipartite(readweb('data.web'),nodf_strict=True)
 print W.nodf

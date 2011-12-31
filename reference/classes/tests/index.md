@@ -21,7 +21,7 @@ The `__init__` method of the `test` class requires the following arguments:
 
 The following snippet illustrates how to initialize a test with 10 replicates of the [null model 2]({{ site.url }}/reference/nulls/null2/), with no verbose output and the optimized C function.
 
-{% highlight python linenos %}
+{% highlight python %}
 from bipy import *
 w = bipartite(readweb('my_web.web'),t=False)
 test_web = test(w,null_2,10,verbose=False,q_c=True)
@@ -33,7 +33,7 @@ By itself, the `test` class is only generating a list of null models. The tests 
 
 The test for modularity will likely be the longest thing that *bipy* will do, as it requires optimizing the community partition for each of the null replicates. Use of the `q_c = True` option is therefore strongly recommended. This test is done through the `modularity()` method of the `test` class, and takes one mandatory argument `repl`, giving the number of replicates of the [LP-BRIM]({{ site.url}}/reference/networklevel/modularity/) algorithm to perform, for each random network.
 
-{% highlight python linenos %}
+{% highlight python %}
 test_web.modularity(500)
 {% endhighlight %}
 
@@ -45,7 +45,7 @@ If the `bipartite` object on which the analysis is done has no information in it
 
 The test for nestedness is done by the `nestedness` method of the `test` class, which is a wrapper around [`getDevNest`]({{ site.url }}/reference/tests/nestedness/).
 
-{% highlight python linenos %}
+{% highlight python %}
 test_web.nestedness()
 {% endhighlight %}
 
@@ -55,7 +55,7 @@ The `nestedness` method requires no supplementary argument. The significancy of 
 
 At any time after one or both of `modularity` or `nestedness` were called, it is possible to view the results of the analyses.
 
-{% highlight python linenos %}
+{% highlight python %}
 print test_web
 {% endhighlight %}
 

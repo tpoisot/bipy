@@ -7,7 +7,7 @@ title: BIPY - Species level measures - Contribution to nestedness
 
 Saavedra et al. (2011) proposed a null-model based approach to the measurement of how individual species contribute to nestedness. In *bipy*, this measure is quite easily done using the [`contrib`]({{ site.url }}/reference/classes/contrib/) class and associated methods.
 
-{% highlight python linenos %}
+{% highlight python %}
 import bipy
 # If the bipartite object is called W
 contr = bipy.spContribNest(W,replicates=100,nodf_strict=True,model=2)
@@ -17,7 +17,7 @@ contr = bipy.spContribNest(W,replicates=100,nodf_strict=True,model=2)
 
 This function will output an array of two arrays (focal and distal species). Each array (for each trophic level) be made of three arrays: contribution of each species to the overall nestedness, to the upper trophic level nestedness, and to the lower trophic level nestedness. For ease of use, it is recommanded to use the [`contrib`]({{ site.url }}/reference/classes/contrib/) class (the options of `spContribNest` are passed to the `calculate` method):
 
-{% highlight python linenos %}
+{% highlight python %}
 import bipy
 # If the bipartite object is called W
 W.contrib = contrib(W)

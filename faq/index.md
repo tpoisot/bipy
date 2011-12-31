@@ -13,13 +13,13 @@ title: BIPY - FAQ
 
 *bipy* uses [setuptools](http://pypi.python.org/pypi/setuptools), so you can just navigate to the directory where the 'bipy/' folder is, and type
 
-{% highlight bash linenos %}
+{% highlight bash %}
 sudo python setup.py install
 {% endhighlight %}
 
 You can now use *bipy* in a python session by doing
 
-{% highlight python linenos %}
+{% highlight python %}
 import bipy as bp
 {% endhighlight %}
 
