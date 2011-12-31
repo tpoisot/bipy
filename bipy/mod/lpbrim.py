@@ -8,7 +8,7 @@ class modules:
     ## A class for the modules
     def __init__(self,w):
         self.w = w.web
-        self.q_c = w.q_c
+        self.use_c = w.use_c
         self.done = False
         self.Q = 0
         self.N = 1
@@ -17,7 +17,7 @@ class modules:
         self.low_modules = []
     def detect(self,reps=100):
         self.done = True
-        modinfos = findModules(self.w,reps=reps,q_c=self.q_c)
+        modinfos = findModules(self.w,reps=reps,use_c=self.use_c)
         self.Q = modinfos[0]
         if self.Q > 0:
             self.N = modinfos[1]
@@ -101,11 +101,11 @@ def Qbip(w,gg,gh):
 
 
 ## LP method
-def LP(w,q_c):
+def LP(w,use_c):
     """
     LABEL PROPAGATION method
     """
-    if q_c:
+    if use_c:
         qfunc = Qbip_c
     else:
         qfunc = Qbip
@@ -203,8 +203,8 @@ def getCVfromCM(cm):
                 cv.append((j+1))
     return cv
 
-def BRIM(W,part,q_c):
-    if q_c:
+def BRIM(W,part,use_c):
+    if use_c:
         qfunc = Qbip_c
     else:
         qfunc = Qbip
@@ -253,11 +253,11 @@ def BRIM(W,part,q_c):
 
 
 ## Single LPBRIM Run
-def LPBRIM(W,q_c):
+def LPBRIM(W,use_c):
     import scipy as sp
     import numpy as np
-    LPpart = LP(W,q_c)
-    BRIMpart = BRIM(W,LPpart,q_c)
+    LPpart = LP(W,use_c)
+    BRIMpart = BRIM(W,LPpart,use_c)
     Q = BRIMpart[0]
     Nmod = len(uniquify(BRIMpart[1]))
     TopPart = BRIMpart[1]
@@ -265,7 +265,7 @@ def LPBRIM(W,q_c):
     out = [Q,Nmod,TopPart,BotPart]
     return out
 
-def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
+def findModules(W,reps=10,outstep=5,step_print=False,use_c=False):
     W = np.copy(adjacency(W))
     topmod = 0
     out = [0,0,0,0]
@@ -274,7 +274,7 @@ def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
         print "----------------------"
     nstep = outstep
     for repl in range(reps):
-        run = LPBRIM(W,q_c)
+        run = LPBRIM(W,use_c)
         if run[0] > topmod:
             topmod = run[0]
             out = run

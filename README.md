@@ -11,6 +11,7 @@
 ## Changes in this release (v1.0.2)
 
 * Faster measures of nestedness and modularity
+* q_c replaced by use_c, also used by nestedness
 
 * TODO: write object to txt with species names
 * TODO: continue speed improvements in testing
