@@ -1,5 +1,6 @@
 url: http://tpoisot.github.com/bipy
 paginate: 5
 auto: true
+permalinks: pretty
 disqus:
    id: bipy
