@@ -54,22 +54,29 @@ a{
 	margin: 0px auto;
 }
 
-.main{
+.main, .footer{
 	width: 900px;
 	margin: 0px auto;
 	padding: 0 0 0 0;
 }
 
+.footer{
+	clear: both;
+	margin-top: 3em;
+	border-top: 1px solid black;
+}
+
 .sidebar{
 	margin: 0 0 0 0;
 	padding-top: 5em;
-	width: 200 px;
+	width: 170 px;
 	float: left;
 }
 
 .content{
 	margin: 0 0 0 0;
 	padding-top: 5em;
+	margin-left: 30px;
 	width: 700px;
 	float: right;
 }
