@@ -1,18 +1,19 @@
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
+html {
+   font-size: 62.5%;
+}
+
 html, body{
 	font-family: 'Open Sans';
 	padding: 0 0 0 0;
 	margin: 0 0 0 0;
+	font-size: 
 }
 
 pre, code{
 	font-family: 'Inconsolata';
-}
-
-code{
-	font-size: 98%;
 }
 
 pre{
@@ -25,7 +26,7 @@ pre{
 }
 
 .site-subtitle{
-	color: #eee;
+	color: #fff;
 }
 
 a{
@@ -43,4 +44,15 @@ a{
 	padding-bottom: 15px;
 	width: 900 px;
 	margin: 0px auto;
+}
+
+.main{
+	width: 900px;
+	margin: 0px auto;
+}
+
+.sidebar{
+	margin-top: 5em;
+	width: 200 px;
+	float: left;
 }
