@@ -1,12 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Lato:700italic,400,400italic,700);
 
 html {
    font-size: 62.5%;
 }
 
 html, body{
-	font-family: 'Open Sans';
+	font-family: 'Lato';
 	padding: 0 0 0 0;
 	margin: 0 0 0 0;
 	font-size: 
