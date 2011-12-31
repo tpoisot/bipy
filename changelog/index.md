@@ -3,7 +3,7 @@ layout: page
 title: BIPY - Changelog
 ---
 
-This page lists the most notable changes between the stable releases. The current development snapshot can be found on the [dev](https://github.com/tpoisot/bipy/tree/dev) branch (which is often unstable).
+This page lists the most notable changes between the stable releases. The current development snapshot can be found on the [dev](https://github.com/tpoisot/bipy/tree/dev) branch (which is often unstable, but can offer some interesting new features).
 
 ## Version 1.0
 
