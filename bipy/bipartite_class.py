@@ -155,7 +155,7 @@ class bipartite:
             header += '\tmQb_sim\tmQb_pval\tmQb_icLow\tmQb_icUp'
             info += "\t"+str(round(self.tests.devqb[2],2))+"\t"+str(self.tests.devqb[1])+"\t"+str(round(self.tests.devqb[3],2))+"\t"+str(round(self.tests.devqb[4],2))
         header += '\ttReps\ttMod'
-        info += '\t'+str(self.tests.replicates)+'\t'+str(self.tests.model)
+        info += '\t'+str(self.tests.replicates)+'\t'+str(self.tests.model.__name__)
         if toScreen:
             print header
             print info

@@ -30,8 +30,8 @@ class test:
         self.devnest_up = []
         self.devqb = []
         self.devqr = []
-        self.model = '0'
-        self.replicates = '0'
+        self.model = null_1
+        self.replicates = 100
     def donulls(self,model=null_1,replicates=100):
         self.model = model
         self.replicates = replicates
