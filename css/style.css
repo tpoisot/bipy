@@ -3,6 +3,8 @@
 
 html{
 	font-family: 'Open Sans';
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
 }
 
 pre, code{
@@ -24,4 +26,20 @@ pre{
 
 .site-subtitle{
 	color: #eee;
+}
+
+a{
+	color: #8B0000;
+	text-decoration: none;
+}
+
+.premain{
+	background-color: #aaa;
+}
+
+.head{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	width: 900 px;
+	text-align: center;
 }
