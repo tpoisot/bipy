@@ -44,11 +44,11 @@ a{
 }
 
 .content{
-	font-size: 1.3em;
+	font-size: 1.35em;
 }
 
 .sidebar{
-	font-size: 1.2em;
+	font-size: 1.25em;
 }
 
 .head{
@@ -66,14 +66,15 @@ a{
 
 .main{
 	margin-bottom: 3em;
+	padding-bottom: 3em;
 }
 
 #footer{
 	clear: both;
 	margin-top: 3em;
 	border-top: 1px solid black;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 3em;
+	padding-bottom: 1em;
 }
 
 .sidebar{
@@ -86,7 +87,12 @@ a{
 .content{
 	margin: 0 0 0 0;
 	padding-top: 5em;
+	padding-bottom: 5em;
 	margin-left: 30px;
 	width: 700px;
 	float: right;
+}
+
+.nav li, .nav ul{
+	list-style: none;
 }
