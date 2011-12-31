@@ -4,6 +4,7 @@ from .graphs import *
 from .contrib import *
 from .null import *
 from .tests import *
+import pickle
 
 from getref import *
 
@@ -14,6 +15,8 @@ import os
 import tkFileDialog
 
 class bipartite:
+    #TODO: networklevel
+    #TODO: nxExport : export to networkX
     ## This class defines a bipartite object with all structural infos
     def __init__ (self,web,t=False,nodf_strict=True,use_c=True):
         self.use_c = use_c
@@ -61,6 +64,14 @@ class bipartite:
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
+    def save(self):
+        if self.name == '':
+            self.name = 'web'
+        fname = self.name + '.bipartite'
+        file_bip = open(fname, 'w')
+        pickle.dump(self, file_bip)
+        print 'The bipartite network was saved to '+fname
+        return fname
     def txt(self):
         """
         Prints a text version of the network to the console
@@ -170,53 +181,6 @@ class bipartite:
         """
         Header = 'Name'
         return 0
-
-def openWeb(file='',t=False,name='',species_names=False):
-    if species_names:
-        web = oNW(file,t,name)
-    else:
-        web = oUW(file,t,name)
-    return web
-
-def oUW(file='',t=False,name=''):
-    if file == '':
-        filename = tkFileDialog.askopenfilename()
-    else:
-        filename = file
-    # Read the web
-    w = bipartite(readweb(filename),t=t)
-    w.name = name
-    return w
-
-
-def oNW(file='',t=False,name=''):
-    if file == '':
-        filename = tkFileDialog.askopenfilename()
-    else:
-        filename = file
-    upnames = []
-    lonames = []
-    f = tempfile.NamedTemporaryFile(delete=False)
-    # Read the web
-    fweb = open(filename,'r')
-    cline = 0
-    for line in fweb:
-        if cline == 0:
-            lonames = line.split()
-        else:
-            spl_line = line.split()
-            upnames.append(spl_line[0])
-            tintmat= []
-            for i in range(1,len(spl_line)):
-                f.write(str(float(spl_line[i]))+' ')
-            f.write('\n')
-        cline += 1
-    f.close()
-    web = oUW(f.name,t,name)
-    os.unlink(f.name)
-    web.upnames=upnames
-    web.lonames=lonames
-    return web
 
 ## Sort by modules
 def sortbymodule(W,g,h):

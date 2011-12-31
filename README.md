@@ -13,10 +13,9 @@
 * Faster measures of nestedness and modularity
 * q_c replaced by use_c, also used by nestedness
 * import from NetworkX
+* method save in bipartite using pickle to keep a bipartite object
+* function load to import a previously saved object
 
-* TODO: write object to txt with species names
-* TODO: continue speed improvements in testing
-* TODO: improve speed contribution to nest
 
 ## For a list of the features...
 

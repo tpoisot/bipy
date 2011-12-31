@@ -3,6 +3,7 @@ import networkx as nx
 
 
 def nxImport(nxg,name=''):
+    #TODO: weighted networks
     if not nx.algorithms.bipartite.is_bipartite(nxg):
         print 'This graph is not bipartite'
         return 0
@@ -20,6 +21,6 @@ def nxImport(nxg,name=''):
                 W[top_nodes.index(sp2)][bottom_nodes.index(sp1)] = 1
         Bip = bipartite(W)
         Bip.name = name
-        Bip.up_names = top_nodes
-        Bip.low_names = bottom_nodes
+        Bip.upnames = top_nodes
+        Bip.lonames = bottom_nodes
         return Bip
