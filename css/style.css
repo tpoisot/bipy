@@ -41,11 +41,11 @@ a{
 }
 
 .content{
-	font-size: 1.5em;
+	font-size: 1.6em;
 }
 
 .sidebar{
-	font-size: 1.3em;
+	font-size: 1.4em;
 }
 
 .head{
@@ -102,12 +102,12 @@ a{
 }
 
 .meta{
-	color: #aaa;
+	color: #666;
 	font-size: 90%;
 }
 
 .ref{
-	border: 1px solid black;
+	border: 1px solid #8B0000;
 	background-color: #eee;
 	margin-bottom: 1em;
 	padding: 0.5em;
