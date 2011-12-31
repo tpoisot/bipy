@@ -6,7 +6,7 @@
 
 **Author** : Timothee Poisot <timothee.poisot@uqar.ca>
 **Language** : Python  2.7 (although not tested, might work under 2.6)
-**Requires** : numpy, scipy, pyx, tempfile, urllib, networkx   
+**Requires** : numpy, scipy, pyx, tempfile, urllib, networkx
 
 ## Changes in this release (v1.0.2)
 
