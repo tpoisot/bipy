@@ -2,7 +2,7 @@
 layout: post
 title: First release and dev branch
 author: Tim
-abstract: First blog post, and an explanation of how the `dev` branch works
+abstract: First stable release of bipy, and an explanation of how the dev branch works
 tag:
 - release
 ---
