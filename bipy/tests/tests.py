@@ -97,7 +97,7 @@ def getDevNest(w,list,use_c):
         OUT_up.append(est_par)
     return [OUT, OUT_lo, OUT_up]
 
-def getDevMod(w,nulls,rep,q_c):
+def getDevMod(w,nulls,rep,use_c):
     """
     Get the deviation from random expectation of modularity. Optimized so that
     the null webs are gone through only one time. Retunrs two arrays, one for
@@ -109,7 +109,7 @@ def getDevMod(w,nulls,rep,q_c):
     wQr = Qr(w.web,m)
     wQb = w.modules.Q
     for c_null in nulls:
-        c_mod = findModules(c_null, q_c = q_c)
+        c_mod = findModules(c_null, use_c = use_c)
         Qrsim.append(Qr(c_null, c_mod))
         Qbsim.append(c_mod[0])
     testResB = spp.ttest_1samp(Qbsim, wQb)
