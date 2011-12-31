@@ -47,6 +47,10 @@ a{
 	font-size: 1.4em;
 }
 
+.sidebar{
+	font-size: 1.3em;
+}
+
 .head{
 	padding-top: 15px;
 	padding-bottom: 15px;
@@ -60,7 +64,7 @@ a{
 	padding: 0 0 0 0;
 }
 
-.footer{
+#footer{
 	clear: both;
 	margin-top: 3em;
 	border-top: 1px solid black;
