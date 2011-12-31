@@ -108,9 +108,13 @@ a{
 }
 
 .ref{
-	border: 1px dashed black;
-	background-color: #eee;
+	border: 1px solid #ffea14;
+	background-color: #fff8dd;
 	margin-bottom: 1em;
 	margin-top: 1em;
 	padding: 0.5em;
+}
+
+.blog_entry{
+	padding-bottom: 2em;
 }
