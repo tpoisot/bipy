@@ -7,7 +7,7 @@ title: BIPY - FAQ
 
 ## Where can I find *bipy* ?
 
-*bipy* can be [accessed through GitHub](https://github.com/tpoisot/bipy), or you can download the [zip file of the latest version here](https://github.com/tpoisot/bipy/zipball/master).
+*bipy* can be [accessed through GitHub](https://github.com/tpoisot/bipy), or you can download the [zip file of the latest version here](https://github.com/tpoisot/bipy/zipball/master). The latest stable version, and the current development version (`dev` branch) can be accessed by clicking on the red ribbon in the upper right side of any page of this site.
 
 ##How can I install and load *bipy* ?
 
@@ -21,6 +21,8 @@ You can now use *bipy* in a python session by doing
 
 {% highlight python %}
 import bipy as bp
+import bipy
+from bipy import *
 {% endhighlight %}
 
 ## How do I cite *bipy* ?
@@ -29,4 +31,4 @@ There is currently no published paper formally describing *bipy*. You can cite t
 
 ## Who is behind *bipy* ?
 
-*bipy* is currently being developped by [Timothée Poisot](http://www.timotheepoisot.fr/), a post-doctoral fellow at the [Université du Québec à Rimouski](http://www.uqar.qc.ca/).
+*bipy* is currently being developed by [Timothée Poisot](http://www.timotheepoisot.fr/), a post-doctoral fellow at the [Université du Québec à Rimouski](http://www.uqar.qc.ca/).
