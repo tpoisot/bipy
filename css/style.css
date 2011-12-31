@@ -91,6 +91,8 @@ a{
 
 .sidebar li, .sidebar ul, .nav li, .nav ul{
 	list-style: none;
+	margin-left: 0px;
+	padding-left: 0px;
 }
 
 .nav{
