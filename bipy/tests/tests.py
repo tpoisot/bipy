@@ -35,7 +35,7 @@ class test:
     def nestedness(self):
         if len(self.nulls) == 0:
             self.donulls()
-        d_nest = getDevNest(self.web,self.nulls)
+        d_nest = getDevNest(self.web,self.nulls,self.web.use_c)
         self.devnest = d_nest[0]
         self.devnest_lo = d_nest[1]
         self.devnest_up = d_nest[2]
@@ -44,9 +44,9 @@ class test:
             self.donulls()
             ## test if the bipartite object has modules
         if not self.web.modules.done:
-            self.web.modules.detect(reps=repl,q_c=self.web.q_c)
+            self.web.modules.detect(reps=repl,use_c=self.web.use_c)
             ##
-        d_mod = getDevMod(self.web,self.nulls,repl,self.web.q_c)
+        d_mod = getDevMod(self.web,self.nulls,repl,self.web.use_c)
         self.devqr = d_mod[0]
         self.devqb = d_mod[1]
     def __str__(self):
@@ -71,12 +71,12 @@ def gMIC(distrib):
     estimates = spp.bayes_mvs(distrib,alpha=0.95)[0]
     return[estimates[0],estimates[1][0],estimates[1][1]]
 
-def getDevNest(w,list):
+def getDevNest(w,list,use_c):
     expect = []
     expect_up = []
     expect_lo = []
     for i in list:
-        Nodf = nodf(i,strict=w.nodf_strict)
+        Nodf = nodf(i,strict=w.nodf_strict,use_c=use_c)
         expect.append(Nodf[0])
         expect_up.append(Nodf[2])
         expect_lo.append(Nodf[1])
