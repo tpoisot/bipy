@@ -12,4 +12,4 @@ w.generality()
 w.vulnerability()
 {% endhighlight %}
 
-<div class='ref'>Fortuna, M.A. & Bascompte, J. (2006). Habitat loss and the structure of plant-animal mutualistic networks. Ecology Letters, 9, 281-286.</div>
+<div class='ref'>Fortuna, M.A. and Bascompte, J. (2006). Habitat loss and the structure of plant-animal mutualistic networks. Ecology Letters, 9, 281-286.</div>
