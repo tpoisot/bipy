@@ -16,10 +16,6 @@ pre, code{
 	font-family: 'Inconsolata';
 }
 
-pre{
-	font-size: 90%;
-}
-
 .site-title{
 	color: #8B0000;
 	font-weight: bold;
@@ -95,4 +91,9 @@ a{
 
 .nav li, .nav ul{
 	list-style: none;
+}
+
+.nav{
+	border-bottom: 1px solid black;
+	margin-bottom: 2em;
 }

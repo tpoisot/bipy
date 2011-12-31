@@ -8,7 +8,10 @@ layout: default
 	{% include menu.html %}
 	</div>
 
-	<em>{{ page.abstract }}</em><br />
+	<h2>Summary</h2>
+	<div class='abstract'>	
+		{{ page.abstract }}
+	</div>
 
 	<h2>About this post</h2>
 	<div class="metadata">Written by {{ page.author }}, posted on {{ page.date | date_to_string }}{% if page.last_updated %}, last updated on {{ page.last_updated | date_to_string }}{% endif %}</div>
