@@ -5,17 +5,17 @@
 *bipy* is released under the terms of the [GNU GPL](http://en.wikipedia.org/wiki/GNU_General_Public_License)
 
 **Author** : Timothee Poisot <timothee.poisot@uqar.ca>
-**Language** : Python  2.7.2
-**Requires** : numpy, scipy, pyx, tempfile, urllib
+**Language** : Python  2.7 (although not tested, might work under 2.6)
+**Requires** : numpy, scipy, pyx, tempfile, urllib, networkx
 
 ## Changes in this release (v1.0.2)
 
 * Faster measures of nestedness and modularity
 * q_c replaced by use_c, also used by nestedness
+* import from NetworkX
 
 * TODO: write object to txt with species names
 * TODO: continue speed improvements in testing
-* TODO: import from NetworkX
 * TODO: improve speed contribution to nest
 
 ## For a list of the features...
