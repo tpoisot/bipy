@@ -40,11 +40,11 @@ a{
 }
 
 .head{
-	font-size: 1.5em;
+	font-size: 2.2em;
 }
 
 .main{
-	font-size: 1.2em;
+	font-size: 1.4em;
 }
 
 .head{
@@ -57,10 +57,19 @@ a{
 .main{
 	width: 900px;
 	margin: 0px auto;
+	padding: 0 0 0 0;
 }
 
 .sidebar{
-	margin-top: 5em;
+	margin: 0 0 0 0;
+	padding-top: 5em;
 	width: 200 px;
 	float: left;
+}
+
+.content{
+	margin: 0 0 0 0;
+	padding-top: 5em;
+	width: 700px;
+	float: right;
 }
