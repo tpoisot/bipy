@@ -16,8 +16,8 @@ def compareones_c(w1,w2,tn):
     """
     A C implementation of the compareones
     """
-    nw1 = map(int,np.copy(w1))
-    nw2 = map(int,np.copy(w2))
+    nw1 = np.int_(np.copy(w1))
+    nw2 = np.int_(np.copy(w2))
     code = """
     int s;
     s = 0;
