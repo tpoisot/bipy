@@ -89,7 +89,7 @@ a{
 	float: right;
 }
 
-.nav li, .nav ul{
+.sidebar li, .sidebar ul, .nav li, .nav ul{
 	list-style: none;
 }
 
