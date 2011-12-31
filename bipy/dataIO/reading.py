@@ -1,9 +1,11 @@
 import pickle
+import os
 from ..bipartite_class import *
 
 def load(fname):
     file_bip = open(fname, 'r')
     bip = pickle.load(file_bip)
+    file_bip.close()
     return bip
 
 def openWeb(file='',t=False,name='',species_names=False):

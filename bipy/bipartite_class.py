@@ -11,11 +11,10 @@ from getref import *
 import numpy as np
 
 import tempfile
-import os
+import os.path
 import tkFileDialog
 
 class bipartite:
-    #TODO: networklevel
     #TODO: nxExport : export to networkX
     ## This class defines a bipartite object with all structural infos
     def __init__ (self,web,t=False,nodf_strict=True,use_c=True):
@@ -116,6 +115,57 @@ class bipartite:
             else:
                 filename += '_matrix'
                 plotModules(W,filename=filename,withcolors=colors)
+    def networklevel(self,toScreen=True,toFile=True):
+        """
+        Print the network level statistics to a file / to screen
+        """
+        fname = 'networklevel.txt'
+        fileExt = os.path.exists(fname)
+        if fileExt:
+            f = open(fname,'a')
+        else:
+            f = open(fname,'w')
+        header = 'name\tCo\tS\tr_up\tr_lo\tnodf\tnodf_up\tnodf_low'
+        info = str(self.name)+'\t'+str(self.connectance)+'\t'+str(self.size)+'\t'+str(self.upsp)+'\t'+str(self.losp)+'\t'+str(self.nodf)+'\t'+str(self.nodf_up)+'\t'+str(self.nodf_low)
+        if self.modules.done:
+            header += '\tmN\tmQb\tmQr'
+            info += '\t'+str(self.modules.N)+'\t'+str(self.modules.Q)+'\t'+str(self.modules.Qr)
+        if self.robustness.gtos.score > 0:
+            header += '\tRgtos'
+            info += '\t'+str(self.robustness.gtos.score)
+        if self.robustness.stog.score > 0:
+            header += '\tRstog'
+            info += '\t'+str(self.robustness.stog.score)
+        if self.robustness.random.score > 0:
+            header += '\tRrand'
+            info += '\t'+str(self.robustness.random.score)
+        if len(self.tests.devnest) > 0:
+            header += '\tnodf_sim\tnodf_pval\tnodf_icLow\tnodf_icUp'
+            info += "\t"+str(round(self.tests.devnest[2],2))+"\t"+str(self.tests.devnest[1])+"\t"+str(round(self.tests.devnest[3],2))+"\t"+str(round(self.tests.devnest[4],2))
+        if len(self.tests.devnest_lo) > 0:
+            header += '\tnodf_low_sim\tnodf_low_pval\tnodf_low_icLow\tnodf_low_icUp'
+            info += '\t'+str(round(self.tests.devnest_lo[2],2))+"\t"+str(self.tests.devnest_lo[1])+"\t"+str(round(self.tests.devnest_lo[3],2))+"\t"+str(round(self.tests.devnest_lo[4],2))
+        if len(self.tests.devnest_up) > 0:
+            header += '\tnodf_up_sim\tnodf_up_pval\tnodf_up_icLow\tnodf_up_icUp'
+            info += "\t"+str(round(self.tests.devnest_up[2],2))+"\t"+str(self.tests.devnest_up[1])+"\t"+str(round(self.tests.devnest_up[3],2))+"\t"+str(round(self.tests.devnest_up[4],2))
+        if len(self.tests.devqr) > 0:
+            header += '\tmQr_sim\tmQr_pval\tmQr_icLow\tmQr_icUp'
+            info += "\t"+str(round(self.tests.devqr[2],2))+"\t"+str(self.tests.devqr[1])+"\t"+str(round(self.tests.devqr[3],2))+"\t"+str(round(self.tests.devqr[4],2))
+        if len(self.tests.devqb) > 0:
+            header += '\tmQb_sim\tmQb_pval\tmQb_icLow\tmQb_icUp'
+            info += "\t"+str(round(self.tests.devqb[2],2))+"\t"+str(self.tests.devqb[1])+"\t"+str(round(self.tests.devqb[3],2))+"\t"+str(round(self.tests.devqb[4],2))
+        header += '\ttReps\ttMod'
+        info += '\t'+str(self.tests.replicates)+'\t'+str(self.tests.model)
+        if toScreen:
+            print header
+            print info
+        if toFile:
+            if not fileExt:
+                f.write(header)
+            f.write('\n')
+            f.write(info)
+        f.close()
+        return 0
     def specieslevel(self,toScreen=True,toFile=True):
         """
         Write the species level informations
@@ -174,12 +224,6 @@ class bipartite:
         if toFile:
             f.close()
             print 'Species-level infos for the dataset '+self.name+' were written to '+self.name+'-sp.txt\n'
-        return 0
-    def networklevel(self,toScreen=True,toFile=True):
-        """
-        Outputs the network level informations
-        """
-        Header = 'Name'
         return 0
 
 ## Sort by modules

@@ -15,6 +15,7 @@
 * import from NetworkX
 * method save in bipartite using pickle to keep a bipartite object
 * function load to import a previously saved object
+* networklevel method to output summary statistics
 
 
 ## For a list of the features...

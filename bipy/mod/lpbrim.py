@@ -304,7 +304,7 @@ def Qr(w,mod):
                 if adj[i][j] == 1:
                     if mod[2][i] == mod[3][j]:
                         Nint += 1
-        return Nint/float(np.sum(adj))
+        return round(Nint/float(np.sum(adj)),3)
 
 
 ## Separate modules

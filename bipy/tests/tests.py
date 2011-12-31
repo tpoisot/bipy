@@ -30,8 +30,12 @@ class test:
         self.devnest_up = []
         self.devqb = []
         self.devqr = []
+        self.model = '0'
+        self.replicates = '0'
     def donulls(self,model=null_1,replicates=100):
-        self.nulls = nullModel(self.web,model,replicates)
+        self.model = model
+        self.replicates = replicates
+        self.nulls = nullModel(self.web,self.model,self.replicates)
     def nestedness(self):
         if len(self.nulls) == 0:
             self.donulls()

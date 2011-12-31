@@ -3,9 +3,9 @@
 __name__ = "bipy"
 __stable__ = "FALSE"
 
+from bipartite_class import * # General class for bipartite webs
 from .contrib import * # Individual contribution to metrics
 from .dataIO import * # Data input / output
-from bipartite_class import * # General class for bipartite webs
 from .null import * # Null models
 from .base import * # General functions
 from .nes import * # Nestedness related functions
