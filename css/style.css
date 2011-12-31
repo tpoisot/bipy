@@ -43,12 +43,12 @@ a{
 	font-size: 2.2em;
 }
 
-.main{
-	font-size: 1.4em;
+.content{
+	font-size: 1.3em;
 }
 
 .sidebar{
-	font-size: 1.3em;
+	font-size: 1.2em;
 }
 
 .head{
@@ -58,16 +58,22 @@ a{
 	margin: 0px auto;
 }
 
-.main, .footer{
+.main, #footer{
 	width: 900px;
 	margin: 0px auto;
 	padding: 0 0 0 0;
+}
+
+.main{
+	margin-bottom: 3em;
 }
 
 #footer{
 	clear: both;
 	margin-top: 3em;
 	border-top: 1px solid black;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .sidebar{
