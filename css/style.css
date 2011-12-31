@@ -35,11 +35,12 @@ a{
 
 .premain{
 	background-color: #aaa;
+	margin: 0px;
 }
 
 .head{
 	padding-top: 15px;
 	padding-bottom: 15px;
 	width: 900 px;
-	text-align: center;
+	margin: 0px auto;
 }
