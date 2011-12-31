@@ -40,6 +40,14 @@ a{
 }
 
 .head{
+	font-size: 1.5em;
+}
+
+.main{
+	font-size: 1.2em;
+}
+
+.head{
 	padding-top: 15px;
 	padding-bottom: 15px;
 	width: 900 px;
