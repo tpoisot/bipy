@@ -4,15 +4,16 @@ from .graphs import *
 from .contrib import *
 from .null import *
 from .tests import *
-import pickle
 
 from getref import *
 
-import numpy as np
-
+import pickle
 import tempfile
+import os
+import numpy as np
+import networkx as nx
+
 import os.path
-import tkFileDialog
 
 class bipartite:
     #TODO: nxExport : export to networkX
@@ -64,13 +65,24 @@ class bipartite:
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
     def nxExport(self):
-        #TODO: complete that
-        G = nx.Graph()
-        G.add_edge('a','b',weight=0.6)
-        top_nodes = [1,1,2,3,3]
-        bottom_nodes = ['a','b','b','b','c']
-        edges = zip(top_nodes,bottom_nodes) # create 2-tuples of edges
-        B = nx.Graph(edges)
+        """
+        Expoort the bipartite graph to networkX
+        """
+        f = tempfile.NamedTemporaryFile(delete=False)
+        fweb = open(f.name,'w')
+        for up_sp in xrange(self.upsp):
+            for lo_sp in xrange(self.losp):
+                if self.web[up_sp][lo_sp] > 0:
+                    edge_l  = 'top_'+str(self.upnames[up_sp])
+                    edge_l += ' bot_'+str(self.lonames[lo_sp])
+                    edge_l += " {'weight':"+str(self.web[up_sp][lo_sp])+"}"
+                    fweb.write(edge_l+'\n')
+                    #TODO: find the bug
+                    print edge_l
+        G = nx.read_edgelist(f.name,create_using=nx.DiGraph())
+        fweb.close()
+        os.unlink(f.name)
+        return G
     def save(self):
         if self.name == '':
             self.name = 'web'
