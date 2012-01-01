@@ -16,3 +16,4 @@ from .web import * # Web functions
 from .tests import * # Test of deviation from null models
 from mainfuncs import * # Other functions
 from getref import * # Functions to get the bibliographical infos
+from .centrality import * # Individual measures of centrality
