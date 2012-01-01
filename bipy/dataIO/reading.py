@@ -1,5 +1,8 @@
 import pickle
 import os
+import tempfile
+import tkFileDialog
+
 from ..bipartite_class import *
 
 def load(fname):

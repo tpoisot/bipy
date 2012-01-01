@@ -4,18 +4,18 @@ from .graphs import *
 from .contrib import *
 from .null import *
 from .tests import *
-import pickle
 
 from getref import *
 
-import numpy as np
-
+import pickle
 import tempfile
+import os
+import numpy as np
+import networkx as nx
+
 import os.path
-import tkFileDialog
 
 class bipartite:
-    #TODO: nxExport : export to networkX
     ## This class defines a bipartite object with all structural infos
     def __init__ (self,web,t=False,nodf_strict=True,use_c=True):
         self.use_c = use_c
@@ -59,10 +59,22 @@ class bipartite:
         self.lonames = range(self.losp)
         # For the name
         self.name = ''
+        self.G = nx.DiGraph()
     def __str__(self):
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
+    def nxExport(self):
+        """
+        Expoort the bipartite graph to networkX
+        """
+        for up_sp in xrange(self.upsp):
+            for lo_sp in xrange(self.losp):
+                if self.web[up_sp][lo_sp] > 0:
+                    t_s = 'top_'+str(self.upnames[up_sp])
+                    b_s = 'bot_'+str(self.lonames[lo_sp])
+                    l_s = self.web[up_sp][lo_sp]
+                    self.G.add_edge(t_s, b_s,weight=l_s)
     def save(self):
         if self.name == '':
             self.name = 'web'
