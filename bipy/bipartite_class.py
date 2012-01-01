@@ -79,7 +79,7 @@ class bipartite:
                     fweb.write(edge_l+'\n')
                     #TODO: find the bug
                     print edge_l
-        G = nx.read_edgelist(f.name,create_using=nx.DiGraph())
+        G = nx.read_edgelist(f.name,create_using=nx.DiGraph(),data=(('weight',float),))
         fweb.close()
         os.unlink(f.name)
         return G
