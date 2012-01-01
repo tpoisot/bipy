@@ -10,7 +10,7 @@
 
 ## Changes in this release (v1.1.0)
 
-* Measures of centrality : degree, betweeness and closeness
+* Measures of centrality : degree, betweeness and closeness (uses networkx functions)
 
 ## For a list of the features...
 

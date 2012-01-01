@@ -15,6 +15,8 @@ import networkx as nx
 
 import os.path
 
+#TODO: Niche overlap (several measures)
+
 class bipartite:
     ## This class defines a bipartite object with all structural infos
     def __init__ (self,web,t=False,nodf_strict=True,use_c=True):
@@ -179,6 +181,7 @@ class bipartite:
         f.close()
         return 0
     def specieslevel(self,toScreen=True,toFile=True):
+        #TODO: add centrality measures
         """
         Write the species level informations
         """
