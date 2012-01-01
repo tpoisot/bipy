@@ -7,6 +7,17 @@ This page lists the most notable changes between the stable releases. The curren
 
 ## Version 1.0
 
+### 1.0.2 ([zip](https://github.com/tpoisot/bipy/zipball/sr_v1.0.2))
+
+Minor release
+
+* Faster measures of nestedness and modularity
+* `q_c` replaced by `use_c`, also used by nestedness
+* import from and export to NetworkX
+* method `save` in bipartite using `pickle` to keep a bipartite object
+* function `load` to import a previously saved object
+* `networklevel` method to output summary statistics
+
 ### 1.0.1 ([zip](https://github.com/tpoisot/bipy/zipball/sr_v1.0.1))
 
 Minor release
