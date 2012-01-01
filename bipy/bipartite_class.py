@@ -4,6 +4,7 @@ from .graphs import *
 from .contrib import *
 from .null import *
 from .tests import *
+from .centrality import *
 
 from getref import *
 
@@ -62,6 +63,7 @@ class bipartite:
         # For the name
         self.name = ''
         self.G = nx.DiGraph()
+        self.centrality = centrality(self)
     def __str__(self):
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'

@@ -16,10 +16,14 @@ class centrality_level:
 
 class centrality:
     def __init__(self,web):
-        web.nxExport()
-        self.degree = centrality_level(deg_c(web.G))
+        self.web = web
+        self.degree = ''
+        self.betweenness = ''
+    def calculate(self):
+        self.web.nxExport()
+        self.degree = centrality_level(deg_c(self.web.G))
         #self.closeness = centrality_level(clo_c(web.G))
-        self.betweenness = centrality_level(bet_c(web.G))
+        self.betweenness = centrality_level(bet_c(self.web.G))
 
 def deg_c(web):
     top = nabb.sets(web)[0]
