@@ -17,9 +17,11 @@ class centrality_level:
 class centrality:
     def __init__(self,web):
         self.web = web
+        self.done = False
         self.degree = ''
         self.betweenness = ''
     def calculate(self):
+        self.done = True
         self.web.nxExport()
         self.degree = centrality_level(deg_c(self.web.G))
         #self.closeness = centrality_level(clo_c(web.G))

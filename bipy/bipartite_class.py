@@ -196,12 +196,16 @@ class bipartite:
         if self.modules.done:
             Header+= '\t'
             Header+= 'MOD'
+        if self.centrality.done:
+            Header+= '\t'
+            Header+= 'cDeg\tcBet'
         if toScreen:
             print Header
         if toFile:
             f.write(Header+'\n')
         for tls in xrange(self.upsp):
-            SpInfo = str(self.upnames[tls])+'\t'
+            SpName = str(self.upnames[tls])
+            SpInfo = SpName+'\t'
             SpInfo+= 'top'+'\t'
             SpInfo+= str(self.generality[tls])+'\t'
             SpInfo+= str(self.specificity[tls])+'\t'
@@ -215,12 +219,18 @@ class bipartite:
             if self.modules.done:
                 SpInfo+= '\t'
                 SpInfo+= str(self.modules.up_modules[tls])
+            if self.centrality.done:
+                SpInfo+= '\t'
+                SpInfo+= str(self.centrality.degree.top[SpName])
+                SpInfo+= '\t'
+                SpInfo+= str(self.centrality.betweenness.top[SpName])
             if toScreen:
                 print SpInfo
             if toFile:
                 f.write(SpInfo+'\n')
         for lls in xrange(self.losp):
-            SpInfo = str(self.lonames[lls])+'\t'
+            SpName = str(self.lonames[lls])
+            SpInfo = SpName+'\t'
             SpInfo+= 'bottom'+'\t'
             SpInfo+= str(self.vulnerability[lls])+'\t'
             SpInfo+= '-----'+'\t'
@@ -234,6 +244,11 @@ class bipartite:
             if self.modules.done:
                 SpInfo+= '\t'
                 SpInfo+= str(self.modules.low_modules[lls])
+            if self.centrality.done:
+                SpInfo+= '\t'
+                SpInfo+= str(self.centrality.degree.bottom[SpName])
+                SpInfo+= '\t'
+                SpInfo+= str(self.centrality.betweenness.bottom[SpName])
             if toScreen:
                 print SpInfo
             if toFile:
