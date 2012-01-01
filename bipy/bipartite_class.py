@@ -60,6 +60,7 @@ class bipartite:
         self.lonames = range(self.losp)
         # For the name
         self.name = ''
+        self.G = nx.DiGraph()
     def __str__(self):
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
@@ -68,21 +69,13 @@ class bipartite:
         """
         Expoort the bipartite graph to networkX
         """
-        f = tempfile.NamedTemporaryFile(delete=False)
-        fweb = open(f.name,'w')
         for up_sp in xrange(self.upsp):
             for lo_sp in xrange(self.losp):
                 if self.web[up_sp][lo_sp] > 0:
-                    edge_l  = 'top_'+str(self.upnames[up_sp])
-                    edge_l += ' bot_'+str(self.lonames[lo_sp])
-                    edge_l += " {'weight':"+str(self.web[up_sp][lo_sp])+"}"
-                    fweb.write(edge_l+'\n')
-                    #TODO: find the bug
-                    print edge_l
-        G = nx.read_edgelist(f.name,create_using=nx.DiGraph(),data=(('weight',float),))
-        fweb.close()
-        os.unlink(f.name)
-        return G
+                    t_s = 'top_'+str(self.upnames[up_sp])
+                    b_s = 'bot_'+str(self.lonames[lo_sp])
+                    l_s = self.web[up_sp][lo_sp]
+                    self.G.add_edge(t_s, b_s,weight=l_s)
     def save(self):
         if self.name == '':
             self.name = 'web'
