@@ -7,16 +7,18 @@ from .tests import *
 
 from getref import *
 
-import numpy as np
-
+import pickle
 import tempfile
 import os
-import tkFileDialog
+import numpy as np
+import networkx as nx
+
+import os.path
 
 class bipartite:
     ## This class defines a bipartite object with all structural infos
-    def __init__ (self,web,t=False,nodf_strict=True,q_c=True):
-        self.q_c = q_c
+    def __init__ (self,web,t=False,nodf_strict=True,use_c=True):
+        self.use_c = use_c
         # Read the matrix
         if t:
             web = web.T
@@ -38,7 +40,7 @@ class bipartite:
         self.bperf = web.max(1)
         # Nestedness
         self.nodf_strict = nodf_strict
-        NODF = nodf(web,strict=nodf_strict)
+        NODF = nodf(web,strict=nodf_strict,use_c=self.use_c)
         self.nodf = NODF[0]
         self.nodf_up = NODF[2]
         self.nodf_low = NODF[1]
@@ -57,10 +59,30 @@ class bipartite:
         self.lonames = range(self.losp)
         # For the name
         self.name = ''
+        self.G = nx.DiGraph()
     def __str__(self):
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
+    def nxExport(self):
+        """
+        Expoort the bipartite graph to networkX
+        """
+        for up_sp in xrange(self.upsp):
+            for lo_sp in xrange(self.losp):
+                if self.web[up_sp][lo_sp] > 0:
+                    t_s = 'top_'+str(self.upnames[up_sp])
+                    b_s = 'bot_'+str(self.lonames[lo_sp])
+                    l_s = self.web[up_sp][lo_sp]
+                    self.G.add_edge(t_s, b_s,weight=l_s)
+    def save(self):
+        if self.name == '':
+            self.name = 'web'
+        fname = self.name + '.bipartite'
+        file_bip = open(fname, 'w')
+        pickle.dump(self, file_bip)
+        print 'The bipartite network was saved to '+fname
+        return fname
     def txt(self):
         """
         Prints a text version of the network to the console
@@ -105,6 +127,57 @@ class bipartite:
             else:
                 filename += '_matrix'
                 plotModules(W,filename=filename,withcolors=colors)
+    def networklevel(self,toScreen=True,toFile=True):
+        """
+        Print the network level statistics to a file / to screen
+        """
+        fname = 'networklevel.txt'
+        fileExt = os.path.exists(fname)
+        if fileExt:
+            f = open(fname,'a')
+        else:
+            f = open(fname,'w')
+        header = 'name\tCo\tS\tr_up\tr_lo\tnodf\tnodf_up\tnodf_low'
+        info = str(self.name)+'\t'+str(self.connectance)+'\t'+str(self.size)+'\t'+str(self.upsp)+'\t'+str(self.losp)+'\t'+str(self.nodf)+'\t'+str(self.nodf_up)+'\t'+str(self.nodf_low)
+        if self.modules.done:
+            header += '\tmN\tmQb\tmQr'
+            info += '\t'+str(self.modules.N)+'\t'+str(self.modules.Q)+'\t'+str(self.modules.Qr)
+        if self.robustness.gtos.score > 0:
+            header += '\tRgtos'
+            info += '\t'+str(self.robustness.gtos.score)
+        if self.robustness.stog.score > 0:
+            header += '\tRstog'
+            info += '\t'+str(self.robustness.stog.score)
+        if self.robustness.random.score > 0:
+            header += '\tRrand'
+            info += '\t'+str(self.robustness.random.score)
+        if len(self.tests.devnest) > 0:
+            header += '\tnodf_sim\tnodf_pval\tnodf_icLow\tnodf_icUp'
+            info += "\t"+str(round(self.tests.devnest[2],2))+"\t"+str(self.tests.devnest[1])+"\t"+str(round(self.tests.devnest[3],2))+"\t"+str(round(self.tests.devnest[4],2))
+        if len(self.tests.devnest_lo) > 0:
+            header += '\tnodf_low_sim\tnodf_low_pval\tnodf_low_icLow\tnodf_low_icUp'
+            info += '\t'+str(round(self.tests.devnest_lo[2],2))+"\t"+str(self.tests.devnest_lo[1])+"\t"+str(round(self.tests.devnest_lo[3],2))+"\t"+str(round(self.tests.devnest_lo[4],2))
+        if len(self.tests.devnest_up) > 0:
+            header += '\tnodf_up_sim\tnodf_up_pval\tnodf_up_icLow\tnodf_up_icUp'
+            info += "\t"+str(round(self.tests.devnest_up[2],2))+"\t"+str(self.tests.devnest_up[1])+"\t"+str(round(self.tests.devnest_up[3],2))+"\t"+str(round(self.tests.devnest_up[4],2))
+        if len(self.tests.devqr) > 0:
+            header += '\tmQr_sim\tmQr_pval\tmQr_icLow\tmQr_icUp'
+            info += "\t"+str(round(self.tests.devqr[2],2))+"\t"+str(self.tests.devqr[1])+"\t"+str(round(self.tests.devqr[3],2))+"\t"+str(round(self.tests.devqr[4],2))
+        if len(self.tests.devqb) > 0:
+            header += '\tmQb_sim\tmQb_pval\tmQb_icLow\tmQb_icUp'
+            info += "\t"+str(round(self.tests.devqb[2],2))+"\t"+str(self.tests.devqb[1])+"\t"+str(round(self.tests.devqb[3],2))+"\t"+str(round(self.tests.devqb[4],2))
+        header += '\ttReps\ttMod'
+        info += '\t'+str(self.tests.replicates)+'\t'+str(self.tests.model.__name__)
+        if toScreen:
+            print header
+            print info
+        if toFile:
+            if not fileExt:
+                f.write(header)
+            f.write('\n')
+            f.write(info)
+        f.close()
+        return 0
     def specieslevel(self,toScreen=True,toFile=True):
         """
         Write the species level informations
@@ -164,59 +237,6 @@ class bipartite:
             f.close()
             print 'Species-level infos for the dataset '+self.name+' were written to '+self.name+'-sp.txt\n'
         return 0
-    def networklevel(self,toScreen=True,toFile=True):
-        """
-        Outputs the network level informations
-        """
-        Header = 'Name'
-        return 0
-
-def openWeb(file='',t=False,name='',species_names=False):
-    if species_names:
-        web = oNW(file,t,name)
-    else:
-        web = oUW(file,t,name)
-    return web
-
-def oUW(file='',t=False,name=''):
-    if file == '':
-        filename = tkFileDialog.askopenfilename()
-    else:
-        filename = file
-    # Read the web
-    w = bipartite(readweb(filename),t=t)
-    w.name = name
-    return w
-
-
-def oNW(file='',t=False,name=''):
-    if file == '':
-        filename = tkFileDialog.askopenfilename()
-    else:
-        filename = file
-    upnames = []
-    lonames = []
-    f = tempfile.NamedTemporaryFile(delete=False)
-    # Read the web
-    fweb = open(filename,'r')
-    cline = 0
-    for line in fweb:
-        if cline == 0:
-            lonames = line.split()
-        else:
-            spl_line = line.split()
-            upnames.append(spl_line[0])
-            tintmat= []
-            for i in range(1,len(spl_line)):
-                f.write(str(float(spl_line[i]))+' ')
-            f.write('\n')
-        cline += 1
-    f.close()
-    web = oUW(f.name,t,name)
-    os.unlink(f.name)
-    web.upnames=upnames
-    web.lonames=lonames
-    return web
 
 ## Sort by modules
 def sortbymodule(W,g,h):

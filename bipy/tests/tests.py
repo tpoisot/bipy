@@ -30,12 +30,16 @@ class test:
         self.devnest_up = []
         self.devqb = []
         self.devqr = []
+        self.model = null_1
+        self.replicates = 100
     def donulls(self,model=null_1,replicates=100):
-        self.nulls = nullModel(self.web,model,replicates)
+        self.model = model
+        self.replicates = replicates
+        self.nulls = nullModel(self.web,self.model,self.replicates)
     def nestedness(self):
         if len(self.nulls) == 0:
             self.donulls()
-        d_nest = getDevNest(self.web,self.nulls)
+        d_nest = getDevNest(self.web,self.nulls,self.web.use_c)
         self.devnest = d_nest[0]
         self.devnest_lo = d_nest[1]
         self.devnest_up = d_nest[2]
@@ -44,9 +48,9 @@ class test:
             self.donulls()
             ## test if the bipartite object has modules
         if not self.web.modules.done:
-            self.web.modules.detect(reps=repl,q_c=self.web.q_c)
+            self.web.modules.detect(reps=repl,use_c=self.web.use_c)
             ##
-        d_mod = getDevMod(self.web,self.nulls,repl,self.web.q_c)
+        d_mod = getDevMod(self.web,self.nulls,repl,self.web.use_c)
         self.devqr = d_mod[0]
         self.devqb = d_mod[1]
     def __str__(self):
@@ -71,12 +75,12 @@ def gMIC(distrib):
     estimates = spp.bayes_mvs(distrib,alpha=0.95)[0]
     return[estimates[0],estimates[1][0],estimates[1][1]]
 
-def getDevNest(w,list):
+def getDevNest(w,list,use_c):
     expect = []
     expect_up = []
     expect_lo = []
     for i in list:
-        Nodf = nodf(i,strict=w.nodf_strict)
+        Nodf = nodf(i,strict=w.nodf_strict,use_c=use_c)
         expect.append(Nodf[0])
         expect_up.append(Nodf[2])
         expect_lo.append(Nodf[1])
@@ -97,7 +101,7 @@ def getDevNest(w,list):
         OUT_up.append(est_par)
     return [OUT, OUT_lo, OUT_up]
 
-def getDevMod(w,nulls,rep,q_c):
+def getDevMod(w,nulls,rep,use_c):
     """
     Get the deviation from random expectation of modularity. Optimized so that
     the null webs are gone through only one time. Retunrs two arrays, one for
@@ -109,7 +113,7 @@ def getDevMod(w,nulls,rep,q_c):
     wQr = Qr(w.web,m)
     wQb = w.modules.Q
     for c_null in nulls:
-        c_mod = findModules(c_null, q_c = q_c)
+        c_mod = findModules(c_null, use_c = use_c)
         Qrsim.append(Qr(c_null, c_mod))
         Qbsim.append(c_mod[0])
     testResB = spp.ttest_1samp(Qbsim, wQb)

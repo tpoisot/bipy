@@ -8,15 +8,16 @@ class modules:
     ## A class for the modules
     def __init__(self,w):
         self.w = w.web
+        self.use_c = w.use_c
         self.done = False
         self.Q = 0
         self.N = 1
         self.Qr = 1
         self.up_modules = []
         self.low_modules = []
-    def detect(self,reps=100,q_c=False):
+    def detect(self,reps=100):
         self.done = True
-        modinfos = findModules(self.w,reps=reps,q_c=q_c)
+        modinfos = findModules(self.w,reps=reps,use_c=self.use_c)
         self.Q = modinfos[0]
         if self.Q > 0:
             self.N = modinfos[1]
@@ -54,7 +55,6 @@ def mostFrequent(L):
 def Qbip_c(w,gg,gh):
     """
     A C implementation of the Qbip function
-    Not working at this time
     """
     ggc = map(int,np.copy(gg))
     ghc = map(int,np.copy(gh))
@@ -101,11 +101,11 @@ def Qbip(w,gg,gh):
 
 
 ## LP method
-def LP(w,q_c):
+def LP(w,use_c):
     """
     LABEL PROPAGATION method
     """
-    if q_c:
+    if use_c:
         qfunc = Qbip_c
     else:
         qfunc = Qbip
@@ -177,16 +177,18 @@ def LP(w,q_c):
 def getRTfp(tg,th):
     ug = uniquify(tg)
     uh = uniquify(th)
+    nh = len(th)
+    ng = len(tg)
     c = len(ug)
     # Build matrices
-    R = np.zeros((len(tg),c))
-    T = np.zeros((len(th),c))
+    R = np.zeros((ng,c))
+    T = np.zeros((nh,c))
     # Fill matrices
     for comm in xrange(c):
-        for row in xrange(len(tg)):
+        for row in xrange(ng):
             if ug[comm] == tg[row]:
                 R[row][comm] = 1
-        for row in xrange(len(th)):
+        for row in xrange(nh):
             if uh[comm] == th[row]:
                 T[row][comm] = 1
     return [R,T]
@@ -201,12 +203,11 @@ def getCVfromCM(cm):
                 cv.append((j+1))
     return cv
 
-def BRIM(W,part,q_c):
-    if q_c:
+def BRIM(W,part,use_c):
+    if use_c:
         qfunc = Qbip_c
     else:
         qfunc = Qbip
-    import numpy as np
     # part is an object returned by LP
     ig = part[1]
     ih = part[2]
@@ -221,9 +222,10 @@ def BRIM(W,part,q_c):
     losp = len(W[0])
     gen = generality(W)
     vul = vulnerability(W)
+    NL = np.sum(W)
     for i in xrange(upsp):
         for j in xrange(losp):
-                B[i][j] -= (gen[i]*vul[j])/float(np.sum(W))
+                B[i][j] -= (gen[i]*vul[j])/float(NL)
     # begin BRIM optimization
     refQbip = -1
     while refQbip < iQbip:
@@ -251,11 +253,11 @@ def BRIM(W,part,q_c):
 
 
 ## Single LPBRIM Run
-def LPBRIM(W,q_c):
+def LPBRIM(W,use_c):
     import scipy as sp
     import numpy as np
-    LPpart = LP(W,q_c)
-    BRIMpart = BRIM(W,LPpart,q_c)
+    LPpart = LP(W,use_c)
+    BRIMpart = BRIM(W,LPpart,use_c)
     Q = BRIMpart[0]
     Nmod = len(uniquify(BRIMpart[1]))
     TopPart = BRIMpart[1]
@@ -263,7 +265,7 @@ def LPBRIM(W,q_c):
     out = [Q,Nmod,TopPart,BotPart]
     return out
 
-def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
+def findModules(W,reps=10,outstep=5,step_print=False,use_c=False):
     W = np.copy(adjacency(W))
     topmod = 0
     out = [0,0,0,0]
@@ -272,7 +274,7 @@ def findModules(W,reps=10,outstep=5,step_print=False,q_c=False):
         print "----------------------"
     nstep = outstep
     for repl in range(reps):
-        run = LPBRIM(W,q_c)
+        run = LPBRIM(W,use_c)
         if run[0] > topmod:
             topmod = run[0]
             out = run
@@ -302,7 +304,7 @@ def Qr(w,mod):
                 if adj[i][j] == 1:
                     if mod[2][i] == mod[3][j]:
                         Nint += 1
-        return Nint/float(np.sum(adj))
+        return round(Nint/float(np.sum(adj)),3)
 
 
 ## Separate modules

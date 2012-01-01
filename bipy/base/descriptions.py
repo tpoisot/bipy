@@ -44,7 +44,7 @@ def rank(V):
     rn = np.zeros(len(V),dtype=np.int32)
     crnk = 0
     while crnk < len(V):
-        for j in range(0,len(V)):
+        for j in xrange(0,len(V)):
             cMax = np.max(V)
             if V[j] == cMax:
                 rn[j] = crnk
