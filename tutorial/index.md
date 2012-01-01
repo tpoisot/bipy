@@ -17,16 +17,16 @@ To load the data and give name to the species, the following commands are used:
 # Loading bipy
 from bipy import *
 # Reading the network, and giving it a name
-rw = openWeb('fonseca-ganade.web',
+w = openWeb('fonseca-ganade.web',
 	t=False,name='FonsecaGanade',
 	species_names=False)
 # Naming the upper trophic level species
-rw.upnames = ['Caba','Azal','Azis','Azaf','AlD','Alpr',
+w.upnames = ['Caba','Azal','Azis','Azaf','AlD','Alpr',
 		'Alaf','SoA','Alau','CrB','AzHC','AzG','CrD',
 		'AzCO','Phmi','CrA','AzTO','CrC','Azsc','Psni',
 		'Psco','AzD','Azpo','CrE','AzQ']
 # Naming the lower trophic level species
-rw.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy',
+w.lonames = ['Cepu','Ceco','Cedi','Cefi','Pohe','Himy',
 	'Hiph','Dusa','Cono','Coaf','Tobu','Magu','Mapo',
 	'Tapo','Tamy','Amaf']
 {% endhighlight %}
@@ -38,7 +38,7 @@ At the end of this step, we have a `rw` object, which is an instance of the [`bi
 Most of the informations about the species in the network can be accessed through the `specieslevel` method of `bipartite`. The following command:
 
 {% highlight python %}
-rw.specieslevel(True,True)
+w.specieslevel(True,True)
 {% endhighlight %}
 
 will output both to the screen and to a file a table will all informations about the species in your network. Note that not all informations are available for all species (i.e. there is no value of specificity for the lower trophic level species). When new analyses like the one described below are done, their results are added to your `bipartite` object, and you may want to run `specieslevel` (and similarly for `networklevel`) as the last command in your script.
