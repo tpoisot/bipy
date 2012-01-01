@@ -8,10 +8,10 @@ def nxImport(nxg,name=''):
         return 0
     else:
         X,Y = nx.algorithms.bipartite.sets(nxg)
-        top_nodes = list(Y)
-        bottom_nodes = list(X)
+        top_nodes = list(X)
+        bottom_nodes = list(Y)
         W = np.zeros((len(top_nodes),len(bottom_nodes)))
-        einf =[(u,v,d) for (u,v,d) in G.edges(data=True)]
+        einf =[(u,v,d) for (u,v,d) in nxg.edges(data=True)]
         for edge in einf:
             sp1 = edge[0]
             sp2 = edge[1]
