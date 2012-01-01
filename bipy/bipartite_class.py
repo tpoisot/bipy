@@ -63,6 +63,14 @@ class bipartite:
         s = 'Network '+self.name
         s+= '\t['+str(self.losp)+'x'+str(self.upsp)+'] Co = '+str(self.connectance)+'\n'
         return s
+    def nxExport(self):
+        #TODO: complete that
+        G = nx.Graph()
+        G.add_edge('a','b',weight=0.6)
+        top_nodes = [1,1,2,3,3]
+        bottom_nodes = ['a','b','b','b','c']
+        edges = zip(top_nodes,bottom_nodes) # create 2-tuples of edges
+        B = nx.Graph(edges)
     def save(self):
         if self.name == '':
             self.name = 'web'
