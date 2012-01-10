@@ -8,14 +8,9 @@
 **Language** : Python  2.7 (although not tested, might work under 2.6)
 **Requires** : numpy, scipy, pyx, tempfile, urllib, networkx
 
-## Changes in this release (v1.0.2)
+## Changes in this release (v1.0.3)
 
-* Faster measures of nestedness and modularity
-* q_c replaced by use_c, also used by nestedness
-* import from and export to NetworkX
-* method save in bipartite using pickle to keep a bipartite object
-* function load to import a previously saved object
-* networklevel method to output summary statistics
+* Removed unnecessary prints in robustness to extinction tests
 
 
 ## For a list of the features...

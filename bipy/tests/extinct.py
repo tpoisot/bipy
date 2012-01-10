@@ -81,13 +81,6 @@ def extinctRobustness(w,method='random',removelower=True,nreps=100):
     #
     ######
 
-    if method == 'random':
-        print 'Starting '+str(nreps)+' random extinction sequences'
-    if method == 'stog':
-        print 'Starting '+str(nreps)+' increasing degree (best case) extinction sequences'
-    if method == 'gtos':
-        print 'Starting '+str(nreps)+' decreasing degree (worst case) extinction sequences'
-
     # Keep the data somewhere
     # and make sure that the extreme points are accounted for
     NSP_REMV = [0,1]
