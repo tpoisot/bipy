@@ -1,6 +1,8 @@
 import os
 from setuptools import setup
 
+#TODO: Need to add the measures of coexistence used in the Am Nat paper to networklevel
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 

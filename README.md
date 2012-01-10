@@ -11,7 +11,7 @@
 ## Changes in this release (v1.0.3)
 
 * Removed unnecessary prints in robustness to extinction tests
-
+* Co-occurrence between specialists and generalists as in Poisot et al. subm. Am Nat
 
 ## For a list of the features...
 
