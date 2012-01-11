@@ -137,8 +137,9 @@ class bipartite:
             f = open(fname,'a')
         else:
             f = open(fname,'w')
-        header = 'name\tCo\tS\tr_up\tr_lo\tnodf\tnodf_up\tnodf_low'
-        info = str(self.name)+'\t'+str(self.connectance)+'\t'+str(self.size)+'\t'+str(self.upsp)+'\t'+str(self.losp)+'\t'+str(self.nodf)+'\t'+str(self.nodf_up)+'\t'+str(self.nodf_low)
+        header = 'name\tCo\tS\tr_up\tr_lo\tnodf\tnodf_up\tnodf_low\taspe\tarr\tresp\tinc'
+        info = str(self.name)+'\t'+str(self.connectance)+'\t'+str(self.size)+'\t'+str(self.upsp)+'\t'+str(self.losp)+'\t'+str(self.nodf)+'\t'+str(self.nodf_up)+'\t'+str(self.nodf_low)+ '\t' + str(
+            np.mean(self.specificity)) + '\t' + str(np.mean(self.rr)) + '\t' + str(IR(self)[0]) + '\t' + str(IR(self)[1])
         if self.modules.done:
             header += '\tmN\tmQb\tmQr'
             info += '\t'+str(self.modules.N)+'\t'+str(self.modules.Q)+'\t'+str(self.modules.Qr)
