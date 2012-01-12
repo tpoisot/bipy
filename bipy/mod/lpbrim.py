@@ -21,8 +21,8 @@ class modules:
         self.Q = modinfos[0]
         if self.Q > 0:
             self.N = modinfos[1]
-        self.up_modules = modinfos[2]
-        self.low_modules = modinfos[3]
+            self.up_modules = modinfos[2]
+            self.low_modules = modinfos[3]
         if self.Q > 0:
             self.Qr = Qr(self.w,modinfos)
         else:
