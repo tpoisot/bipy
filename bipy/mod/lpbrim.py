@@ -13,8 +13,8 @@ class modules:
         self.Q = 0
         self.N = 1
         self.Qr = 1
-        self.up_modules = []
-        self.low_modules = []
+        self.up_modules = [1] * w.upsp
+        self.low_modules = [1] * w.losp
     def detect(self,reps=100):
         self.done = True
         modinfos = findModules(self.w,reps=reps,use_c=self.use_c)

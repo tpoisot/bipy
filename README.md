@@ -11,7 +11,8 @@
 ## Changes in this release (v1.0.3)
 
 * Removed unnecessary prints in robustness to extinction tests
-* Specificity infos added to the `networklevel` function (mean PDI and RR, Inconsistency and responsiveness)
+* Specificity infos added to the `networklevel` function (mean PDI and RR, Inconsistency and Responsiveness)
+* Fixed a bug in `specieslevel` when the network was not modular
 
 ## For a list of the features...
 
