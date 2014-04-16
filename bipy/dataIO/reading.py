@@ -11,6 +11,11 @@ def load(fname):
     file_bip.close()
     return bip
 
+def loadNumpyMatrix(npmat, name=''):
+    w = bipartite(readnumpymatrix(npmat))
+    w.name = name
+    return w
+
 def openWeb(file='',t=False,name='',species_names=False):
     if species_names:
         web = oNW(file,t,name)

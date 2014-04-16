@@ -143,3 +143,6 @@ def readweb(fname):
     data = np.loadtxt(fname)
     return fixmat(data)
 
+def readnumpymatrix(npmat):
+    #Read a web from a numpy matrix with top trophic level organisms as rows
+    return fixmat(npmat)
